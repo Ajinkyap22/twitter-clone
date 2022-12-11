@@ -1,0 +1,21 @@
+@font-face {
+  font-family: "TwitterChirp";
+  src: url("./fonts/chirp-regular-web.woff") format("woff");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "TwitterChirp";
+  src: url("./fonts/chirp-medium-web.woff") format("woff");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "TwitterChirp";
+  src: url("./fonts/chirp-bold-web.woff") format("woff");
+  font-weight: 700;
+}
+
+* {
+  font-family: "TwitterChirp";
+}
