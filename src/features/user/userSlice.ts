@@ -2,15 +2,18 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "../../app/store";
 
 export interface IUser {
+  // from auth0
   name: string;
-  username: string;
   email: string;
   picture: string;
-  joinDate: Date;
-  following: IUser[];
-  followers: IUser[];
+  // take from user
+  username: string;
   location: string;
   bio: string;
+  // generate ourselves
+  joinDate: Date;
+  followers: IUser[];
+  following: IUser[];
   isVerified: boolean;
   //   tweets: ITweet[];
   //   likes: ITweet[];
