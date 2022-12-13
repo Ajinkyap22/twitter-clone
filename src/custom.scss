@@ -1,0 +1,93 @@
+$primary: #00acee;
+$danger: #dc2626;
+$input-focus-box-shadow: none;
+$input-focus-border-color: $primary;
+$modal-header-border-width: 0;
+$modal-footer-border-width: 0;
+$btn-primary-color: #fff;
+
+$theme-colors: (
+  "primary": $primary,
+);
+
+.w-2 {
+  width: 2rem;
+}
+
+.w-5 {
+  width: 1.5rem;
+}
+
+.h-5 {
+  height: 1.5rem;
+}
+
+.w-35 {
+  width: 35%;
+}
+
+.w-32 {
+  width: 8rem;
+}
+
+.h-32 {
+  height: 8rem;
+}
+
+.btn-primary {
+  color: #fff !important;
+}
+
+.top-2 {
+  top: 0.25rem;
+}
+
+.end-2 {
+  right: 0.25rem;
+}
+
+.btn-outline-primary:hover {
+  color: #fff !important;
+}
+
+.bg-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+}
+
+.form-control {
+  border-width: 2px !important;
+}
+
+.form-control:focus {
+  border-width: 2px !important;
+}
+
+.z-10 {
+  z-index: 10 !important;
+}
+
+.z-high {
+  z-index: 1060 !important;
+}
+
+.z-max {
+  z-index: 1070 !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.bottom-minus-10 {
+  bottom: -10%;
+}
+
+// form-control placeholder color on focus
+.form-control:focus::-webkit-input-placeholder {
+  color: $primary !important;
+  font-weight: 100;
+}
+
+/* import bootstrap to set changes */
+@import "~bootstrap/scss/bootstrap";

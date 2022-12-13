@@ -1,16 +1,27 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Logo from "../../assets/images/Logo.svg";
 
-type Props = {};
-
-const Home = (props: Props) => {
+const Home = (): JSX.Element => {
   const { loginWithRedirect } = useAuth0();
 
   const handleLogin = async () => {
     try {
       await loginWithRedirect({
-        returnTo: "/profile",
+        returnTo: "/home",
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSignup = async () => {
+    try {
+      await loginWithRedirect({
+        screen_hint: "signup",
+        returnTo: "/home",
       });
     } catch (error) {
       console.log(error);
@@ -18,19 +29,36 @@ const Home = (props: Props) => {
   };
 
   return (
-    <div>
-      <Button onClick={handleLogin}>Login</Button>
+    // container-fluid
+    <Container
+      fluid
+      className="bg-white d-flex justify-content-center align-items-center h-100"
+    >
+      <div className="bg-white w-35 shadow d-flex flex-column justify-content-center align-items-center rounded-3 p-4">
+        {/* twitter logo */}
+        <img src={Logo} alt="" className="w-2" />
 
-      <Button
-        onClick={() =>
-          loginWithRedirect({
-            screen_hint: "signup",
-          })
-        }
-      >
-        Sign Up
-      </Button>
-    </div>
+        {/* welcome */}
+        <h2 className="text-center mt-4 fw-bold">Sign in to Twitter</h2>
+
+        {/* login */}
+        <Button
+          variant="primary my-3 mt-4 w-75 rounded-pill"
+          className="text-white"
+          onClick={handleLogin}
+        >
+          Log in
+        </Button>
+
+        {/* signup */}
+        <Button
+          variant="outline-primary my-2 w-75 rounded-pill"
+          onClick={handleSignup}
+        >
+          Sign up
+        </Button>
+      </div>
+    </Container>
   );
 };
 
