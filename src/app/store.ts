@@ -7,6 +7,10 @@ export const store = configureStore({
     user: userReducer,
     tweet: tweetReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 export type AppDispatch = typeof store.dispatch;

@@ -10,6 +10,10 @@ $theme-colors: (
   "primary": $primary,
 );
 
+.text-primary {
+  color: $primary !important;
+}
+
 .w-2 {
   width: 2rem;
 }

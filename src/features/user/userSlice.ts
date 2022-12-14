@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "../../app/store";
 import db from "../../firebase/config";
 import { getDoc, doc } from "firebase/firestore";
+import React from "react";
 
 export interface IUser {
   // from auth0
@@ -42,8 +43,13 @@ export const userSlice = createSlice({
 
 // get current user's profile from firebase
 export const fetchCurrentUser =
-  (email: string): AppThunk =>
+  (
+    email: string,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ): AppThunk =>
   async (dispatch) => {
+    setLoading(true);
+
     // fetch user from firebase using email as identifier
     const userRef = doc(db, "users", email);
 
@@ -53,6 +59,8 @@ export const fetchCurrentUser =
     if (userDoc.exists()) {
       dispatch(setCurrentUser(userDoc.data() as IUser));
     }
+
+    setLoading(false);
   };
 
 // create a new user in firebase
