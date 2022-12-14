@@ -6,6 +6,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Home from "./pages/Home/Home";
 import Profile from "./pages/Profile/Profile";
 import Feed from "./pages/Feed/Feed";
+import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
 
 import "./App.scss";
 
@@ -13,7 +14,7 @@ function App() {
   const { isLoading } = useAuth0();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
 
   return (

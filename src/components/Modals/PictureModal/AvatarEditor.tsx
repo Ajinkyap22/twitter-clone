@@ -27,14 +27,11 @@ const AvatarEditor = ({
 
     cropped.toBlob(
       (blob: Blob | null) => {
-        console.log(blob);
         if (!blob) return;
 
         let file: File = new File([blob], "picture.jpg", {
           type: "image/jpeg",
         });
-
-        console.log(URL.createObjectURL(file));
 
         setPicture(URL.createObjectURL(file));
       },
