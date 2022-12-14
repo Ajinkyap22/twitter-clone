@@ -31,7 +31,7 @@ const Feed = (): JSX.Element => {
   useEffect(() => {
     if (!user?.email) return;
 
-    dispatch(fetchCurrentUser(user?.email, setLoading));
+    dispatch(fetchCurrentUser(user.email, setLoading));
   }, [user]);
 
   useEffect(() => {
