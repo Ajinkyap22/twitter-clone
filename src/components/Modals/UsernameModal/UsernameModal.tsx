@@ -67,7 +67,7 @@ const UsernameModal = ({
             className="form-control p-3 mt-4 mb-2 border-2"
             placeholder="Username"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => setUsername(e.target.value.toLowerCase())}
           />
 
           <Form.Text className="text-muted">

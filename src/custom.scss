@@ -10,20 +10,38 @@ $theme-colors: (
   "primary": $primary,
 );
 
+// text
 .text-primary {
   color: $primary !important;
 }
 
+// width & height
 .w-2 {
   width: 2rem;
 }
 
-.w-5 {
+.w-4 {
   width: 1.5rem;
 }
 
-.h-5 {
+.h-4 {
   height: 1.5rem;
+}
+
+.w-5 {
+  width: 1.75rem;
+}
+
+.h-5 {
+  height: 1.75rem;
+}
+
+.w-6 {
+  width: 1.9rem;
+}
+
+.h-6 {
+  height: 1.9rem;
 }
 
 .w-35 {
@@ -38,10 +56,30 @@ $theme-colors: (
   height: 8rem;
 }
 
+// padding
+.pe-6 {
+  padding-right: 4rem;
+}
+
+.py-2_5 {
+  padding-top: 0.7rem !important;
+  padding-bottom: 0.7rem !important;
+}
+
+// buttons
 .btn-primary {
   color: #fff !important;
 }
 
+.btn-outline-primary:hover {
+  color: #fff !important;
+}
+
+.button-hover:hover {
+  background-color: #188cd8 !important;
+}
+
+// position
 .top-2 {
   top: 0.25rem;
 }
@@ -50,15 +88,21 @@ $theme-colors: (
   right: 0.25rem;
 }
 
-.btn-outline-primary:hover {
-  color: #fff !important;
+.bottom-minus-10 {
+  bottom: -10%;
 }
 
+// background
 .bg-overlay {
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(2px);
 }
 
+.bg-blue {
+  background-color: #00acee !important;
+}
+
+// form
 .form-control {
   border-width: 2px !important;
 }
@@ -67,6 +111,12 @@ $theme-colors: (
   border-width: 2px !important;
 }
 
+.form-control:focus::-webkit-input-placeholder {
+  color: $primary !important;
+  font-weight: 100;
+}
+
+// z-index
 .z-10 {
   z-index: 10 !important;
 }
@@ -79,18 +129,19 @@ $theme-colors: (
   z-index: 1070 !important;
 }
 
+// cursor
 .cursor-pointer {
   cursor: pointer;
 }
 
-.bottom-minus-10 {
-  bottom: -10%;
+.link-hover:hover {
+  background-color: #ebeaea;
+  border-radius: 40px !important;
 }
 
-// form-control placeholder color on focus
-.form-control:focus::-webkit-input-placeholder {
-  color: $primary !important;
-  font-weight: 100;
+.logo-hover:hover {
+  background-color: rgba(29, 155, 240, 0.1);
+  border-radius: 40px;
 }
 
 /* import bootstrap to set changes */
