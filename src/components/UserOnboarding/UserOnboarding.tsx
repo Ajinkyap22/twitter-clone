@@ -3,6 +3,8 @@ import NameModal from "../Modals/NameModal/NameModal";
 import UsernameModal from "../Modals/UsernameModal/UsernameModal";
 import PictureModal from "../Modals/PictureModal/PictureModal";
 import { useAuth0 } from "@auth0/auth0-react";
+import { IUser, createUser } from "../../features/user/userSlice";
+import { useAppDispatch } from "../../app/hooks";
 
 type Props = {
   setUserOnboarding: React.Dispatch<React.SetStateAction<boolean>>;
@@ -10,6 +12,7 @@ type Props = {
 
 const UserOnboarding = ({ setUserOnboarding }: Props): JSX.Element => {
   const { user } = useAuth0();
+  const dispatch = useAppDispatch();
 
   const [showNameModal, setShowNameModal] = useState<boolean>(true);
   const [showUsernameModal, setShowUsernameModal] = useState<boolean>(false);
@@ -55,10 +58,22 @@ const UserOnboarding = ({ setUserOnboarding }: Props): JSX.Element => {
   };
 
   const finishOnboarding = () => {
+    const newUser: IUser = {
+      name,
+      email: user?.email || "",
+      picture,
+      username,
+      location: "",
+      bio: "",
+      joinDate: new Date(),
+      followers: [],
+      following: [],
+      isVerified: false,
+    };
+
+    dispatch(createUser(newUser));
+
     setUserOnboarding(false);
-    console.log("name: ", name);
-    console.log("username: ", username);
-    console.log("picture: ", picture);
   };
 
   return (

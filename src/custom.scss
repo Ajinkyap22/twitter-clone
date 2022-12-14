@@ -44,6 +44,14 @@ $theme-colors: (
   height: 1.9rem;
 }
 
+.w-7 {
+  width: 2.3rem;
+}
+
+.h-7 {
+  height: 2.3rem;
+}
+
 .w-35 {
   width: 35%;
 }
@@ -142,6 +150,10 @@ $theme-colors: (
 .logo-hover:hover {
   background-color: rgba(29, 155, 240, 0.1);
   border-radius: 40px;
+}
+
+.logout:hover {
+  background: #f6f9f9 !important;
 }
 
 /* import bootstrap to set changes */

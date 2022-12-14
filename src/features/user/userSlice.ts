@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "../../app/store";
 import db from "../../firebase/config";
-import { getDoc, doc } from "firebase/firestore";
+import { getDoc, doc, setDoc } from "firebase/firestore";
 import React from "react";
 
 export interface IUser {
@@ -66,7 +66,13 @@ export const fetchCurrentUser =
 // create a new user in firebase
 export const createUser =
   (user: IUser): AppThunk =>
-  async (dispatch) => {};
+  async (dispatch) => {
+    const userRef = doc(db, "users", user.email);
+
+    await setDoc(userRef, user);
+
+    dispatch(setCurrentUser(user));
+  };
 
 // update user's profile details
 export const updateProfile =
