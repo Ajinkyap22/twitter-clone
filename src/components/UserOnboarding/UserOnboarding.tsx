@@ -63,24 +63,22 @@ const UserOnboarding = ({ setUserOnboarding }: Props): JSX.Element => {
     setShowUsernameModal(true);
   };
 
-  //download profile picture from firebase storage
-  const getProfilePicture = async (id: string) => {
-    const storage = getStorage();
-    const imageRef = ref(storage, `images/${id}.png`);
-    try {
-      const url: string = await getDownloadURL(imageRef);
-      return url;
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   const finishOnboarding = async () => {
     let imageURL: string = picture;
-    //check if picture is a base64 string
+    // check if picture is a base64 string
     if (picture.includes("data:image/png;base64")) {
-      dispatch(updateProfilePicture(picture, user?.email || ""));
-      imageURL = (await getProfilePicture(user?.email as string)) as string;
+      dispatch(updateProfilePicture(picture, user?.sub || ""));
+
+      // download profile picture from firebase storage
+      const storage = getStorage();
+      const imageRef = ref(storage, `images/${user?.sub}.png`);
+
+      try {
+        const url: string = await getDownloadURL(imageRef);
+        imageURL = url;
+      } catch (err) {
+        console.error(err);
+      }
     }
 
     const newUser: IUser = {
