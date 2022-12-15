@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import NameModal from "../Modals/NameModal/NameModal";
 import UsernameModal from "../Modals/UsernameModal/UsernameModal";
+import BioModal from "../Modals/BioModal/BioModal";
 import PictureModal from "../Modals/PictureModal/PictureModal";
 import { useAuth0 } from "@auth0/auth0-react";
 import {
@@ -21,10 +22,13 @@ const UserOnboarding = ({ setUserOnboarding }: Props): JSX.Element => {
 
   const [showNameModal, setShowNameModal] = useState<boolean>(true);
   const [showUsernameModal, setShowUsernameModal] = useState<boolean>(false);
+  const [showBioModal, setShowBioModal] = useState<boolean>(false);
   const [showPictureModal, setShowPictureModal] = useState<boolean>(false);
 
   const [name, setName] = useState<string>(user?.name || "");
   const [username, setUsername] = useState<string>("");
+  const [bio, setBio] = useState<string>("");
+  const [location, setLocation] = useState<string>("");
   const [picture, setPicture] = useState<string>(
     user?.picture ||
       "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
@@ -38,11 +42,19 @@ const UserOnboarding = ({ setUserOnboarding }: Props): JSX.Element => {
     setShowUsernameModal(true);
   };
 
-  // hide username modal and show picture modal on pressing next
+  // hide username modal and show bio modal on pressing next
   const hidenUsernameModal = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setShowUsernameModal(false);
+    setShowBioModal(true);
+  };
+
+  // hide bio modal and show picture modal on pressing next
+  const hideBioModal = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    setShowBioModal(false);
     setShowPictureModal(true);
   };
 
@@ -59,8 +71,14 @@ const UserOnboarding = ({ setUserOnboarding }: Props): JSX.Element => {
 
   // go back to username modal on pressing back
   const handleBackToUsernameModal = () => {
-    setShowPictureModal(false);
+    setShowBioModal(false);
     setShowUsernameModal(true);
+  };
+
+  // go back to bio modal on pressing back
+  const handleBackToBioModal = () => {
+    setShowPictureModal(false);
+    setShowBioModal(true);
   };
 
   const finishOnboarding = async () => {
@@ -86,8 +104,8 @@ const UserOnboarding = ({ setUserOnboarding }: Props): JSX.Element => {
       email: user?.email || "",
       picture: imageURL,
       username,
-      location: "",
-      bio: "",
+      location,
+      bio,
       joinDate: new Date(),
       followers: [],
       following: [],
@@ -118,10 +136,21 @@ const UserOnboarding = ({ setUserOnboarding }: Props): JSX.Element => {
         setUsername={setUsername}
       />
 
+      {/* bio modal */}
+      <BioModal
+        show={showBioModal}
+        handleBack={handleBackToUsernameModal}
+        onHide={hideBioModal}
+        bio={bio}
+        setBio={setBio}
+        location={location}
+        setLocation={setLocation}
+      />
+
       {/* picture modal */}
       <PictureModal
         show={showPictureModal}
-        handleBack={handleBackToUsernameModal}
+        handleBack={handleBackToBioModal}
         picture={picture}
         onHide={hidePictureModal}
         setPicture={setPicture}

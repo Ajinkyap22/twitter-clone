@@ -107,7 +107,7 @@ const PictureModal = ({
             </svg>
           </Button>
 
-          <h4 className="m-0">Step 3 of 3</h4>
+          <h4 className="m-0">Step 4 of 4</h4>
         </Modal.Title>
       </Modal.Header>
 
