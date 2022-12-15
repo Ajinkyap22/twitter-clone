@@ -29,11 +29,20 @@ const AvatarEditor = ({
       (blob: Blob | null) => {
         if (!blob) return;
 
-        let file: File = new File([blob], "picture.jpg", {
-          type: "image/jpeg",
-        });
+        // convert blob to base64
+        let reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = () => {
+          let base64data = reader.result;
 
-        setPicture(URL.createObjectURL(file));
+          setPicture(base64data as string);
+        };
+
+        // let file: File = new File([blob], "picture.jpg", {
+        //   type: "image/jpeg",
+        // });
+
+        // setPicture(file);
       },
       "image/png",
       1
