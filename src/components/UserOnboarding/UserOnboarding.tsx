@@ -3,8 +3,13 @@ import NameModal from "../Modals/NameModal/NameModal";
 import UsernameModal from "../Modals/UsernameModal/UsernameModal";
 import PictureModal from "../Modals/PictureModal/PictureModal";
 import { useAuth0 } from "@auth0/auth0-react";
-import { IUser, createUser } from "../../features/user/userSlice";
+import {
+  IUser,
+  createUser,
+  updateProfilePicture,
+} from "../../features/user/userSlice";
 import { useAppDispatch } from "../../app/hooks";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 type Props = {
   setUserOnboarding: React.Dispatch<React.SetStateAction<boolean>>;
@@ -43,6 +48,7 @@ const UserOnboarding = ({ setUserOnboarding }: Props): JSX.Element => {
 
   const hidePictureModal = () => {
     setShowPictureModal(false);
+    finishOnboarding();
   };
 
   // go back to name modal on pressing back
@@ -57,11 +63,30 @@ const UserOnboarding = ({ setUserOnboarding }: Props): JSX.Element => {
     setShowUsernameModal(true);
   };
 
-  const finishOnboarding = () => {
+  //download profile picture from firebase storage
+  const getProfilePicture = async (id: string) => {
+    const storage = getStorage();
+    const imageRef = ref(storage, `images/${id}.png`);
+    try {
+      const url: string = await getDownloadURL(imageRef);
+      return url;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const finishOnboarding = async () => {
+    let imageURL: string = picture;
+    //check if picture is a base64 string
+    if (picture.includes("data:image/png;base64")) {
+      dispatch(updateProfilePicture(picture, user?.email || ""));
+      imageURL = (await getProfilePicture(user?.email as string)) as string;
+    }
+
     const newUser: IUser = {
       name,
       email: user?.email || "",
-      picture,
+      picture: imageURL,
       username,
       location: "",
       bio: "",
@@ -102,7 +127,6 @@ const UserOnboarding = ({ setUserOnboarding }: Props): JSX.Element => {
         picture={picture}
         onHide={hidePictureModal}
         setPicture={setPicture}
-        finishOnboarding={finishOnboarding}
       />
     </>
   );

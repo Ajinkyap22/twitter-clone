@@ -9,7 +9,6 @@ type Props = {
   picture: string;
   setPicture: React.Dispatch<React.SetStateAction<string>>;
   handleBack: () => void;
-  finishOnboarding: () => void;
 };
 
 const PictureModal = ({
@@ -18,7 +17,6 @@ const PictureModal = ({
   picture,
   setPicture,
   handleBack,
-  finishOnboarding,
 }: Props) => {
   const [showAvatarEditor, setShowAvatarEditor] = useState<boolean>(false);
   const modalRef = useRef<HTMLDivElement>(null);
@@ -70,7 +68,6 @@ const PictureModal = ({
 
   const closeEditor = () => {
     setShowAvatarEditor(false);
-    finishOnboarding();
   };
 
   return (

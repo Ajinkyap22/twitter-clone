@@ -134,7 +134,7 @@ const Sidebar = () => {
                 <Button
                   onClick={handleLogout}
                   variant="light"
-                  className="fw-bold p-2 py-2_5 logout"
+                  className="fw-bold p-2 py-2_5 logout text-break"
                 >
                   Log out of @{currentUser?.username}
                 </Button>
@@ -154,8 +154,23 @@ const Sidebar = () => {
 
             {/* name & username */}
             <div className="ms-3 me-4">
-              <h6 className="mb-0">{currentUser?.name}</h6>
-              <span className="text-muted">@{currentUser?.username}</span>
+              <h6 className="mb-0">
+                {
+                  // if user name's length is greater than or equal to 20 then show only 20 characters and add ...
+                  currentUser && currentUser?.name.length >= 20
+                    ? currentUser?.name.slice(0, 17) + "..."
+                    : currentUser?.name
+                }
+              </h6>
+              <span className="text-muted">
+                @
+                {
+                  // if username's length is greater than or equal to 18 then show only 20 characters and add ...
+                  currentUser && currentUser?.username.length >= 18
+                    ? currentUser?.username.slice(0, 15) + "..."
+                    : currentUser?.username
+                }
+              </span>
             </div>
 
             {/* more options */}

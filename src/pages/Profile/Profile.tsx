@@ -9,8 +9,6 @@ const Profile = (props: Props) => {
 
   useEffect(() => {
     if (!isAuthenticated) return;
-
-    console.log(user);
   }, [isAuthenticated]);
 
   const handleLogout = async () => {
