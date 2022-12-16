@@ -1,4 +1,6 @@
 $primary: #00acee;
+// new change
+$light: #eff3f4;
 $danger: #dc2626;
 $input-focus-box-shadow: none;
 $input-focus-border-color: $primary;
@@ -6,8 +8,11 @@ $modal-header-border-width: 0;
 $modal-footer-border-width: 0;
 $btn-primary-color: #fff;
 
+// new changes
 $theme-colors: (
   "primary": $primary,
+  "light": $light,
+  "danger": $danger,
 );
 
 // text
@@ -15,9 +20,22 @@ $theme-colors: (
   color: $primary !important;
 }
 
+.text-search {
+  color: #536371 !important;
+}
+
 // width & height
 .w-2 {
   width: 2rem;
+}
+
+// new change
+.w-3 {
+  width: 1.25rem;
+}
+
+.h-3 {
+  height: 1.25rem;
 }
 
 .w-4 {
@@ -65,8 +83,20 @@ $theme-colors: (
 }
 
 // padding
+.p-1_5 {
+  padding: 0.3rem 0.4rem !important;
+}
+
 .pe-6 {
-  padding-right: 4rem;
+  padding-right: 4rem !important;
+}
+
+.pe-5 {
+  padding-right: 3.75rem !important;
+}
+
+.pe-7 {
+  padding-right: 4.25rem !important;
 }
 
 .py-2_5 {
@@ -85,6 +115,11 @@ $theme-colors: (
 
 .button-hover:hover {
   background-color: #188cd8 !important;
+}
+
+.hover-gray:hover {
+  background-color: #e7e7e8 !important;
+  border-radius: 40px !important;
 }
 
 // position
@@ -110,6 +145,15 @@ $theme-colors: (
   background-color: #00acee !important;
 }
 
+.bg-white-transparent {
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+}
+
+.bg-search {
+  background-color: #eff3f4 !important;
+}
+
 // form
 .form-control {
   border-width: 2px !important;
@@ -122,6 +166,11 @@ $theme-colors: (
 .form-control:focus::-webkit-input-placeholder {
   color: $primary !important;
   font-weight: 100;
+}
+
+// new change
+.form-control-light:focus::-webkit-input-placeholder {
+  color: #6c757d !important;
 }
 
 // z-index
@@ -148,12 +197,27 @@ $theme-colors: (
 }
 
 .logo-hover:hover {
-  background-color: rgba(29, 155, 240, 0.1);
+  background-color: rgba(29, 155, 240, 0.1) !important;
   border-radius: 40px;
 }
 
 .logout:hover {
   background: #f6f9f9 !important;
+}
+
+// font-size
+.h7 {
+  font-size: 0.95rem !important;
+}
+
+// text area resizing
+.resize-none {
+  resize: none;
+}
+
+// border radius
+.border-radius-5 {
+  border-radius: 1rem !important;
 }
 
 /* import bootstrap to set changes */
