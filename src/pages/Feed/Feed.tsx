@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import FeedContent from "../../components/FeedContent/FeedContent";
+import Suggestions from "../../components/Suggestions/Suggestions";
+import TweetFormModal from "../../components/Modals/TweetFormModal/TweetFormModal";
 
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
@@ -20,6 +23,7 @@ const Feed = (): JSX.Element => {
   const [userOnboarding, setUserOnboarding] = useState<boolean>(true);
   const currentUser = useAppSelector(selectCurrentUser);
   const [loading, setLoading] = useState<boolean>(true);
+  const [showTweetFormModal, setShowTweetFormModal] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
   const { user } = useAuth0();
@@ -54,21 +58,32 @@ const Feed = (): JSX.Element => {
           md={3}
           className="border-end d-flex align-items-end flex-column justify-content-between"
         >
-          <Sidebar />
+          <Sidebar
+            showTweetFormModal={showTweetFormModal}
+            setShowTweetFormModal={setShowTweetFormModal}
+          />
         </Col>
 
         <Col md={5} className="border-end p-0">
-          2
+          <FeedContent />
         </Col>
 
         <Col md={4} className="pe-7">
-          3
+          <Suggestions />
         </Col>
       </Row>
 
       {/* user onboaridng */}
       {userOnboarding && !loading && (
         <UserOnboarding setUserOnboarding={setUserOnboarding} />
+      )}
+
+      {/* tweet form modal */}
+      {showTweetFormModal && (
+        <TweetFormModal
+          show={showTweetFormModal}
+          setShowTweetFormModal={setShowTweetFormModal}
+        />
       )}
 
       {/* loading */}

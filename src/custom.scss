@@ -196,6 +196,11 @@ $theme-colors: (
   border-radius: 40px !important;
 }
 
+.close-hover:hover {
+  background-color: #eeeeee !important;
+  border-radius: 40px !important;
+}
+
 .logo-hover:hover {
   background-color: rgba(29, 155, 240, 0.1) !important;
   border-radius: 40px;
@@ -218,6 +223,11 @@ $theme-colors: (
 // border radius
 .border-radius-5 {
   border-radius: 1rem !important;
+}
+
+.tweet-caption {
+  font-size: 1.25rem !important;
+  color: #86919b !important;
 }
 
 /* import bootstrap to set changes */
