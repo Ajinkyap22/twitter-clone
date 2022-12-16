@@ -1,10 +1,13 @@
+import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import Home from "./pages/Home/Home";
-import Profile from "./pages/Profile/Profile";
-import Feed from "./pages/Feed/Feed";
+const Home = lazy(() => import("./pages/Home/Home"));
+const Profile = lazy(() => import("./pages/Profile/Profile"));
+const Feed = lazy(() => import("./pages/Feed/Feed"));
+
 import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
+
 import "./App.scss";
 
 function App() {
@@ -16,16 +19,18 @@ function App() {
 
   return (
     <div className="App">
-      <Routes>
-        {/* index */}
-        <Route path="/" element={<Home />} />
+      <Suspense fallback={<LoadingSpinner />}>
+        <Routes>
+          {/* index */}
+          <Route path="/" element={<Home />} />
 
-        {/* feed */}
-        <Route path="/home" element={<Feed />} />
+          {/* feed */}
+          <Route path="/home" element={<Feed />} />
 
-        {/* profile */}
-        <Route path="/profile" element={<Profile />} />
-      </Routes>
+          {/* profile */}
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+      </Suspense>
     </div>
   );
 }
