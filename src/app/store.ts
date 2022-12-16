@@ -1,6 +1,6 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import userReducer from "../features/user/userSlice";
-import tweetReducer from "../features/tweet/tweetSlice";
+import userReducer from "features/user/userSlice";
+import tweetReducer from "features/tweet/tweetSlice";
 
 export const store = configureStore({
   reducer: {

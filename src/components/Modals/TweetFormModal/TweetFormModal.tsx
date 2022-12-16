@@ -1,8 +1,8 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import { useAppSelector } from "../../../app/hooks";
-import { selectCurrentUser } from "../../../features/user/userSlice";
+import { useAppSelector } from "app/hooks";
+import { selectCurrentUser } from "features/user/userSlice";
 import Form from "react-bootstrap/Form";
 
 type Props = {
