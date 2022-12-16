@@ -3,7 +3,7 @@ import { RootState, AppThunk } from "../../app/store";
 import db from "../../firebase/config";
 import { getDoc, doc, setDoc } from "firebase/firestore";
 import React from "react";
-import { getStorage, ref, uploadBytes, uploadString } from "firebase/storage";
+import { getStorage, ref, uploadString } from "firebase/storage";
 
 export interface IUser {
   // from auth0
@@ -78,13 +78,15 @@ export const createUser =
 //update user profile picture
 export const updateProfilePicture =
   (picture: string, id: string): AppThunk =>
-  async (dispatch) => {
+  () => {
     const storage = getStorage();
 
     const imagesRef = ref(storage, `images/${id}.png`);
 
     // upload base64 string to firebase storage
     uploadString(imagesRef, picture.split(",")[1], "base64");
+
+    console.log("uploaded");
   };
 
 // update user's profile details

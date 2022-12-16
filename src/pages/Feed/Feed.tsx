@@ -17,7 +17,7 @@ import UserOnboarding from "../../components/UserOnboarding/UserOnboarding";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 
 const Feed = (): JSX.Element => {
-  const [userOnboarding, setUserOnboarding] = useState<boolean>(false);
+  const [userOnboarding, setUserOnboarding] = useState<boolean>(true);
   const currentUser = useAppSelector(selectCurrentUser);
   const [loading, setLoading] = useState<boolean>(true);
 

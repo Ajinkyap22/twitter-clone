@@ -21,7 +21,7 @@ const NameModal = ({ show, onHide, name, setName }: Props) => {
     >
       <Modal.Header>
         <Modal.Title id="contained-modal-title-vcenter">
-          Step 1 of 3
+          Step 1 of 4
         </Modal.Title>
       </Modal.Header>
 
