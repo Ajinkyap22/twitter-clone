@@ -3,7 +3,6 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { useAppSelector } from "../../../app/hooks";
 import { selectCurrentUser } from "../../../features/user/userSlice";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
 
 type Props = {
@@ -30,8 +29,7 @@ const TweetFormModal = ({
   return (
     <Modal show={show} onHide={handleClose} contentClassName="border-radius-5">
       <Button
-        variant="light"
-        className="rounded-pill p-1 w-10 align-self-start m-2 "
+        className="rounded-pill p-1 w-10 align-self-start m-2 bg-white border-0 text-black close-hover"
         onClick={handleClose}
       >
         <svg
@@ -49,6 +47,7 @@ const TweetFormModal = ({
           />
         </svg>
       </Button>
+
       <Modal.Body className="d-flex border-0">
         <img src={currentUser?.picture} className="rounded-pill w-7 h-7" />
 
@@ -56,10 +55,11 @@ const TweetFormModal = ({
           as="textarea"
           placeholder="What's happening?"
           style={{ height: "80px" }}
-          className="border-0 overflow-hidden resize-none"
+          className="border-0 overflow-hidden resize-none tweet-caption"
           onKeyDown={handleKeyDown}
         />
       </Modal.Body>
+
       <Modal.Footer className="d-flex justify-content-between ">
         <div>
           <button className="me-1 cursor-pointer logo-hover p-2 border-0 bg-white">
@@ -105,6 +105,7 @@ const TweetFormModal = ({
             variant="primary"
             onClick={handleClose}
             className="rounded-pill"
+            disabled
           >
             Tweet
           </Button>
