@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState, AppThunk } from "../../app/store";
-import db from "../../firebase/config";
+import { RootState, AppThunk } from "app/store";
+import db from "firebase-config/config";
 import { getDoc, doc, setDoc } from "firebase/firestore";
 import React from "react";
 import { getStorage, ref, uploadString } from "firebase/storage";

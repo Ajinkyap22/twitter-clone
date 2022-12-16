@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "../../components/Sidebar/Sidebar";
-import FeedContent from "../../components/FeedContent/FeedContent";
-import Suggestions from "../../components/Suggestions/Suggestions";
-import TweetFormModal from "../../components/Modals/TweetFormModal/TweetFormModal";
+import Sidebar from "components/Sidebar/Sidebar";
+import FeedContent from "components/FeedContent/FeedContent";
+import Suggestions from "components/Suggestions/Suggestions";
+import TweetFormModal from "components/Modals/TweetFormModal/TweetFormModal";
 
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
