@@ -11,7 +11,14 @@ import { useNavigate } from "react-router-dom";
 
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 
-const Sidebar = () => {
+type props = {
+  showTweetFormModal: boolean;
+  setShowTweetFormModal: React.Dispatch<React.SetStateAction<boolean>>;
+};
+const Sidebar = ({
+  showTweetFormModal,
+  setShowTweetFormModal,
+}: props): JSX.Element => {
   const currentUser = useAppSelector(selectCurrentUser);
   const navigate = useNavigate();
   const { logout } = useAuth0();
@@ -21,12 +28,18 @@ const Sidebar = () => {
     navigate("/");
   };
 
+  const handleTweetFormShow = () => {
+    setShowTweetFormModal(!showTweetFormModal);
+  };
+
   return (
     <>
       <ListGroup className="d-flex align-items-start pe-6">
         {/* twitter logo */}
-        <ListGroupItem className="cursor-pointer border-0 logo-hover d-flex justify-content-center align-items-center rounded-circle p-3">
-          <img src={Logo} alt="Logo" className="w-6 h-6 py-1" />
+        <ListGroupItem className="cursor-pointer border-0 d-flex justify-content-start w-100 p-0 position-sticky bg-white top-0 z-10">
+          <button className="border-0 cursor-pointer bg-white logo-hover p-3">
+            <img src={Logo} alt="Logo" className="w-6 h-6" />
+          </button>
         </ListGroupItem>
 
         {/* home */}
@@ -117,7 +130,10 @@ const Sidebar = () => {
 
         {/* tweet */}
         <ListGroupItem className="border-0 d-flex my-1 py-2_5 mt-1 px-0 align-self-stretch">
-          <Button className="bg-blue border-0 rounded-pill ps-5 pe-5 flex-grow-1 fw-bold h6 py-2_5 button-hover cursor-pointer">
+          <Button
+            className="bg-blue border-0 rounded-pill ps-5 pe-5 flex-grow-1 fw-bold h6 py-2_5 button-hover cursor-pointer"
+            onClick={handleTweetFormShow}
+          >
             Tweet
           </Button>
         </ListGroupItem>

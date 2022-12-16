@@ -57,11 +57,11 @@ const Feed = (): JSX.Element => {
           <Sidebar />
         </Col>
 
-        <Col md={5} className=" border-end ">
+        <Col md={5} className="border-end p-0">
           2
         </Col>
 
-        <Col md={4} className=" border-end ">
+        <Col md={4} className="pe-7">
           3
         </Col>
       </Row>
