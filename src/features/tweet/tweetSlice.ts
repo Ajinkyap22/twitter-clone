@@ -1,24 +1,24 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "app/store";
 
-export interface ITweet {
+export type TTweet = {
   id: number;
   text: string;
-  // author: IUser;
+  // author: TUser ;
   media: string[];
   date: Date;
-  //   likes: IUser[];
-  // retweets: IUser[];
-  replies: ITweet[];
+  //   likes: TUser[];
+  // retweets: TUser[];
+  replies: TTweet[];
   isReply: boolean;
   isRetweet: boolean;
+};
+
+interface TTweetState {
+  tweets: TTweet[];
 }
 
-interface ITweetState {
-  tweets: ITweet[];
-}
-
-const initialState: ITweetState = {
+const initialState: TTweetState = {
   tweets: [],
 };
 
@@ -29,7 +29,7 @@ export const tweetSlice = createSlice({
 });
 
 // export const addTweet =
-//   (tweet: ITweet): AppThunk =>
+//   (tweet: TTweet): AppThunk =>
 //   async (dispatach) => {};
 
 // export const deleteTweet =
@@ -45,7 +45,7 @@ export const tweetSlice = createSlice({
 //   async (dispatch) => {};
 
 // export const reply =
-//   (tweet: ITweet): AppThunk =>
+//   (tweet: TTweet): AppThunk =>
 //   async (dispatch) => {};
 
 // export const bookmarkTweet =

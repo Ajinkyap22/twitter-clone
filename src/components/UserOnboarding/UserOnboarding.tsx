@@ -5,7 +5,7 @@ import BioModal from "../Modals/BioModal/BioModal";
 import PictureModal from "../Modals/PictureModal/PictureModal";
 import { useAuth0 } from "@auth0/auth0-react";
 import {
-  IUser,
+  TUser,
   createUser,
   updateProfilePicture,
 } from "../../features/user/userSlice";
@@ -99,7 +99,7 @@ const UserOnboarding = ({ setUserOnboarding }: Props): JSX.Element => {
       }
     }
 
-    const newUser: IUser = {
+    const newUser: TUser = {
       name,
       email: user?.email || "",
       picture: imageURL,
