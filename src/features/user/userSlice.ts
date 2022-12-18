@@ -13,7 +13,7 @@ import {
 import React from "react";
 import { getStorage, ref, uploadString } from "firebase/storage";
 
-export interface IUser {
+export type TUser = {
   // from auth0
   name: string;
   email: string;
@@ -24,20 +24,20 @@ export interface IUser {
   bio: string;
   // generate ourselves
   joinDate: Date;
-  followers: IUser[];
-  following: IUser[];
+  followers: TUser[];
+  following: TUser[];
   isVerified: boolean;
-  //   tweets: ITweet[];
-  //   likes: ITweet[];
-  //   bookmarks: ITweet[];
+  //   tweets: TTweet[];
+  //   likes: TTweet[];
+  //   bookmarks: TTweet[];
+};
+
+interface TUserState {
+  currentUser: TUser | null;
+  suggestedUsers: TUser[];
 }
 
-interface IUserState {
-  currentUser: IUser | null;
-  suggestedUsers: IUser[];
-}
-
-const initialState: IUserState = {
+const initialState: TUserState = {
   currentUser: null,
   suggestedUsers: [],
 };
@@ -46,10 +46,10 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setCurrentUser: (state, action: PayloadAction<IUser>) => {
+    setCurrentUser: (state, action: PayloadAction<TUser>) => {
       state.currentUser = action.payload;
     },
-    setSuggestedUsers: (state, action: PayloadAction<IUser[]>) => {
+    setSuggestedUsers: (state, action: PayloadAction<TUser[]>) => {
       state.suggestedUsers = action.payload;
     },
   },
@@ -71,7 +71,7 @@ export const fetchCurrentUser =
 
     // if user exists in firebase, set current user & return true
     if (userDoc.exists()) {
-      dispatch(setCurrentUser(userDoc.data() as IUser));
+      dispatch(setCurrentUser(userDoc.data() as TUser));
     }
 
     // setLoading(false);
@@ -79,7 +79,7 @@ export const fetchCurrentUser =
 
 // create a new user in firebase
 export const createUser =
-  (user: IUser): AppThunk =>
+  (user: TUser): AppThunk =>
   async (dispatch) => {
     const userRef = doc(db, "users", user.email);
 
@@ -104,17 +104,17 @@ export const updateProfilePicture =
 
 // update user's profile details
 // export const updateProfile =
-//   (user: IUser): AppThunk =>
+//   (user: TUser): AppThunk =>
 //   async (dispatch) => {};
 
 // add a user to the current user's following list
 // export const follow =
-//   (user: IUser): AppThunk =>
+//   (user: TUser): AppThunk =>
 //   async (dispatch) => {};
 
 // remove a user from the current user's following list
 // export const unfollow =
-//   (user: IUser): AppThunk =>
+//   (user: TUser): AppThunk =>
 //   async (dispatch) => {};
 
 // fetch 3 random users from firebase
@@ -122,10 +122,10 @@ export const fetchSuggestedUsers = (): AppThunk => async (dispatch) => {
   const usersRef = collection(db, "users");
   const q = query(usersRef, limit(3));
   const querySnapshot = await getDocs(q);
-  const suggestedUsers: IUser[] = [];
+  const suggestedUsers: TUser[] = [];
 
   querySnapshot.forEach((doc) => {
-    suggestedUsers.push(doc.data() as IUser);
+    suggestedUsers.push(doc.data() as TUser);
   });
 
   dispatch(setSuggestedUsers(suggestedUsers));
