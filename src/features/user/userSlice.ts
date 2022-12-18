@@ -88,7 +88,7 @@ export const createUser =
     dispatch(setCurrentUser(user));
   };
 
-//update user profile picture
+// update user profile picture
 export const updateProfilePicture =
   (picture: string, id: string): AppThunk =>
   () => {
@@ -102,17 +102,17 @@ export const updateProfilePicture =
     console.log("uploaded");
   };
 
-// // update user's profile details
+// update user's profile details
 // export const updateProfile =
 //   (user: IUser): AppThunk =>
 //   async (dispatch) => {};
 
-// // add a user to the current user's following list
+// add a user to the current user's following list
 // export const follow =
 //   (user: IUser): AppThunk =>
 //   async (dispatch) => {};
 
-// // remove a user from the current user's following list
+// remove a user from the current user's following list
 // export const unfollow =
 //   (user: IUser): AppThunk =>
 //   async (dispatch) => {};

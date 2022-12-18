@@ -1,9 +1,7 @@
 import Spinner from "react-bootstrap/Spinner";
 import Container from "react-bootstrap/Container";
 
-type Props = {};
-
-const LoadingSpinner = (props: Props) => {
+const LoadingSpinner = () => {
   return (
     <Container
       fluid

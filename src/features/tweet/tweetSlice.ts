@@ -28,29 +28,29 @@ export const tweetSlice = createSlice({
   reducers: {},
 });
 
-export const addTweet =
-  (tweet: ITweet): AppThunk =>
-  async (dispatach) => {};
+// export const addTweet =
+//   (tweet: ITweet): AppThunk =>
+//   async (dispatach) => {};
 
-export const deleteTweet =
-  (id: number): AppThunk =>
-  async (dispatach) => {};
+// export const deleteTweet =
+//   (id: number): AppThunk =>
+//   async (dispatach) => {};
 
-export const likeTweet =
-  (id: number): AppThunk =>
-  async (dispatach) => {};
+// export const likeTweet =
+//   (id: number): AppThunk =>
+//   async (dispatach) => {};
 
-export const retweet =
-  (id: number): AppThunk =>
-  async (dispatch) => {};
+// export const retweet =
+//   (id: number): AppThunk =>
+//   async (dispatch) => {};
 
-export const reply =
-  (tweet: ITweet): AppThunk =>
-  async (dispatch) => {};
+// export const reply =
+//   (tweet: ITweet): AppThunk =>
+//   async (dispatch) => {};
 
-export const bookmarkTweet =
-  (id: number): AppThunk =>
-  async (dispatch) => {};
+// export const bookmarkTweet =
+//   (id: number): AppThunk =>
+//   async (dispatch) => {};
 
 export const selectTweets = (state: RootState) => state.tweet.tweets;
 

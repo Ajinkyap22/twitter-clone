@@ -1,5 +1,4 @@
 $primary: #00acee;
-// new change
 $light: #eff3f4;
 $danger: #dc2626;
 $input-focus-box-shadow: none;
@@ -88,6 +87,14 @@ $theme-colors: (
 
 .w-35 {
   width: 35%;
+}
+
+.w-16 {
+  width: 4rem;
+}
+
+.h-16 {
+  height: 4rem;
 }
 
 .w-32 {
@@ -228,12 +235,16 @@ $theme-colors: (
 }
 
 .logo-hover:hover {
-  background-color: rgba(29, 155, 240, 0.1) !important;
+  background-color: #1d9bf01a !important;
   border-radius: 40px;
 }
 
 .logout:hover {
   background: #f6f9f9 !important;
+}
+
+.trend-hover:hover {
+  background-color: #eef1f1 !important;
 }
 
 // font-size
@@ -261,6 +272,10 @@ $theme-colors: (
 
 .tweet-caption {
   font-size: 1.25rem !important;
+}
+
+.object-cover {
+  object-fit: cover !important;
 }
 
 /* import bootstrap to set changes */

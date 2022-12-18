@@ -2,9 +2,7 @@ import { useEffect } from "react";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import Button from "react-bootstrap/Button";
 
-type Props = {};
-
-const Profile = (props: Props) => {
+const Profile = () => {
   const { logout, isAuthenticated, user } = useAuth0();
 
   useEffect(() => {
