@@ -20,8 +20,16 @@ $theme-colors: (
   color: $primary !important;
 }
 
+.text-primary-light {
+  color: #1c9bef !important;
+}
+
 .text-search {
   color: #536371 !important;
+}
+
+.text-underline:hover {
+  text-decoration: underline !important;
 }
 
 // width & height
@@ -68,6 +76,14 @@ $theme-colors: (
 
 .h-7 {
   height: 2.3rem;
+}
+
+.w-8 {
+  width: 2.5rem;
+}
+
+.h-8 {
+  height: 2.5rem;
 }
 
 .w-35 {
@@ -122,6 +138,11 @@ $theme-colors: (
   border-radius: 40px !important;
 }
 
+//hover
+.user-hover:hover {
+  background-color: #eef1f1 !important;
+}
+
 // position
 .top-2 {
   top: 0.25rem;
@@ -152,6 +173,10 @@ $theme-colors: (
 
 .bg-search {
   background-color: #eff3f4 !important;
+}
+
+.bg-gray {
+  background-color: #f6f9f9 !important;
 }
 
 // form
@@ -192,7 +217,8 @@ $theme-colors: (
 }
 
 .link-hover:hover {
-  background-color: #ebeaea;
+  // background-color: #ebeaea;
+  background-color: #eef1f1 !important;
   border-radius: 40px !important;
 }
 
@@ -213,6 +239,14 @@ $theme-colors: (
 // font-size
 .h7 {
   font-size: 0.95rem !important;
+}
+
+.fs-7 {
+  font-size: 0.95rem !important;
+}
+
+.fs-9 {
+  font-size: 0.85rem !important;
 }
 
 // text area resizing
