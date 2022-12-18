@@ -57,7 +57,7 @@ const Feed = (): JSX.Element => {
   return (
     <Container fluid className="h-100 bg-white m-0">
       <Row className="w-100 h-100 m-0 align-items-start">
-        <Col md={3} className="border-end h-100">
+        <Col md={3}>
           <Sidebar
             showTweetFormModal={showTweetFormModal}
             setShowTweetFormModal={setShowTweetFormModal}
@@ -68,7 +68,7 @@ const Feed = (): JSX.Element => {
           <FeedContent />
         </Col>
 
-        <Col md={4} className="pe-7 pb-5 position-sticky top-50">
+        <Col md={4} className="pe-7 pb-5 position-sticky top-0 affix">
           <Suggestions />
         </Col>
       </Row>

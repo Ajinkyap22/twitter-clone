@@ -126,6 +126,10 @@ $theme-colors: (
   padding-right: 4.25rem !important;
 }
 
+.ps-8 {
+  padding-left: 4.9rem !important;
+}
+
 .py-2_5 {
   padding-top: 0.7rem !important;
   padding-bottom: 0.7rem !important;
@@ -157,6 +161,10 @@ $theme-colors: (
 // position
 .top-2 {
   top: 0.25rem;
+}
+
+.top-0vh {
+  top: 0vh;
 }
 
 .end-2 {
