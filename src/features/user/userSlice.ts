@@ -74,7 +74,7 @@ export const fetchCurrentUser =
       dispatch(setCurrentUser(userDoc.data() as IUser));
     }
 
-    setLoading(false);
+    // setLoading(false);
   };
 
 // create a new user in firebase
