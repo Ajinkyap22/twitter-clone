@@ -4,7 +4,7 @@ import { RootState, AppThunk } from "app/store";
 export type TTweet = {
   id: number;
   text: string;
-  // author: TUser ;
+  // author: TUser;
   media: string[];
   date: Date;
   //   likes: TUser[];
