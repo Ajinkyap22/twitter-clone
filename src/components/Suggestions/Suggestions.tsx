@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
+
 import SearchBar from "../SearchBar/SearchBar";
+import WhoToFollow from "../WhoToFollow/WhoToFollow";
+import WhatsHappening from "components/WhatsHappening/WhatsHappening";
+
 import { useAppDispatch } from "app/hooks";
 import { fetchSuggestedUsers } from "features/user/userSlice";
-import WhoToFollow from "../WhoToFollow/WhoToFollow";
 
 const Suggestions = () => {
   const dispatch = useAppDispatch();
@@ -13,6 +16,11 @@ const Suggestions = () => {
     <>
       {/* search bar */}
       <SearchBar />
+
+      {/* whats happening */}
+      <WhatsHappening />
+
+      {/* who to follow */}
       <WhoToFollow />
     </>
   );

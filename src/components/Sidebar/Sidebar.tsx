@@ -33,10 +33,10 @@ const Sidebar = ({
   };
 
   return (
-    <>
+    <div className="position-fixed h-100vh top-0 left-0 d-flex flex-column align-items-end justify-content-between ">
       <ListGroup className="d-flex align-items-start pe-6">
         {/* twitter logo */}
-        <ListGroupItem className="cursor-pointer border-0 d-flex justify-content-start w-100 p-0 position-sticky bg-white top-0 z-10">
+        <ListGroupItem className="cursor-pointer border-0 d-flex justify-content-start w-100 p-0 bg-white">
           <button className="border-0 cursor-pointer bg-white logo-hover p-3">
             <img src={Logo} alt="Logo" className="w-6 h-6" />
           </button>
@@ -207,7 +207,7 @@ const Sidebar = ({
           </ListGroupItem>
         </OverlayTrigger>
       </ListGroup>
-    </>
+    </div>
   );
 };
 
