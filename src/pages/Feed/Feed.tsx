@@ -10,6 +10,8 @@ import {
   selectCurrentUser,
 } from "../../features/user/userSlice";
 
+import { fetchSuggestedUsers } from "../../features/user/userSlice";
+
 import { useAuth0 } from "@auth0/auth0-react";
 
 import Container from "react-bootstrap/Container";
@@ -46,6 +48,7 @@ const Feed = (): JSX.Element => {
 
     if (currentUser?.name && currentUser?.username && currentUser?.picture) {
       setUserOnboarding(false);
+      dispatch(fetchSuggestedUsers());
     } else {
       setUserOnboarding(true);
     }
