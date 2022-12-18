@@ -23,17 +23,17 @@ const AvatarEditor = ({
   const cropImage = () => {
     if (!cropRef.current) return;
 
-    let cropped = cropRef.current.getImage();
+    const cropped = cropRef.current.getImage();
 
     cropped.toBlob(
       (blob: Blob | null) => {
         if (!blob) return;
 
         // convert blob to base64
-        let reader = new FileReader();
+        const reader = new FileReader();
         reader.readAsDataURL(blob);
         reader.onloadend = () => {
-          let base64data = reader.result;
+          const base64data = reader.result;
 
           setPicture(base64data as string);
         };
@@ -48,7 +48,7 @@ const AvatarEditor = ({
       1
     );
 
-    let imageURL = cropped.toDataURL();
+    const imageURL = cropped.toDataURL();
 
     if (cropRef) {
       imageRef.current && imageRef.current.setAttribute("src", imageURL);

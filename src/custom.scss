@@ -20,6 +20,10 @@ $theme-colors: (
   color: $primary !important;
 }
 
+.text-primary-light {
+  color: #1c9bef !important;
+}
+
 .text-search {
   color: #536371 !important;
 }
@@ -72,6 +76,14 @@ $theme-colors: (
 
 .w-35 {
   width: 35%;
+}
+
+.w-16 {
+  width: 4rem;
+}
+
+.h-16 {
+  height: 4rem;
 }
 
 .w-32 {
@@ -154,6 +166,10 @@ $theme-colors: (
   background-color: #eff3f4 !important;
 }
 
+.bg-gray {
+  background-color: #f6f9f9 !important;
+}
+
 // form
 .form-control {
   border-width: 2px !important;
@@ -202,7 +218,7 @@ $theme-colors: (
 }
 
 .logo-hover:hover {
-  background-color: rgba(29, 155, 240, 0.1) !important;
+  background-color: #1d9bf01a !important;
   border-radius: 40px;
 }
 
@@ -210,9 +226,25 @@ $theme-colors: (
   background: #f6f9f9 !important;
 }
 
+.trend-hover:hover {
+  background-color: #eef1f1 !important;
+}
+
 // font-size
 .h7 {
   font-size: 0.95rem !important;
+}
+
+.fs-7 {
+  font-size: 0.95rem !important;
+}
+
+.fs-8 {
+  font-size: 0.85rem !important;
+}
+
+.fs-9 {
+  font-size: 0.8rem !important;
 }
 
 // text area resizing
@@ -227,6 +259,10 @@ $theme-colors: (
 
 .tweet-caption {
   font-size: 1.25rem !important;
+}
+
+.object-cover {
+  object-fit: cover !important;
 }
 
 /* import bootstrap to set changes */

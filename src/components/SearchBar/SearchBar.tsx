@@ -1,9 +1,7 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
 
-type Props = {};
-
-const SearchBar = (props: Props) => {
+const SearchBar = () => {
   return (
     <div className="px-4 py-1 bg-white position-sticky top-0">
       <div className="d-flex align-items-center rounded-pill py-1 px-4 bg-search">

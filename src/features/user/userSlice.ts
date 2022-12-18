@@ -90,19 +90,19 @@ export const updateProfilePicture =
   };
 
 // update user's profile details
-export const updateProfile =
-  (user: IUser): AppThunk =>
-  async (dispatch) => {};
+// export const updateProfile =
+//   (user: IUser): AppThunk =>
+//   async (dispatch) => {};
 
 // add a user to the current user's following list
-export const follow =
-  (user: IUser): AppThunk =>
-  async (dispatch) => {};
+// export const follow =
+//   (user: IUser): AppThunk =>
+//   async (dispatch) => {};
 
 // remove a user from the current user's following list
-export const unfollow =
-  (user: IUser): AppThunk =>
-  async (dispatch) => {};
+// export const unfollow =
+//   (user: IUser): AppThunk =>
+//   async (dispatch) => {};
 
 export const selectCurrentUser = (state: RootState) => state.user.currentUser;
 
