@@ -1,9 +1,19 @@
 import React from "react";
+
+import uniquid from "uniqid";
+
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+
+import { useState } from "react";
 import { useAppSelector } from "app/hooks";
 import { selectCurrentUser } from "features/user/userSlice";
-import Form from "react-bootstrap/Form";
+
+import { TTweet } from "features/tweet/tweetSlice";
+
+import db from "firebase-config/config";
+import { doc } from "firebase/firestore";
 
 type Props = {
   show: boolean;
@@ -18,12 +28,35 @@ const TweetFormModal = ({
     setShowTweetFormModal(false);
   };
 
+  const [tweetCaption, setTweetCaption] = useState<string>("");
   const currentUser = useAppSelector(selectCurrentUser);
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
     const target = e.target as HTMLTextAreaElement;
     target.style.height = "inherit";
     target.style.height = `${target.scrollHeight}px`;
+  }
+
+  function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    setTweetCaption(e.target.value);
+  }
+
+  function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    if (!currentUser) return;
+    console.log(tweetCaption);
+    const authorRef = doc(db, "Users", currentUser.email);
+    const newTweet: TTweet = {
+      id: uniquid(),
+      text: tweetCaption,
+      author: authorRef,
+      media: [],
+      date: new Date(),
+      replies: [],
+      isReply: false,
+      isRetweet: false,
+    };
+    handleClose();
   }
 
   return (
@@ -57,6 +90,7 @@ const TweetFormModal = ({
           style={{ height: "80px" }}
           className="border-0 overflow-hidden resize-none tweet-caption"
           onKeyDown={handleKeyDown}
+          onChange={handleChange}
         />
       </Modal.Body>
 
@@ -103,9 +137,9 @@ const TweetFormModal = ({
         <div>
           <Button
             variant="primary"
-            onClick={handleClose}
+            onClick={handleSubmit}
             className="rounded-pill"
-            disabled
+            disabled={!tweetCaption.length}
           >
             Tweet
           </Button>

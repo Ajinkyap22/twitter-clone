@@ -9,6 +9,7 @@ import { updateUserTweets } from "features/user/userSlice";
 export type TTweet = {
   id: number;
   text: string;
+  // author: TUser;
   media: string[];
   author: DocumentReference<TUser>;
   date: Date;
