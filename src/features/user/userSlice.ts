@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 import React from "react";
 import { getStorage, ref, uploadString } from "firebase/storage";
+import { TTweet } from "features/tweet/tweetSlice";
 
 export type TUser = {
   // from auth0
@@ -27,9 +28,9 @@ export type TUser = {
   followers: TUser[];
   following: TUser[];
   isVerified: boolean;
-  //   tweets: TTweet[];
-  //   likes: TTweet[];
-  //   bookmarks: TTweet[];
+  tweets: TTweet[];
+  likes: TTweet[];
+  bookmarks: TTweet[];
 };
 
 interface TUserState {
@@ -51,6 +52,11 @@ export const userSlice = createSlice({
     },
     setSuggestedUsers: (state, action: PayloadAction<TUser[]>) => {
       state.suggestedUsers = action.payload;
+    },
+    updateUserTweets: (state, action: PayloadAction<TTweet>) => {
+      if (state.currentUser) {
+        state.currentUser.tweets.push(action.payload);
+      }
     },
   },
 });
@@ -135,6 +141,7 @@ export const selectCurrentUser = (state: RootState) => state.user.currentUser;
 export const selectSuggestedUsers = (state: RootState) =>
   state.user.suggestedUsers;
 
-export const { setCurrentUser, setSuggestedUsers } = userSlice.actions;
+export const { setCurrentUser, setSuggestedUsers, updateUserTweets } =
+  userSlice.actions;
 
 export default userSlice.reducer;

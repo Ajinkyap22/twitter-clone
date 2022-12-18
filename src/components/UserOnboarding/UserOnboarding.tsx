@@ -110,6 +110,9 @@ const UserOnboarding = ({ setUserOnboarding }: Props): JSX.Element => {
       followers: [],
       following: [],
       isVerified: false,
+      tweets: [],
+      likes: [],
+      bookmarks: [],
     };
 
     dispatch(createUser(newUser));
