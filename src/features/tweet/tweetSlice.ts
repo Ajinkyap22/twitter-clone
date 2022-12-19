@@ -32,11 +32,12 @@ export const tweetSlice = createSlice({
   initialState,
   reducers: {
     addTweet: (state, action: PayloadAction<TTweet>) => {
-      state.tweets.push(action.payload);
+      state.tweets = [...state.tweets, action.payload];
     },
   },
 });
 
+// create a new tweet
 export const createTweet =
   (tweet: TTweet): AppThunk =>
   async (dispatach) => {
@@ -54,11 +55,11 @@ export const createTweet =
 
     // add tweet ref to user's tweets
     await updateDoc(userRef, {
-      tweets: arrayUnion(tweet),
+      tweets: arrayUnion(tweetRef),
     });
 
     // dispatch action to add tweet to user's tweets
-    dispatach(updateUserTweets(tweet));
+    dispatach(updateUserTweets(tweetRef));
   };
 
 // export const deleteTweet =
