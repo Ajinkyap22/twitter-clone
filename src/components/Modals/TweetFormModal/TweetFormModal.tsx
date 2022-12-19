@@ -6,10 +6,9 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useAppSelector, useAppDispatch } from "app/hooks";
 import { selectCurrentUser } from "features/user/userSlice";
-import { selectTweets } from "features/tweet/tweetSlice";
 
 import { TTweet, createTweet } from "features/tweet/tweetSlice";
 
