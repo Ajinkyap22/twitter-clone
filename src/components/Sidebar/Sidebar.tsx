@@ -33,7 +33,7 @@ const Sidebar = ({
   };
 
   return (
-    <div className="position-fixed h-100vh top-0 left-0 d-flex flex-column align-items-end justify-content-between border-end ps-8">
+    <div className="position-fixed h-100vh top-0 left-0 d-flex flex-column align-items-start justify-content-between border-end ps-8">
       <ListGroup className="d-flex align-items-start pe-6">
         {/* twitter logo */}
         <ListGroupItem className="cursor-pointer border-0 d-flex justify-content-start w-100 p-0 bg-white">
