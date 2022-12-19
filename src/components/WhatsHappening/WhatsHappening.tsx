@@ -142,10 +142,10 @@ const WhatsHappening = () => {
                 <span className="text-muted fs-8">Trending</span>
 
                 {/* trend name */}
-                <p className="fw-bolder m-0 fs-7">Zidane</p>
+                <p className="fw-bolder m-0 fs-7">Siuuuu</p>
 
                 {/* trend count */}
-                <p className="text-muted fs-9 m-0">22K Tweets</p>
+                <p className="text-muted fs-9 m-0">222K Tweets</p>
               </div>
 
               {/* trend actions */}

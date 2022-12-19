@@ -2,42 +2,22 @@ import React from "react";
 
 import uniquid from "uniqid";
 
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useAppSelector, useAppDispatch } from "app/hooks";
 import { selectCurrentUser } from "features/user/userSlice";
-import { selectTweets } from "features/tweet/tweetSlice";
+
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 import { TTweet, createTweet } from "features/tweet/tweetSlice";
 
 import db from "firebase-config/config";
 import { doc } from "firebase/firestore";
 
-type Props = {
-  show: boolean;
-  setShowTweetFormModal: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-const TweetFormModal = ({
-  show,
-  setShowTweetFormModal,
-}: Props): JSX.Element => {
+const AddTweetForm = () => {
   const [tweetCaption, setTweetCaption] = useState<string>("");
   const currentUser = useAppSelector(selectCurrentUser);
-  const tweets = useAppSelector(selectTweets);
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    console.log(currentUser);
-    console.log(tweets);
-  }, [currentUser, tweets]);
-
-  const handleClose = () => {
-    setShowTweetFormModal(false);
-  };
 
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     setTweetCaption(e.target.value);
@@ -46,7 +26,7 @@ const TweetFormModal = ({
     target.style.height = `${target.scrollHeight}px`;
   }
 
-  function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     if (!currentUser) return;
@@ -66,46 +46,36 @@ const TweetFormModal = ({
       isRetweet: false,
     };
 
-    dispatch(createTweet(newTweet));
+    setTweetCaption("");
 
-    handleClose();
+    dispatch(createTweet(newTweet));
   }
 
   return (
-    <Modal show={show} onHide={handleClose} contentClassName="border-radius-5">
-      <Button
-        className="rounded-pill p-1 w-10 align-self-start m-2 bg-white border-0 text-black close-hover"
-        onClick={handleClose}
+    <Form
+      className="p-4 d-flex flex-column border-bottom"
+      onSubmit={handleSubmit}
+    >
+      <Form.Group
+        className="mb-3 d-flex "
+        controlId="exampleForm.ControlTextarea1"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-4 h-4"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M6 18L18 6M6 6l12 12"
-          />
-        </svg>
-      </Button>
-
-      <Modal.Body className="d-flex border-0">
         <img src={currentUser?.picture} className="rounded-pill w-7 h-7" />
 
-        <Form.Control
-          as="textarea"
-          placeholder="What's happening?"
-          style={{ height: "80px" }}
-          className="border-0 overflow-hidden resize-none tweet-caption"
-          onChange={handleChange}
-        />
-      </Modal.Body>
+        <div>
+          <Form.Control
+            className="border-0 overflow-hidden resize-none fs-5"
+            placeholder="What's happening?"
+            as="textarea"
+            value={tweetCaption}
+            onChange={handleChange}
+            cols={30}
+            rows={1}
+          />
+        </div>
+      </Form.Group>
 
-      <Modal.Footer className="d-flex justify-content-between ">
+      <div className="d-flex justify-content-between">
         <div>
           <button className="me-1 cursor-pointer logo-hover p-2 border-0 bg-white">
             <svg
@@ -145,19 +115,18 @@ const TweetFormModal = ({
             </svg>
           </button>
         </div>
-        <div>
-          <Button
-            variant="primary"
-            onClick={handleSubmit}
-            className="rounded-pill"
-            disabled={!tweetCaption.length}
-          >
-            Tweet
-          </Button>
-        </div>
-      </Modal.Footer>
-    </Modal>
+
+        <Button
+          variant="primary"
+          className="rounded-pill"
+          disabled={!tweetCaption.length}
+          type="submit"
+        >
+          Tweet
+        </Button>
+      </div>
+    </Form>
   );
 };
 
-export default TweetFormModal;
+export default AddTweetForm;
