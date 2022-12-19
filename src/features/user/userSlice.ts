@@ -13,7 +13,6 @@ import {
 } from "firebase/firestore";
 import React from "react";
 import { getStorage, ref, uploadString } from "firebase/storage";
-import { TTweet } from "features/tweet/tweetSlice";
 import { DocumentReference } from "firebase/firestore";
 
 export type TUser = {

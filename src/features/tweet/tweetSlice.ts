@@ -3,7 +3,7 @@ import { RootState, AppThunk } from "app/store";
 import { TUser } from "features/user/userSlice";
 import db from "firebase-config/config";
 import { DocumentData, DocumentReference } from "firebase/firestore";
-import { doc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, setDoc, updateDoc, arrayUnion, getDoc } from "firebase/firestore";
 import { updateUserTweets } from "features/user/userSlice";
 
 export type TTweet = {
@@ -34,6 +34,9 @@ export const tweetSlice = createSlice({
     addTweet: (state, action: PayloadAction<TTweet>) => {
       state.tweets = [...state.tweets, action.payload];
     },
+    updateTweets(state, action: PayloadAction<TTweet[]>) {
+      state.tweets = action.payload;
+    },
   },
 });
 
@@ -62,6 +65,43 @@ export const createTweet =
     dispatach(updateUserTweets(tweetRef));
   };
 
+// fetch all tweets from user's following list including user's tweets
+export const fetchTweets =
+  (user: TUser): AppThunk =>
+  async (dispatch) => {
+    let tweets: TTweet[] = [];
+    // get user's following list
+    const followingList = user.following;
+    // get user's tweets
+    const userTweets = user.tweets;
+
+    // fetch all tweets from user's tweets list and add to tweets array
+    for (const tweetRef of userTweets) {
+      const tweetDoc = await getDoc(tweetRef);
+      const tweet = tweetDoc.data() as TTweet;
+      tweets = [...tweets, tweet];
+    }
+
+    // fetch all tweets from user's following list and add to tweets array
+    for (const userRef of followingList) {
+      const userDoc = await getDoc(userRef);
+      const user = userDoc.data();
+      const userTweets = user?.tweets;
+
+      if (!userTweets) return;
+
+      userTweets.forEach(async (tweetRef: DocumentReference<DocumentData>) => {
+        const tweetDoc = await getDoc(tweetRef);
+        const tweet = tweetDoc.data() as TTweet;
+
+        tweets = [...tweets, tweet];
+      });
+    }
+
+    // dispatch action to add tweets to state
+    dispatch(updateTweets(tweets));
+  };
+
 // export const deleteTweet =
 //   (id: number): AppThunk =>
 //   async (dispatach) => {};
@@ -84,6 +124,6 @@ export const createTweet =
 
 export const selectTweets = (state: RootState) => state.tweet.tweets;
 
-export const { addTweet } = tweetSlice.actions;
+export const { addTweet, updateTweets } = tweetSlice.actions;
 
 export default tweetSlice.reducer;
