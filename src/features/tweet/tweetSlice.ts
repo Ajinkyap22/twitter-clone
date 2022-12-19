@@ -2,16 +2,15 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "app/store";
 import { TUser } from "features/user/userSlice";
 import db from "firebase-config/config";
-import { DocumentReference } from "firebase/firestore";
+import { DocumentData, DocumentReference } from "firebase/firestore";
 import { doc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { updateUserTweets } from "features/user/userSlice";
 
 export type TTweet = {
-  id: number;
+  id: string;
   text: string;
-  // author: TUser;
   media: string[];
-  author: DocumentReference<TUser>;
+  author: DocumentReference<DocumentData>;
   date: Date;
   likes: TUser[];
   retweets: TUser[];
@@ -51,7 +50,7 @@ export const createTweet =
     dispatach(addTweet(tweet));
 
     // get author ref from tweet
-    const userRef: DocumentReference<TUser> = tweet.author;
+    const userRef: DocumentReference<DocumentData> = tweet.author;
 
     // add tweet ref to user's tweets
     await updateDoc(userRef, {

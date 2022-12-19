@@ -6,11 +6,12 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-import { useState } from "react";
-import { useAppSelector } from "app/hooks";
+import { useState, useEffect } from "react";
+import { useAppSelector, useAppDispatch } from "app/hooks";
 import { selectCurrentUser } from "features/user/userSlice";
+import { selectTweets } from "features/tweet/tweetSlice";
 
-import { TTweet } from "features/tweet/tweetSlice";
+import { TTweet, createTweet } from "features/tweet/tweetSlice";
 
 import db from "firebase-config/config";
 import { doc } from "firebase/firestore";
@@ -24,12 +25,19 @@ const TweetFormModal = ({
   show,
   setShowTweetFormModal,
 }: Props): JSX.Element => {
+  const [tweetCaption, setTweetCaption] = useState<string>("");
+  const currentUser = useAppSelector(selectCurrentUser);
+  const tweets = useAppSelector(selectTweets);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    console.log(currentUser);
+    console.log(tweets);
+  }, [currentUser, tweets]);
+
   const handleClose = () => {
     setShowTweetFormModal(false);
   };
-
-  const [tweetCaption, setTweetCaption] = useState<string>("");
-  const currentUser = useAppSelector(selectCurrentUser);
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
     const target = e.target as HTMLTextAreaElement;
@@ -43,19 +51,26 @@ const TweetFormModal = ({
 
   function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
+
     if (!currentUser) return;
-    console.log(tweetCaption);
-    const authorRef = doc(db, "Users", currentUser.email);
+
+    const authorRef = doc(db, "users", currentUser.email);
+
     const newTweet: TTweet = {
       id: uniquid(),
       text: tweetCaption,
       author: authorRef,
       media: [],
       date: new Date(),
+      likes: [],
+      retweets: [],
       replies: [],
       isReply: false,
       isRetweet: false,
     };
+
+    dispatch(createTweet(newTweet));
+
     handleClose();
   }
 
