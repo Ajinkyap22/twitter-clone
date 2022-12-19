@@ -6,10 +6,9 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useAppSelector, useAppDispatch } from "app/hooks";
 import { selectCurrentUser } from "features/user/userSlice";
-import { selectTweets } from "features/tweet/tweetSlice";
 
 import { TTweet, createTweet } from "features/tweet/tweetSlice";
 
@@ -27,13 +26,7 @@ const TweetFormModal = ({
 }: Props): JSX.Element => {
   const [tweetCaption, setTweetCaption] = useState<string>("");
   const currentUser = useAppSelector(selectCurrentUser);
-  const tweets = useAppSelector(selectTweets);
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    console.log(currentUser);
-    console.log(tweets);
-  }, [currentUser, tweets]);
 
   const handleClose = () => {
     setShowTweetFormModal(false);

@@ -9,10 +9,11 @@ import {
   getDocs,
   query,
   limit,
+  DocumentData,
 } from "firebase/firestore";
 import React from "react";
 import { getStorage, ref, uploadString } from "firebase/storage";
-import { TTweet } from "features/tweet/tweetSlice";
+import { DocumentReference } from "firebase/firestore";
 
 export type TUser = {
   // from auth0
@@ -25,12 +26,12 @@ export type TUser = {
   bio: string;
   // generate ourselves
   joinDate: Date;
-  followers: TUser[];
-  following: TUser[];
+  followers: DocumentReference<DocumentData>[];
+  following: DocumentReference<DocumentData>[];
   isVerified: boolean;
-  tweets: TTweet[];
-  likes: TTweet[];
-  bookmarks: TTweet[];
+  tweets: DocumentReference<DocumentData>[];
+  likes: DocumentReference<DocumentData>[];
+  bookmarks: DocumentReference<DocumentData>[];
 };
 
 interface TUserState {
@@ -53,9 +54,15 @@ export const userSlice = createSlice({
     setSuggestedUsers: (state, action: PayloadAction<TUser[]>) => {
       state.suggestedUsers = action.payload;
     },
-    updateUserTweets: (state, action: PayloadAction<TTweet>) => {
+    updateUserTweets: (
+      state,
+      action: PayloadAction<DocumentReference<DocumentData>>
+    ) => {
       if (state.currentUser) {
-        state.currentUser.tweets.push(action.payload);
+        state.currentUser.tweets = [
+          ...state.currentUser.tweets,
+          action.payload,
+        ];
       }
     },
   },
