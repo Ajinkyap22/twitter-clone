@@ -33,12 +33,12 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
   });
 
   return (
-    <div className="d-flex justify-content-between align-items-start border-bottom p-3 pb-2">
+    <div className="d-flex justify-content-between align-items-start border-bottom p-3 pb-2 cursor-pointer tweet">
       <img src={picture} alt="profile" className="w-7 h-7 rounded-pill me-3" />
 
       <div className="d-flex flex-column flex-grow-1">
         <div>
-          <span className="me-2 fw-bold">{name}</span>
+          <span className="me-2 fw-bold text-underline">{name}</span>
           <span className="text-muted">@{username}</span>
         </div>
 
@@ -46,7 +46,7 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
 
         <div className="d-flex justify-content-between ">
           {/* reply */}
-          <button className="border-0 bg-white blue-hover p-2 d-flex align-items-center justify-content-center text-muted">
+          <button className="border-0 bg-transparent blue-hover p-2 d-flex align-items-center justify-content-center text-muted">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -64,7 +64,7 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
           </button>
 
           {/* retweet */}
-          <button className="border-0 bg-white retweet p-2 d-flex align-items-center justify-content-center text-muted">
+          <button className="border-0 bg-transparent retweet p-2 d-flex align-items-center justify-content-center text-muted">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -82,7 +82,7 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
           </button>
 
           {/* like */}
-          <button className="border-0 bg-white like p-2 d-flex align-items-center justify-content-center text-muted">
+          <button className="border-0 bg-transparent like p-2 d-flex align-items-center justify-content-center text-muted">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -100,7 +100,7 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
           </button>
 
           {/* share */}
-          <button className="border-0 bg-white blue-hover p-2 d-flex align-items-center justify-content-center text-muted">
+          <button className="border-0 bg-transparent blue-hover p-2 d-flex align-items-center justify-content-center text-muted">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -119,7 +119,7 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
         </div>
       </div>
 
-      <button className="border-0 bg-white blue-hover p-2 d-flex align-items-center justify-content-center">
+      <button className="border-0 bg-transparent blue-hover p-2 d-flex align-items-center justify-content-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

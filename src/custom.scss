@@ -122,6 +122,11 @@ $theme-colors: (
   padding: 0.3rem 0.4rem !important;
 }
 
+.py-1_5 {
+  padding-top: 0.3rem !important;
+  padding-bottom: 0.3rem !important;
+}
+
 .pe-6 {
   padding-right: 4rem !important;
 }
@@ -182,6 +187,10 @@ $theme-colors: (
   background-color: #1d9bf01a !important;
   border-radius: 40px !important;
   color: #1c9bef !important;
+}
+
+.tweet:hover {
+  background-color: #f7f7f7;
 }
 
 // position
