@@ -9,7 +9,7 @@ import {
   fetchCurrentUser,
   selectCurrentUser,
 } from "../../features/user/userSlice";
-import { fetchTweets, selectTweets } from "features/tweet/tweetSlice";
+import { fetchTweets } from "features/tweet/tweetSlice";
 import { fetchSuggestedUsers } from "../../features/user/userSlice";
 
 import { useAuth0 } from "@auth0/auth0-react";
@@ -26,7 +26,6 @@ const Feed = (): JSX.Element => {
   const currentUser = useAppSelector(selectCurrentUser);
   const [loading, setLoading] = useState<boolean>(true);
   const [showTweetFormModal, setShowTweetFormModal] = useState<boolean>(false);
-  const tweets = useAppSelector(selectTweets);
 
   const dispatch = useAppDispatch();
   const { user } = useAuth0();
