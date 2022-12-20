@@ -1,6 +1,6 @@
 import React from "react";
 
-import AddTweetForm from "../AddTweetForm/AddTweetForm";
+import AddTweetForm from "../../AddTweetForm/AddTweetForm";
 
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
