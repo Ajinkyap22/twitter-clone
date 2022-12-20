@@ -24,7 +24,7 @@ module.exports = {
     },
     ecmaVersion: 2018,
     sourceType: "module",
-    project: "./tsconfig.json",
+    // project: "./tsconfig.json",
   },
   rules: {
     "linebreak-style": "off",
@@ -35,4 +35,5 @@ module.exports = {
       },
     ],
   },
+  ignorePatterns: ["node_modules/", "dist/", "build/"],
 };
