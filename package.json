@@ -33,7 +33,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "format": "prettier --write src/**/*.ts{,x}",
-    "lint": "tsc --noEmit && eslint src/**/*.ts{,x}"
+    "lint": "tsc --noEmit && eslint src/**/*.ts{,x}",
+    "lint-staged": "lint-staged --config lint-staged.js",
+    "husky-install": "husky install"
   },
   "browserslist": {
     "production": [
@@ -54,6 +56,9 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-jest": "^27.1.7",
     "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^2.8.1"
+    "husky": "^8.0.2",
+    "lint-staged": "^13.1.0",
+    "prettier": "^2.8.1",
+    "tsc-files": "^1.1.3"
   }
 }
