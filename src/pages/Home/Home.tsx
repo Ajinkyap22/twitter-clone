@@ -1,62 +1,110 @@
+import React, { useState, useEffect } from "react";
+import { Outlet, useLocation } from "react-router-dom";
+
+import Auth from "pages/Auth/Auth";
+import Sidebar from "components/Sidebar/Sidebar";
+import Suggestions from "components/Suggestions/Suggestions";
+import TweetFormModal from "components/Modals/TweetFormModal/TweetFormModal";
+
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import {
+  fetchCurrentUser,
+  selectCurrentUser,
+} from "../../features/user/userSlice";
+import { fetchTweets } from "features/tweet/tweetSlice";
+import { fetchSuggestedUsers } from "../../features/user/userSlice";
+
+import Row from "react-bootstrap/row";
+import Col from "react-bootstrap/col";
+
+import UserOnboarding from "../../components/UserOnboarding/UserOnboarding";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+
 import { useAuth0 } from "@auth0/auth0-react";
-import Button from "react-bootstrap/Button";
+
 import Container from "react-bootstrap/Container";
-import Logo from "assets/images/Logo.svg";
 
 const Home = (): JSX.Element => {
-  const { loginWithRedirect } = useAuth0();
+  const [userOnboarding, setUserOnboarding] = useState<boolean>(true);
+  const currentUser = useAppSelector(selectCurrentUser);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [showTweetFormModal, setShowTweetFormModal] = useState<boolean>(false);
+  const location = useLocation();
 
-  const handleLogin = async () => {
-    try {
-      await loginWithRedirect({
-        returnTo: "/home",
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const dispatch = useAppDispatch();
+  const { user } = useAuth0();
 
-  const handleSignup = async () => {
-    try {
-      await loginWithRedirect({
-        screen_hint: "signup",
-        returnTo: "/home",
-      });
-    } catch (error) {
-      console.log(error);
+  // set document title
+  useEffect(() => {
+    document.title = "Home / Twitter";
+  }, []);
+
+  // fetch current user
+  useEffect(() => {
+    if (!user?.email) return;
+
+    dispatch(fetchCurrentUser(user.email, setLoading));
+  }, [user]);
+
+  // check if user is a new user or not
+  // if new user, show onboarding
+  // if not, fetch tweets and suggested users
+  useEffect(() => {
+    if (!currentUser) {
+      setUserOnboarding(true);
+      return;
     }
-  };
+
+    if (currentUser?.name && currentUser?.username && currentUser?.picture) {
+      setUserOnboarding(false);
+
+      dispatch(fetchSuggestedUsers());
+      dispatch(fetchTweets(currentUser));
+    } else {
+      setUserOnboarding(true);
+    }
+  }, [currentUser]);
 
   return (
-    // container-fluid
-    <Container
-      fluid
-      className="bg-white d-flex justify-content-center align-items-center h-100"
-    >
-      <div className="bg-white w-35 shadow d-flex flex-column justify-content-center align-items-center rounded-3 p-4">
-        {/* twitter logo */}
-        <img src={Logo} alt="" className="w-2" />
+    <Container fluid className="h-100 bg-white m-0">
+      {location.pathname === "/" ? (
+        <Auth />
+      ) : (
+        <>
+          <Row className="w-100 h-100 m-0 align-items-start">
+            <Col md={3}>
+              <Sidebar
+                showTweetFormModal={showTweetFormModal}
+                setShowTweetFormModal={setShowTweetFormModal}
+              />
+            </Col>
 
-        {/* welcome */}
-        <h2 className="text-center mt-4 fw-bold">Sign in to Twitter</h2>
+            <Col md={5} className="border-end p-0">
+              <Outlet />
+            </Col>
 
-        {/* login */}
-        <Button
-          variant="primary my-3 mt-4 w-75 rounded-pill"
-          className="text-white"
-          onClick={handleLogin}
-        >
-          Log in
-        </Button>
+            <Col md={4} className="pe-7 pb-5 position-sticky top-0 affix">
+              <Suggestions />
+            </Col>
+          </Row>
 
-        {/* signup */}
-        <Button
-          variant="outline-primary my-2 w-75 rounded-pill"
-          onClick={handleSignup}
-        >
-          Sign up
-        </Button>
-      </div>
+          {/* user onboaridng */}
+          {userOnboarding && !loading && (
+            <UserOnboarding setUserOnboarding={setUserOnboarding} />
+          )}
+
+          {/* tweet form modal */}
+          {showTweetFormModal && (
+            <TweetFormModal
+              show={showTweetFormModal}
+              setShowTweetFormModal={setShowTweetFormModal}
+            />
+          )}
+        </>
+      )}
+
+      {/* loading */}
+      {loading && <LoadingSpinner />}
     </Container>
   );
 };
