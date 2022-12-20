@@ -1,10 +1,14 @@
 import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import { ErrorBoundary } from "react-error-boundary";
 
 const Home = lazy(() => import("./pages/Home/Home"));
 const Profile = lazy(() => import("./pages/Profile/Profile"));
 const Feed = lazy(() => import("./pages/Feed/Feed"));
+const ErrorFalback = lazy(
+  () => import("./components/ErrorFallback/ErrorFalback")
+);
 
 import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
 
@@ -19,18 +23,20 @@ function App() {
 
   return (
     <div className="App">
-      <Suspense fallback={<LoadingSpinner />}>
-        <Routes>
-          {/* index */}
-          <Route path="/" element={<Home />} />
+      <ErrorBoundary FallbackComponent={ErrorFalback}>
+        <Suspense fallback={<LoadingSpinner />}>
+          <Routes>
+            {/* index */}
+            <Route path="/" element={<Home />} />
 
-          {/* feed */}
-          <Route path="/home" element={<Feed />} />
+            {/* feed */}
+            <Route path="/home" element={<Feed />} />
 
-          {/* profile */}
-          <Route path="/profile" element={<Profile />} />
-        </Routes>
-      </Suspense>
+            {/* profile */}
+            <Route path="/profile" element={<Profile />} />
+          </Routes>
+        </Suspense>
+      </ErrorBoundary>
     </div>
   );
 }
