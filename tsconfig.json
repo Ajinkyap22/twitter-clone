@@ -17,5 +17,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src"]
+  // include src, lint-staged.js and .eslintrc.js
+  "include": ["src", "lint-staged.js", ".eslintrc.js"]
 }
