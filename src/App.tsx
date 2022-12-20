@@ -5,7 +5,7 @@ import { ErrorBoundary } from "react-error-boundary";
 
 const Home = lazy(() => import("./pages/Home/Home"));
 const Profile = lazy(() => import("./pages/Profile/Profile"));
-const Feed = lazy(() => import("./pages/Feed/Feed"));
+const FeedContent = lazy(() => import("./pages/FeedContent/FeedContent"));
 const ErrorFalback = lazy(
   () => import("./components/ErrorFallback/ErrorFalback")
 );
@@ -27,13 +27,13 @@ function App() {
         <Suspense fallback={<LoadingSpinner />}>
           <Routes>
             {/* index */}
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home />}>
+              {/* feed */}
+              <Route path="/home" element={<FeedContent />} />
 
-            {/* feed */}
-            <Route path="/home" element={<Feed />} />
-
-            {/* profile */}
-            <Route path="/profile" element={<Profile />} />
+              {/* profile */}
+              <Route path="/profile" element={<Profile />} />
+            </Route>
           </Routes>
         </Suspense>
       </ErrorBoundary>
