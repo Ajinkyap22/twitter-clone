@@ -171,12 +171,24 @@ $theme-colors: (
   top: 0.25rem;
 }
 
+.top-4 {
+  top: 0.75rem;
+}
+
 .top-0vh {
   top: 0vh;
 }
 
+.start-2 {
+  left: 0.25rem;
+}
+
 .end-2 {
   right: 0.25rem;
+}
+
+.start-3 {
+  left: 0.7rem;
 }
 
 .bottom-minus-10 {
@@ -204,6 +216,10 @@ $theme-colors: (
 
 .bg-gray {
   background-color: #f6f9f9 !important;
+}
+
+.bg-dark-transparent {
+  background-color: #0f1419bf !important;
 }
 
 // form
@@ -300,6 +316,15 @@ $theme-colors: (
 
 .object-cover {
   object-fit: cover !important;
+}
+
+// others
+.blur {
+  backdrop-filter: blur(4px);
+}
+
+.opacity-50 {
+  opacity: 0.5;
 }
 
 /* import bootstrap to set changes */

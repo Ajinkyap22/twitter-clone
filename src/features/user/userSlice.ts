@@ -111,8 +111,6 @@ export const updateProfilePicture =
 
     // upload base64 string to firebase storage
     uploadString(imagesRef, picture.split(",")[1], "base64");
-
-    console.log("uploaded");
   };
 
 // update user's profile details
