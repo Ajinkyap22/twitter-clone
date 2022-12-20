@@ -332,15 +332,22 @@ const AddTweetForm = ({ isModal, closeModal }: Props): JSX.Element => {
                 hidden
               />
             </div>
+            <div>
+              {tweetCaption.length >= 280 && (
+                <span className="text-danger me-3 border border-danger border-2 rounded-4 p-1_5 fs-8">
+                  {280 - tweetCaption.length}
+                </span>
+              )}
 
-            <Button
-              variant="primary"
-              className="rounded-pill py-1_5 px-3"
-              disabled={!tweetCaption.length}
-              type="submit"
-            >
-              Tweet
-            </Button>
+              <Button
+                variant="primary"
+                className="rounded-pill py-1_5 px-3"
+                disabled={!tweetCaption.length || tweetCaption.length > 280}
+                type="submit"
+              >
+                Tweet
+              </Button>
+            </div>
           </div>
         </div>
       </Form.Group>
