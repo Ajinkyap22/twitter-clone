@@ -22,7 +22,7 @@ npm install
 - Type the command :
 
 ```
-npm run devstart
+npm start
 ```
 
 - Note - you will need to generate your own environment variables for Firebase and auth0. You can check the required variables in [.env.sample](https://github.com/Ajinkyap22/twitter-clone/blob/development/.env.sample) file.
