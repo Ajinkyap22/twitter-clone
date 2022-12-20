@@ -166,6 +166,24 @@ $theme-colors: (
   background-color: #eef1f1 !important;
 }
 
+.retweet:hover {
+  background-color: #e3f1ea !important;
+  border-radius: 40px !important;
+  color: #00ba7c !important;
+}
+
+.like:hover {
+  background-color: #f8e3eb !important;
+  border-radius: 40px !important;
+  color: #f9197f !important;
+}
+
+.blue-hover:hover {
+  background-color: #1d9bf01a !important;
+  border-radius: 40px !important;
+  color: #1c9bef !important;
+}
+
 // position
 .top-2 {
   top: 0.25rem;

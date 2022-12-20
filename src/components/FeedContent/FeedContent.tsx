@@ -1,4 +1,5 @@
 import AddTweetForm from "components/Modals/AddTweetForm/AddTweetForm";
+import Tweets from "components/Tweets/Tweets";
 const FeedContent = () => {
   return (
     <>
@@ -14,6 +15,7 @@ const FeedContent = () => {
         </button>
       </div>
       <AddTweetForm isModal={false} />
+      <Tweets />
     </>
   );
 };
