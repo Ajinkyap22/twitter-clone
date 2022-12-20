@@ -14,7 +14,7 @@ const FeedContent = () => {
           </svg>
         </button>
       </div>
-      <AddTweetForm />
+      <AddTweetForm isModal={false} />
       <Tweets />
     </>
   );
