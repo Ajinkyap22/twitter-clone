@@ -15,7 +15,7 @@ import Button from "react-bootstrap/Button";
 import { TTweet, createTweet } from "features/tweet/tweetSlice";
 
 import db from "firebase-config/config";
-import { doc } from "firebase/firestore";
+import { doc, Timestamp } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 type Props = {
@@ -139,7 +139,7 @@ const AddTweetForm = ({ isModal, closeModal }: Props): JSX.Element => {
       text: tweetCaption,
       author: authorRef,
       media,
-      date: new Date(),
+      date: Timestamp.now(),
       likes: [],
       retweets: [],
       replies: [],

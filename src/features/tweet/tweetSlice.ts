@@ -3,7 +3,14 @@ import { RootState, AppThunk } from "app/store";
 import { TUser } from "features/user/userSlice";
 import db from "firebase-config/config";
 import { DocumentData, DocumentReference } from "firebase/firestore";
-import { doc, setDoc, updateDoc, arrayUnion, getDoc } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  updateDoc,
+  arrayUnion,
+  getDoc,
+  Timestamp,
+} from "firebase/firestore";
 import { updateUserTweets } from "features/user/userSlice";
 
 export type TTweet = {
@@ -11,7 +18,7 @@ export type TTweet = {
   text: string;
   media: string[];
   author: DocumentReference<DocumentData>;
-  date: Date;
+  date: Timestamp;
   likes: TUser[];
   retweets: TUser[];
   replies: TTweet[];
@@ -97,6 +104,9 @@ export const fetchTweets =
         tweets = [...tweets, tweet];
       });
     }
+
+    // sort tweets by date
+    tweets.sort((a, b) => b.date.seconds - a.date.seconds);
 
     // dispatch action to add tweets to state
     dispatch(updateTweets(tweets));
