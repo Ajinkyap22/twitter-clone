@@ -42,7 +42,7 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
           <span className="text-muted">@{username}</span>
         </div>
 
-        <p className="mb-0">{tweet.text}</p>
+        <p className="mb-0 tweet-text">{tweet.text}</p>
 
         <div className="d-flex justify-content-between ">
           {/* reply */}
