@@ -6,8 +6,6 @@ import TweetCard from "components/TweetCard/TweetCard";
 const Tweets = () => {
   const tweets = useAppSelector(selectTweets);
 
-  console.log(tweets);
-
   return (
     <div>
       {tweets.map((tweet) => {

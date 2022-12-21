@@ -10,6 +10,7 @@ import {
   query,
   limit,
   DocumentData,
+  where,
 } from "firebase/firestore";
 import React from "react";
 import { getStorage, ref, uploadString } from "firebase/storage";
@@ -63,6 +64,33 @@ export const userSlice = createSlice({
           ...state.currentUser.tweets,
           action.payload,
         ];
+      }
+    },
+    updateUserLikes: (state, action) => {
+      if (state.currentUser) {
+        if (action.payload.isLiked) {
+          state.currentUser.likes = state.currentUser.likes.filter((like) => {
+            return like?.id !== action.payload.id;
+          });
+        } else {
+          state.currentUser.likes = [
+            ...state.currentUser.likes,
+            action.payload.userRef,
+          ];
+        }
+      }
+    },
+    //delete tweet from user's tweets
+    deleteUserTweet: (state, action) => {
+      if (state.currentUser) {
+        //  delete tweet from user's tweets
+        const user = state.currentUser;
+
+        user.tweets = user.tweets.filter(
+          (tweet) => tweet.id !== action.payload.id
+        );
+
+        state.currentUser = user;
       }
     },
   },
@@ -129,24 +157,31 @@ export const updateProfilePicture =
 //   async (dispatch) => {};
 
 // fetch 3 random users from firebase
-export const fetchSuggestedUsers = (): AppThunk => async (dispatch) => {
-  const usersRef = collection(db, "users");
-  const q = query(usersRef, limit(3));
-  const querySnapshot = await getDocs(q);
-  const suggestedUsers: TUser[] = [];
+export const fetchSuggestedUsers =
+  (email = ""): AppThunk =>
+  async (dispatch) => {
+    const usersRef = collection(db, "users");
+    const q = query(usersRef, limit(3), where("email", "!=", email));
+    const querySnapshot = await getDocs(q);
+    const suggestedUsers: TUser[] = [];
 
-  querySnapshot.forEach((doc) => {
-    suggestedUsers.push(doc.data() as TUser);
-  });
+    querySnapshot.forEach((doc) => {
+      suggestedUsers.push(doc.data() as TUser);
+    });
 
-  dispatch(setSuggestedUsers(suggestedUsers));
-};
+    dispatch(setSuggestedUsers(suggestedUsers));
+  };
 
 export const selectCurrentUser = (state: RootState) => state.user.currentUser;
 export const selectSuggestedUsers = (state: RootState) =>
   state.user.suggestedUsers;
 
-export const { setCurrentUser, setSuggestedUsers, updateUserTweets } =
-  userSlice.actions;
+export const {
+  setCurrentUser,
+  setSuggestedUsers,
+  updateUserTweets,
+  updateUserLikes,
+  deleteUserTweet,
+} = userSlice.actions;
 
 export default userSlice.reducer;

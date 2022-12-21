@@ -58,7 +58,7 @@ const Home = (): JSX.Element => {
     if (currentUser?.name && currentUser?.username && currentUser?.picture) {
       setUserOnboarding(false);
 
-      dispatch(fetchSuggestedUsers());
+      dispatch(fetchSuggestedUsers(currentUser.email));
       dispatch(fetchTweets(currentUser));
     } else {
       setUserOnboarding(true);

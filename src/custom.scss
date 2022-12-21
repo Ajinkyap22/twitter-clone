@@ -239,6 +239,10 @@ $theme-colors: (
 }
 
 // background
+.bg-red {
+  color: #f9197f !important;
+}
+
 .bg-overlay {
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(2px);

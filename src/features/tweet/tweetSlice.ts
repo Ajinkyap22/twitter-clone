@@ -2,16 +2,23 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "app/store";
 import { TUser } from "features/user/userSlice";
 import db from "firebase-config/config";
-import { DocumentData, DocumentReference } from "firebase/firestore";
 import {
+  DocumentData,
+  DocumentReference,
   doc,
   setDoc,
   updateDoc,
+  deleteDoc,
   arrayUnion,
   getDoc,
   Timestamp,
+  arrayRemove,
 } from "firebase/firestore";
-import { updateUserTweets } from "features/user/userSlice";
+import {
+  updateUserTweets,
+  updateUserLikes,
+  deleteUserTweet,
+} from "features/user/userSlice";
 
 export type TTweet = {
   id: string;
@@ -19,7 +26,7 @@ export type TTweet = {
   media: string[];
   author: DocumentReference<DocumentData>;
   date: Timestamp;
-  likes: TUser[];
+  likes: DocumentReference<DocumentData>[];
   retweets: TUser[];
   replies: TTweet[];
   isReply: boolean;
@@ -43,6 +50,25 @@ export const tweetSlice = createSlice({
     },
     updateTweets(state, action: PayloadAction<TTweet[]>) {
       state.tweets = action.payload;
+    },
+    updateSingleTweet(state, action) {
+      if (action.payload.isLiked) {
+        state.tweets = state.tweets.filter(
+          (tweet) => tweet.id !== action.payload.id
+        );
+      } else {
+        state.tweets = state.tweets.map((tweet) => {
+          if (tweet.id === action.payload.id) {
+            tweet.likes = [...tweet.likes, action.payload.userRef];
+          }
+          return tweet;
+        });
+      }
+    },
+    deleteTweets(state, action) {
+      state.tweets = state.tweets.filter(
+        (tweet) => tweet?.id !== action.payload
+      );
     },
   },
 });
@@ -112,6 +138,59 @@ export const fetchTweets =
     dispatch(updateTweets(tweets));
   };
 
+//push a reference of the user into the likes array and push tweet references into the likes array of user document
+export const likeTweet =
+  (tweetId: string, userEmail: string, isLiked: boolean): AppThunk =>
+  async (dispatch) => {
+    const tweetRef = doc(db, "tweets", tweetId);
+    const userRef = doc(db, "users", userEmail);
+
+    dispatch(updateSingleTweet({ tweetId, userRef, isLiked }));
+    dispatch(updateUserLikes({ tweetRef, isLiked }));
+
+    await updateDoc(tweetRef, {
+      likes: arrayUnion(userRef),
+    });
+    await updateDoc(userRef, {
+      likes: arrayUnion(tweetRef),
+    });
+  };
+
+//remove a reference of the user from the likes array and remove tweet references from the likes array of user document
+export const unlikeTweet =
+  (tweetId: string, userEmail: string, isLiked: boolean): AppThunk =>
+  async (dispatch) => {
+    const tweetRef = doc(db, "tweets", tweetId);
+    const userRef = doc(db, "users", userEmail);
+
+    dispatch(updateSingleTweet({ tweetId, userRef, isLiked }));
+    dispatch(updateUserLikes({ tweetRef, isLiked }));
+
+    await updateDoc(tweetRef, {
+      likes: arrayRemove(userRef),
+    });
+    await updateDoc(userRef, {
+      likes: arrayRemove(tweetRef),
+    });
+  };
+
+//delete a tweet from the database and remove the tweet reference from the user's tweets array
+export const deleteTweet =
+  (tweetId: string, userEmail: string): AppThunk =>
+  async (dispatch) => {
+    const tweetRef = doc(db, "tweets", tweetId);
+    const userRef = doc(db, "users", userEmail);
+
+    await deleteDoc(tweetRef);
+
+    await updateDoc(userRef, {
+      tweets: arrayRemove(tweetRef),
+    });
+
+    dispatch(deleteUserTweet(tweetRef));
+    dispatch(deleteTweets(tweetId));
+  };
+
 // export const deleteTweet =
 //   (id: number): AppThunk =>
 //   async (dispatach) => {};
@@ -134,6 +213,7 @@ export const fetchTweets =
 
 export const selectTweets = (state: RootState) => state.tweet.tweets;
 
-export const { addTweet, updateTweets } = tweetSlice.actions;
+export const { addTweet, updateTweets, updateSingleTweet, deleteTweets } =
+  tweetSlice.actions;
 
 export default tweetSlice.reducer;
