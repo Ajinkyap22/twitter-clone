@@ -65,6 +65,11 @@ export const userSlice = createSlice({
         ];
       }
     },
+    updateUserLikes: (state, action) => {
+      if (state.currentUser) {
+        state.currentUser.likes = [...state.currentUser.likes, action.payload];
+      }
+    },
   },
 });
 
@@ -146,7 +151,11 @@ export const selectCurrentUser = (state: RootState) => state.user.currentUser;
 export const selectSuggestedUsers = (state: RootState) =>
   state.user.suggestedUsers;
 
-export const { setCurrentUser, setSuggestedUsers, updateUserTweets } =
-  userSlice.actions;
+export const {
+  setCurrentUser,
+  setSuggestedUsers,
+  updateUserTweets,
+  updateUserLikes,
+} = userSlice.actions;
 
 export default userSlice.reducer;

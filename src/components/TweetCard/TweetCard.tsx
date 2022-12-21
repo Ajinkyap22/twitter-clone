@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { TTweet } from "features/tweet/tweetSlice";
+import { likeTweet, TTweet } from "features/tweet/tweetSlice";
+import { selectCurrentUser, TUser } from "features/user/userSlice";
+import { useAppSelector, useAppDispatch } from "app/hooks";
 import { getDoc } from "firebase/firestore";
-import { TUser } from "features/user/userSlice";
 
 type TweetCardProps = {
   tweet: TTweet;
@@ -11,6 +12,9 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
   const [name, setName] = useState<string>();
   const [picture, setPicture] = useState<string>();
   const [username, setUsername] = useState<string>();
+
+  const currentUser = useAppSelector(selectCurrentUser);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const fetchAuthor = async () => {
@@ -32,6 +36,11 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
     fetchAuthor();
   });
 
+  const handleTweetLike = () => {
+    if (currentUser) {
+      dispatch(likeTweet(tweet.id, currentUser.email));
+    }
+  };
   return (
     <div className="d-flex justify-content-between align-items-start border-bottom p-3 pb-2 cursor-pointer tweet">
       <img src={picture} alt="profile" className="w-7 h-7 rounded-pill me-3" />
@@ -82,7 +91,10 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
           </button>
 
           {/* like */}
-          <button className="border-0 bg-transparent like p-2 d-flex align-items-center justify-content-center text-muted">
+          <button
+            className="border-0 bg-transparent like p-2 d-flex align-items-center justify-content-center text-muted"
+            onClick={handleTweetLike}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
