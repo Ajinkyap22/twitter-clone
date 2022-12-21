@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { likeTweet, TTweet } from "features/tweet/tweetSlice";
+import { likeTweet, unlikeTweet, TTweet } from "features/tweet/tweetSlice";
 import { selectCurrentUser, TUser } from "features/user/userSlice";
 import { useAppSelector, useAppDispatch } from "app/hooks";
-import { getDoc } from "firebase/firestore";
+import { getDoc, doc, DocumentReference, refEqual } from "firebase/firestore";
+import db from "firebase-config/config";
 
 type TweetCardProps = {
   tweet: TTweet;
@@ -12,10 +13,13 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
   const [name, setName] = useState<string>();
   const [picture, setPicture] = useState<string>();
   const [username, setUsername] = useState<string>();
+  const [likes, setLikes] = useState<number>(0);
+  const [isLiked, setIsLiked] = useState<boolean>(false);
 
   const currentUser = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
   useEffect(() => {
+    // fetch author
     const fetchAuthor = async () => {
       //Get Author ref from tweet
       const authRef = tweet.author;
@@ -30,16 +34,42 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
       setName(author.name);
       setPicture(author.picture);
       setUsername(author.username);
+      setLikes(tweet.likes.length);
     };
 
     fetchAuthor();
-  });
+
+    // check if the current user liked the tweet
+    if (currentUser) {
+      const userRef: DocumentReference = doc(db, "users", currentUser.email);
+
+      const isUserInLikes = tweet.likes.some((like) => {
+        const likeRef: DocumentReference = like;
+        return refEqual(likeRef, userRef);
+      });
+
+      if (isUserInLikes) {
+        setIsLiked(true);
+      } else {
+        setIsLiked(false);
+      }
+    }
+  }, [tweet]);
+
+  useEffect(() => {
+    console.log(isLiked);
+  }, [isLiked]);
 
   const handleTweetLike = () => {
     if (currentUser) {
-      dispatch(likeTweet(tweet.id, currentUser.email));
+      if (isLiked) {
+        dispatch(unlikeTweet(tweet.id, currentUser.email, isLiked));
+      } else {
+        dispatch(likeTweet(tweet.id, currentUser.email, isLiked));
+      }
     }
   };
+
   return (
     <div className="d-flex justify-content-between align-items-start border-bottom p-3 pb-0 cursor-pointer tweet">
       <img src={picture} alt="profile" className="w-7 h-7 rounded-pill me-3" />
@@ -109,25 +139,36 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
           </button>
 
           {/* like */}
-          <button
-            className="border-0 bg-transparent like p-2 d-flex align-items-center justify-content-center text-muted"
-            onClick={handleTweetLike}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-3 h-3"
+          <div className="d-flex ">
+            <button
+              className={`border-0 bg-transparent like p-2 d-flex align-items-center justify-content-center text-muted ${
+                isLiked ? "liked" : ""
+              }`}
+              onClick={handleTweetLike}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
-              />
-            </svg>
-          </button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill={isLiked ? "red" : "none"}
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke={isLiked ? "#f9197f" : "currentColor"}
+                className="w-3 h-3"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                />
+              </svg>
+            </button>
+            {tweet.likes.length > 0 && (
+              <span
+                className={`ms-1 align-self-center ${isLiked ? "bg-red" : ""}`}
+              >
+                {likes}
+              </span>
+            )}
+          </div>
 
           {/* share */}
           <button className="border-0 bg-transparent blue-hover p-2 d-flex align-items-center justify-content-center text-muted">

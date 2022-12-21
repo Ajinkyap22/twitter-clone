@@ -11,6 +11,7 @@ import {
   arrayUnion,
   getDoc,
   Timestamp,
+  arrayRemove,
 } from "firebase/firestore";
 import { updateUserTweets, updateUserLikes } from "features/user/userSlice";
 
@@ -46,12 +47,18 @@ export const tweetSlice = createSlice({
       state.tweets = action.payload;
     },
     updateSingleTweet(state, action) {
-      state.tweets = state.tweets.map((tweet) => {
-        if (tweet.id === action.payload.id) {
-          tweet.likes = [...tweet.likes, action.payload.userRef];
-        }
-        return tweet;
-      });
+      if (action.payload.isLiked) {
+        state.tweets = state.tweets.filter(
+          (tweet) => tweet.id !== action.payload.id
+        );
+      } else {
+        state.tweets = state.tweets.map((tweet) => {
+          if (tweet.id === action.payload.id) {
+            tweet.likes = [...tweet.likes, action.payload.userRef];
+          }
+          return tweet;
+        });
+      }
     },
   },
 });
@@ -123,10 +130,13 @@ export const fetchTweets =
 
 //push a reference of the user into the likes array and push tweet references into the likes array of user document
 export const likeTweet =
-  (tweetId: string, userEmail: string): AppThunk =>
+  (tweetId: string, userEmail: string, isLiked: boolean): AppThunk =>
   async (dispatch) => {
     const tweetRef = doc(db, "tweets", tweetId);
     const userRef = doc(db, "users", userEmail);
+
+    dispatch(updateSingleTweet({ tweetId, userRef, isLiked }));
+    dispatch(updateUserLikes({ tweetRef, isLiked }));
 
     await updateDoc(tweetRef, {
       likes: arrayUnion(userRef),
@@ -134,8 +144,24 @@ export const likeTweet =
     await updateDoc(userRef, {
       likes: arrayUnion(tweetRef),
     });
-    dispatch(updateSingleTweet({ tweetId, userRef }));
-    dispatch(updateUserLikes(tweetRef));
+  };
+
+//remove a reference of the user from the likes array and remove tweet references from the likes array of user document
+export const unlikeTweet =
+  (tweetId: string, userEmail: string, isLiked: boolean): AppThunk =>
+  async (dispatch) => {
+    const tweetRef = doc(db, "tweets", tweetId);
+    const userRef = doc(db, "users", userEmail);
+
+    dispatch(updateSingleTweet({ tweetId, userRef, isLiked }));
+    dispatch(updateUserLikes({ tweetRef, isLiked }));
+
+    await updateDoc(tweetRef, {
+      likes: arrayRemove(userRef),
+    });
+    await updateDoc(userRef, {
+      likes: arrayRemove(tweetRef),
+    });
   };
 
 // export const deleteTweet =
