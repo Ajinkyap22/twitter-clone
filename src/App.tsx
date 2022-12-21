@@ -32,7 +32,7 @@ function App() {
               <Route path="/home" element={<FeedContent />} />
 
               {/* profile */}
-              <Route path="/:username" element={<Profile />} />
+              <Route path="/profile" element={<Profile />} />
             </Route>
           </Routes>
         </Suspense>
