@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
+import moment from "moment";
 import {
   likeTweet,
   unlikeTweet,
@@ -158,6 +159,10 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
         <div>
           <span className="me-2 fw-bold text-underline">{name}</span>
           <span className="text-muted">@{username}</span>
+          <span className="p-1 text-muted">.</span>
+          <span className="text-muted">
+            {moment(tweet.date.toDate()).fromNow()}
+          </span>
         </div>
 
         <p className="mb-2 tweet-text">{tweet.text}</p>
