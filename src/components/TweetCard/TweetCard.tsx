@@ -12,6 +12,8 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
   const [picture, setPicture] = useState<string>();
   const [username, setUsername] = useState<string>();
 
+  console.log(tweet.media[0]);
+
   useEffect(() => {
     const fetchAuthor = async () => {
       //Get Author ref from tweet
@@ -33,7 +35,7 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
   });
 
   return (
-    <div className="d-flex justify-content-between align-items-start border-bottom p-3 pb-2 cursor-pointer tweet">
+    <div className="d-flex justify-content-between align-items-start border-bottom p-3 pb-0 cursor-pointer tweet">
       <img src={picture} alt="profile" className="w-7 h-7 rounded-pill me-3" />
 
       <div className="d-flex flex-column flex-grow-1">
@@ -42,9 +44,28 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
           <span className="text-muted">@{username}</span>
         </div>
 
-        <p className="mb-0 tweet-text">{tweet.text}</p>
+        <p className="mb-2 tweet-text">{tweet.text}</p>
 
-        <div className="d-flex justify-content-between ">
+        {/* Display images and videos from media array */}
+        {tweet.media.length > 0 &&
+          (tweet.media[0].includes("images") ? (
+            <img
+              src={tweet.media[0]}
+              alt="tweet-image"
+              className="rounded-4 w-100 border border-1"
+            />
+          ) : (
+            <video
+              src={tweet.media[0]}
+              className="w-100 h-100 rounded-3"
+              controls
+              muted
+              loop
+              autoPlay
+            />
+          ))}
+
+        <div className="d-flex justify-content-between p-1">
           {/* reply */}
           <button className="border-0 bg-transparent blue-hover p-2 d-flex align-items-center justify-content-center text-muted">
             <svg
