@@ -80,6 +80,19 @@ export const userSlice = createSlice({
         }
       }
     },
+    //delete tweet from user's tweets
+    deleteUserTweet: (state, action) => {
+      if (state.currentUser) {
+        //  delete tweet from user's tweets
+        const user = state.currentUser;
+
+        user.tweets = user.tweets.filter(
+          (tweet) => tweet.id !== action.payload.id
+        );
+
+        state.currentUser = user;
+      }
+    },
   },
 });
 
@@ -168,6 +181,7 @@ export const {
   setSuggestedUsers,
   updateUserTweets,
   updateUserLikes,
+  deleteUserTweet,
 } = userSlice.actions;
 
 export default userSlice.reducer;

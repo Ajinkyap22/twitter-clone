@@ -8,12 +8,17 @@ import {
   doc,
   setDoc,
   updateDoc,
+  deleteDoc,
   arrayUnion,
   getDoc,
   Timestamp,
   arrayRemove,
 } from "firebase/firestore";
-import { updateUserTweets, updateUserLikes } from "features/user/userSlice";
+import {
+  updateUserTweets,
+  updateUserLikes,
+  deleteUserTweet,
+} from "features/user/userSlice";
 
 export type TTweet = {
   id: string;
@@ -59,6 +64,11 @@ export const tweetSlice = createSlice({
           return tweet;
         });
       }
+    },
+    deleteTweets(state, action) {
+      state.tweets = state.tweets.filter(
+        (tweet) => tweet?.id !== action.payload
+      );
     },
   },
 });
@@ -164,6 +174,23 @@ export const unlikeTweet =
     });
   };
 
+//delete a tweet from the database and remove the tweet reference from the user's tweets array
+export const deleteTweet =
+  (tweetId: string, userEmail: string): AppThunk =>
+  async (dispatch) => {
+    const tweetRef = doc(db, "tweets", tweetId);
+    const userRef = doc(db, "users", userEmail);
+
+    await deleteDoc(tweetRef);
+
+    await updateDoc(userRef, {
+      tweets: arrayRemove(tweetRef),
+    });
+
+    dispatch(deleteUserTweet(tweetRef));
+    dispatch(deleteTweets(tweetId));
+  };
+
 // export const deleteTweet =
 //   (id: number): AppThunk =>
 //   async (dispatach) => {};
@@ -186,6 +213,7 @@ export const unlikeTweet =
 
 export const selectTweets = (state: RootState) => state.tweet.tweets;
 
-export const { addTweet, updateTweets, updateSingleTweet } = tweetSlice.actions;
+export const { addTweet, updateTweets, updateSingleTweet, deleteTweets } =
+  tweetSlice.actions;
 
 export default tweetSlice.reducer;

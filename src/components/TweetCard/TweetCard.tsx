@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
-import { likeTweet, unlikeTweet, TTweet } from "features/tweet/tweetSlice";
+import {
+  likeTweet,
+  unlikeTweet,
+  TTweet,
+  deleteTweet,
+} from "features/tweet/tweetSlice";
 import { selectCurrentUser, TUser } from "features/user/userSlice";
 import { useAppSelector, useAppDispatch } from "app/hooks";
 import { getDoc, doc, DocumentReference, refEqual } from "firebase/firestore";
@@ -59,10 +64,6 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
     }
   }, [tweet]);
 
-  useEffect(() => {
-    console.log(isLiked);
-  }, [isLiked]);
-
   const handleTweetLike = () => {
     if (currentUser) {
       if (isLiked) {
@@ -72,12 +73,20 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
       }
     }
   };
+
+  const handleDeleteTweet = () => {
+    if (currentUser) {
+      dispatch(deleteTweet(tweet.id, currentUser.email));
+    }
+  };
+
   const popover = (
     <Popover id="popover-basic">
       <Popover.Body className="p-0 d-flex flex-column">
         <Button
           variant="light"
           className="fw-bold fs-7 p-2 py-2_5  text-break background-transparent w-100 text-start py-2 px-3 bg-white border-0 user-hover"
+          onClick={handleDeleteTweet}
         >
           {" "}
           <svg
