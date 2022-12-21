@@ -39,6 +39,7 @@ const UserInfo = ({ user }: Props) => {
             <svg
               viewBox="0 0 24 24"
               aria-hidden="true"
+              fill="#536371"
               className="w-3 h-3 me-1"
             >
               <g>

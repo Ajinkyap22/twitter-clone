@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { TTweet } from "features/tweet/tweetSlice";
 
 import LoadingSpinner from "components/LoadingSpinner/LoadingSpinner";
 import ProfileHeader from "components/ProfileHeader/ProfileHeader";
 import UserInfo from "components/UserInfo/UserInfo";
 import UserAvatar from "components/UserAvatar/UserAvatar";
 import ProfileNavigation from "components/ProfileNavigation/ProfileNavigation";
+import Tweets from "components/Tweets/Tweets";
 
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 import db from "../../firebase-config/config";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDoc, getDocs, query, where } from "firebase/firestore";
 
 import { TUser } from "../../features/user/userSlice";
 
@@ -18,6 +20,7 @@ const Profile = () => {
   const location = useLocation();
   const [user, setUser] = useState<TUser | null>(null);
   const [activeTab, setActiveTab] = useState<string>("tweets");
+  const [tweets, setTweets] = useState<TTweet[]>([]);
 
   useEffect(() => {
     const { pathname } = location;
@@ -44,6 +47,30 @@ const Profile = () => {
     fetchUserProfile(pathname.slice(1));
   }, [location.pathname]);
 
+  useEffect(() => {
+    const fetchTweets = async () => {
+      // get user tweets
+      const userTweets = user?.tweets;
+
+      if (userTweets && userTweets.length) {
+        const tweetsArr = [];
+
+        // get tweet data from tweet reference
+        for (const tweetRef of userTweets) {
+          const tweetDOc = await getDoc(tweetRef);
+          const tweet = tweetDOc.data() as TTweet;
+
+          tweetsArr.push(tweet);
+        }
+
+        // set tweets
+        setTweets(tweetsArr);
+      }
+    };
+
+    fetchTweets();
+  }, [user?.tweets]);
+
   const handleClick = (tab: string) => {
     setActiveTab(tab);
   };
@@ -51,7 +78,7 @@ const Profile = () => {
   return (
     <>
       {user && (
-        <>
+        <div className="pb-5">
           <ProfileHeader name={user.name} tweets={user.tweets.length} />
 
           <div className="bg-white">
@@ -72,7 +99,10 @@ const Profile = () => {
               />
             </div>
           </div>
-        </>
+
+          {/* tweets */}
+          <Tweets tweets={tweets} />
+        </div>
       )}
     </>
   );

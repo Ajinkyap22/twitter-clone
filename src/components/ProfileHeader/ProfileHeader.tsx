@@ -32,7 +32,9 @@ const ProfileHeader = ({ name, tweets }: Props) => {
             {name.length >= 52 ? name.slice(0, 49) + "..." : name}
           </h5>
 
-          <span className="text-muted fs-9">{tweets} Tweets</span>
+          <span className="text-muted fs-9">
+            {tweets} {tweets === 1 ? "Tweet" : "Tweets"}
+          </span>
         </div>
       </div>
     </div>

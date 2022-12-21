@@ -1,11 +1,12 @@
 import React from "react";
-import { useAppSelector } from "app/hooks";
-import { selectTweets } from "features/tweet/tweetSlice";
 import TweetCard from "components/TweetCard/TweetCard";
+import { TTweet } from "features/tweet/tweetSlice";
 
-const Tweets = () => {
-  const tweets = useAppSelector(selectTweets);
+type Props = {
+  tweets: TTweet[];
+};
 
+const Tweets = ({ tweets }: Props) => {
   return (
     <div>
       {tweets.map((tweet) => {

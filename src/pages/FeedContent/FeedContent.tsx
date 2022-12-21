@@ -1,7 +1,11 @@
+import { useAppSelector } from "app/hooks";
+import { selectTweets } from "features/tweet/tweetSlice";
 import AddTweetForm from "components/AddTweetForm/AddTweetForm";
 import Tweets from "components/Tweets/Tweets";
 
 const FeedContent = () => {
+  const tweets = useAppSelector(selectTweets);
+
   return (
     <>
       <div className="position-sticky top-0 p-3 py-2 pe-1 bg-white-transparent d-flex justify-content-between align-items-center z-10">
@@ -15,8 +19,12 @@ const FeedContent = () => {
           </svg>
         </button>
       </div>
+
+      {/* tweet form */}
       <AddTweetForm isModal={false} />
-      <Tweets />
+
+      {/* tweets feed */}
+      <Tweets tweets={tweets} />
     </>
   );
 };
