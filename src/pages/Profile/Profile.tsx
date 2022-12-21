@@ -1,38 +1,53 @@
-import { useEffect } from "react";
-import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
-import Button from "react-bootstrap/Button";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+// import { useAppDispatch } from "app/hooks";
+
+import LoadingSpinner from "components/LoadingSpinner/LoadingSpinner";
+import ProfileHeader from "components/ProfileHeader/ProfileHeader";
+
+import { withAuthenticationRequired } from "@auth0/auth0-react";
+
+import db from "../../firebase-config/config";
+import { collection, getDocs, query, where } from "firebase/firestore";
+
+import { TUser } from "../../features/user/userSlice";
 
 const Profile = () => {
-  const { logout, isAuthenticated, user } = useAuth0();
+  const location = useLocation();
+  const [user, setUser] = useState<TUser | null>(null);
 
   useEffect(() => {
-    if (!isAuthenticated) return;
-  }, [isAuthenticated]);
+    const { pathname } = location;
 
-  const handleLogout = async () => {
-    try {
-      await logout({
-        returnTo: window.location.origin,
+    const fetchUserProfile = async (username: string) => {
+      // get users collection reference
+      const usersRef = collection(db, "users");
+
+      // query users collection for user with matching username
+      const q = query(usersRef, where("username", "==", username));
+
+      // get query snapshot
+      const querySnapshot = await getDocs(q);
+
+      let user: TUser | null = null;
+
+      querySnapshot.forEach((doc) => {
+        user = doc.data() as TUser;
       });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
+      setUser(user);
+    };
+
+    fetchUserProfile(pathname.slice(1));
+  }, [location.pathname]);
 
   return (
-    <div>
-      {isAuthenticated && (
-        <div>
-          <img src={user?.picture} alt={user?.name} />
-          <h2>{user?.name}</h2>
-          <p>{user?.email}</p>
-          <Button onClick={handleLogout}>Logout</Button>
-        </div>
-      )}
-    </div>
+    <>
+      {user && <ProfileHeader name={user.name} tweets={user.tweets.length} />}
+    </>
   );
 };
 
 export default withAuthenticationRequired(Profile, {
-  onRedirecting: () => <div>Loading...</div>,
+  onRedirecting: () => <LoadingSpinner />,
 });

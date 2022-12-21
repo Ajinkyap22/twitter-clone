@@ -66,46 +66,51 @@ const Home = (): JSX.Element => {
   }, [currentUser]);
 
   return (
-    <Container fluid className="h-100 bg-white m-0">
+    <>
       {location.pathname === "/" ? (
         <Auth />
       ) : (
         <>
-          <Row className="w-100 h-100 m-0 align-items-start">
-            <Col md={3}>
-              <Sidebar
-                showTweetFormModal={showTweetFormModal}
+          <Container fluid className="bg-white m-0">
+            <Row className="w-100 m-0 align-items-start">
+              <Col md={1} xl={3} className="h-100 sticky-top">
+                <Sidebar
+                  showTweetFormModal={showTweetFormModal}
+                  setShowTweetFormModal={setShowTweetFormModal}
+                />
+              </Col>
+
+              <Col md={7} xl={5} className="border-end p-0">
+                <Outlet />
+              </Col>
+
+              <Col
+                md={4}
+                className="pe-sm-0 pe-xl-5 pb-5 position-sticky top-minus-25"
+              >
+                <Suggestions />
+              </Col>
+            </Row>
+
+            {/* user onboaridng */}
+            {userOnboarding && !loading && (
+              <UserOnboarding setUserOnboarding={setUserOnboarding} />
+            )}
+
+            {/* tweet form modal */}
+            {showTweetFormModal && (
+              <TweetFormModal
+                show={showTweetFormModal}
                 setShowTweetFormModal={setShowTweetFormModal}
               />
-            </Col>
-
-            <Col md={5} className="border-end p-0">
-              <Outlet />
-            </Col>
-
-            <Col md={4} className="pe-7 pb-5 position-sticky top-0 affix">
-              <Suggestions />
-            </Col>
-          </Row>
-
-          {/* user onboaridng */}
-          {userOnboarding && !loading && (
-            <UserOnboarding setUserOnboarding={setUserOnboarding} />
-          )}
-
-          {/* tweet form modal */}
-          {showTweetFormModal && (
-            <TweetFormModal
-              show={showTweetFormModal}
-              setShowTweetFormModal={setShowTweetFormModal}
-            />
-          )}
+            )}
+          </Container>
         </>
       )}
 
       {/* loading */}
       {loading && <LoadingSpinner />}
-    </Container>
+    </>
   );
 };
 

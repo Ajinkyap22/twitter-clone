@@ -148,6 +148,18 @@ $theme-colors: (
   padding-bottom: 0.7rem !important;
 }
 
+// responsive xl
+@media (min-width: 1200px) {
+  .pe-xl-6 {
+    padding-right: 4rem !important;
+  }
+}
+
+// margin
+.me-4_5 {
+  margin-right: 1.9rem !important;
+}
+
 // buttons
 .btn-primary {
   color: #fff !important;
@@ -206,6 +218,10 @@ $theme-colors: (
   top: 0vh;
 }
 
+.top-minus-25 {
+  top: -25%;
+}
+
 .start-2 {
   left: 0.25rem;
 }
@@ -229,7 +245,7 @@ $theme-colors: (
 }
 
 .bg-blue {
-  background-color: #00acee !important;
+  background-color: #1d9bf0 !important;
 }
 
 .bg-white-transparent {
@@ -347,8 +363,14 @@ $theme-colors: (
   font-size: 1.25rem !important;
 }
 
+// object-fit/position
+
 .object-cover {
   object-fit: cover !important;
+}
+
+.object-center {
+  object-position: center !important;
 }
 
 // others

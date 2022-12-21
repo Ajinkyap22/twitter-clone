@@ -6,7 +6,7 @@ import SuggestedUser from "components/SuggestedUser/SuggestedUser";
 const WhoToFollow = () => {
   const suggestedUsers = useAppSelector(selectSuggestedUsers);
   return (
-    <div className="px-4 ">
+    <div className="px-sm-2 px-xl-4">
       <div className="d-flex flex-column bg-gray pt-1 rounded-4">
         <h5 className="fw-bold ps-3 pt-2">Who to follow</h5>
         {suggestedUsers.map((user) => {

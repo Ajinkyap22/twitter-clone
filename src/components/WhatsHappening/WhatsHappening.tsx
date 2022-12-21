@@ -5,7 +5,7 @@ import TrendPic from "../../assets/images/trend-pic.jpeg";
 
 const WhatsHappening = () => {
   return (
-    <div className="px-4 py-2_5 mb-1">
+    <div className="px-sm-2 px-xl-4 py-2_5 mb-1">
       <div className="d-flex flex-column rounded-4 py-1 bg-gray">
         {/* title */}
         <h5 className="fw-bolder m-0 py-2 px-3">What's happening</h5>
