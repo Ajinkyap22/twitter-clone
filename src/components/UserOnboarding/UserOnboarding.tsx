@@ -11,6 +11,7 @@ import {
 } from "../../features/user/userSlice";
 import { useAppDispatch } from "../../app/hooks";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { Timestamp } from "firebase/firestore";
 
 type Props = {
   setUserOnboarding: React.Dispatch<React.SetStateAction<boolean>>;
@@ -106,7 +107,7 @@ const UserOnboarding = ({ setUserOnboarding }: Props): JSX.Element => {
       username,
       location,
       bio,
-      joinDate: new Date(),
+      joinDate: Timestamp.now(),
       followers: [],
       following: [],
       isVerified: false,

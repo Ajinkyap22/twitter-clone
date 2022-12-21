@@ -10,6 +10,7 @@ import {
   query,
   limit,
   DocumentData,
+  Timestamp,
 } from "firebase/firestore";
 import React from "react";
 import { getStorage, ref, uploadString } from "firebase/storage";
@@ -25,7 +26,7 @@ export type TUser = {
   location: string;
   bio: string;
   // generate ourselves
-  joinDate: Date;
+  joinDate: Timestamp;
   followers: DocumentReference<DocumentData>[];
   following: DocumentReference<DocumentData>[];
   isVerified: boolean;

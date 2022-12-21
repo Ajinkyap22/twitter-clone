@@ -113,6 +113,14 @@ $theme-colors: (
   height: 8rem;
 }
 
+.w-34 {
+  width: 8.5rem;
+}
+
+.h-34 {
+  height: 8.5rem;
+}
+
 .h-100vh {
   height: 100vh;
 }
@@ -148,6 +156,10 @@ $theme-colors: (
   padding-bottom: 0.7rem !important;
 }
 
+.p-10 {
+  padding: 6.5rem !important;
+}
+
 // responsive xl
 @media (min-width: 1200px) {
   .pe-xl-6 {
@@ -158,6 +170,10 @@ $theme-colors: (
 // margin
 .me-4_5 {
   margin-right: 1.9rem !important;
+}
+
+.-mt-16 {
+  margin-top: -4rem !important;
 }
 
 // buttons
@@ -176,6 +192,10 @@ $theme-colors: (
 .hover-gray:hover {
   background-color: #e7e7e8 !important;
   border-radius: 40px !important;
+}
+
+.hover-gray-square:hover {
+  background-color: #e7e7e8 !important;
 }
 
 //hover
@@ -265,6 +285,10 @@ $theme-colors: (
   background-color: #0f1419bf !important;
 }
 
+.bg-coverPic {
+  background-color: #cfd9dd !important;
+}
+
 // form
 .form-control {
   border-width: 2px !important;
@@ -327,12 +351,20 @@ $theme-colors: (
 }
 
 // font-size
+.h-4_5 {
+  font-size: 1.25rem !important;
+}
+
 .h7 {
   font-size: 0.95rem !important;
 }
 
 .fs-7 {
   font-size: 0.95rem !important;
+}
+
+.fs-7_5 {
+  font-size: 0.9rem !important;
 }
 
 .fs-8 {
@@ -354,13 +386,21 @@ $theme-colors: (
   resize: none;
 }
 
-// border radius
+// border
 .border-radius-5 {
   border-radius: 1rem !important;
 }
 
 .tweet-caption {
   font-size: 1.25rem !important;
+}
+
+.border-avatar {
+  border: 4px solid white !important;
+}
+
+.border-active {
+  border-bottom: 4px solid #1d9bf0 !important;
 }
 
 // object-fit/position
@@ -380,6 +420,10 @@ $theme-colors: (
 
 .opacity-50 {
   opacity: 0.5;
+}
+
+.fw-medium {
+  font-weight: 500 !important;
 }
 
 /* import bootstrap to set changes */
