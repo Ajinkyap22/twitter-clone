@@ -73,7 +73,7 @@ const Home = (): JSX.Element => {
         <>
           <Container fluid className="bg-white m-0">
             <Row className="w-100 m-0 align-items-start">
-              <Col md={1} xl={3} className="h-100 sticky-top">
+              <Col md={1} xl={3} className="h-100 sticky-top pe-0">
                 <Sidebar
                   showTweetFormModal={showTweetFormModal}
                   setShowTweetFormModal={setShowTweetFormModal}
