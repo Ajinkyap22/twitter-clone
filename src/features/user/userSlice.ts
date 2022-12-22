@@ -12,6 +12,7 @@ import {
   DocumentData,
   where,
   Timestamp,
+  refEqual,
 } from "firebase/firestore";
 import React from "react";
 import { getStorage, ref, uploadString } from "firebase/storage";
@@ -21,8 +22,6 @@ import {
   arrayRemove,
   updateDoc,
 } from "firebase/firestore";
-
-import { TTweet } from "features/tweet/tweetSlice";
 
 export type TUser = {
   // from auth0
@@ -57,12 +56,15 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    // set current logged in user
     setCurrentUser: (state, action: PayloadAction<TUser>) => {
       state.currentUser = action.payload;
     },
+    // suggest users to follow
     setSuggestedUsers: (state, action: PayloadAction<TUser[]>) => {
       state.suggestedUsers = action.payload;
     },
+    // update user's posted tweets
     updateUserTweets: (
       state,
       action: PayloadAction<DocumentReference<DocumentData>>
@@ -74,13 +76,13 @@ export const userSlice = createSlice({
         ];
       }
     },
+    // update user's liked tweets
     updateUserLikes: (state, action) => {
       if (state.currentUser) {
         if (action.payload.isLiked) {
           const user = state.currentUser;
 
           user.likes = user.likes.filter((like) => {
-            console.log(like?.id, action.payload.tweetId);
             return like?.id !== action.payload.tweetId;
           });
 
@@ -94,7 +96,7 @@ export const userSlice = createSlice({
         }
       }
     },
-    //delete tweet from user's tweets
+    // delete tweet from user's tweets
     deleteUserTweet: (state, action) => {
       if (state.currentUser) {
         //  delete tweet from user's tweets
@@ -107,8 +109,7 @@ export const userSlice = createSlice({
         state.currentUser = user;
       }
     },
-
-    //update user's bookmarks
+    // update user's bookmarks
     updateUserBookmarks: (state, action) => {
       if (state.currentUser) {
         if (action.payload.isBookmarked) {
@@ -120,6 +121,26 @@ export const userSlice = createSlice({
         } else {
           const user = state.currentUser;
           user.bookmarks = [...user.bookmarks, action.payload.tweetRef];
+          state.currentUser = user;
+        }
+      }
+    },
+    // update user's following
+    updateUserFollowing: (state, action) => {
+      if (state.currentUser) {
+        if (action.payload.isFollowing) {
+          const user = state.currentUser;
+
+          user.following = user.following.filter((following) => {
+            return !refEqual(following, action.payload.userRef);
+          });
+
+          state.currentUser = user;
+        } else {
+          const user = state.currentUser;
+
+          user.following = [...user.following, action.payload.userRef];
+
           state.currentUser = user;
         }
       }
@@ -201,14 +222,44 @@ export const unbookmarkTweet =
 //   async (dispatch) => {};
 
 // add a user to the current user's following list
-// export const follow =
-//   (user: TUser): AppThunk =>
-//   async (dispatch) => {};
+export const follow =
+  (userEmail: string, currentUserEmail: string): AppThunk =>
+  async (dispatch) => {
+    const userRef = doc(db, "users", userEmail);
+
+    const currentUserRef = doc(db, "users", currentUserEmail);
+
+    await updateDoc(userRef, {
+      followers: arrayUnion(currentUserRef),
+    });
+
+    await updateDoc(currentUserRef, {
+      following: arrayUnion(userRef),
+    });
+
+    // update current user's following list
+    dispatch(updateUserFollowing({ userRef, isFollowing: false }));
+  };
 
 // remove a user from the current user's following list
-// export const unfollow =
-//   (user: TUser): AppThunk =>
-//   async (dispatch) => {};
+export const unfollow =
+  (userEmail: string, currentUserEmail: string): AppThunk =>
+  async (dispatch) => {
+    const userRef = doc(db, "users", userEmail);
+
+    const currentUserRef = doc(db, "users", currentUserEmail);
+
+    await updateDoc(userRef, {
+      followers: arrayRemove(currentUserRef),
+    });
+
+    await updateDoc(currentUserRef, {
+      following: arrayRemove(userRef),
+    });
+
+    // update current user's following list
+    dispatch(updateUserFollowing({ userRef, isFollowing: true }));
+  };
 
 // fetch 3 random users from firebase
 export const fetchSuggestedUsers =
@@ -237,6 +288,7 @@ export const {
   updateUserLikes,
   deleteUserTweet,
   updateUserBookmarks,
+  updateUserFollowing,
 } = userSlice.actions;
 
 export default userSlice.reducer;
