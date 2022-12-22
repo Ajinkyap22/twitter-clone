@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import ImagePreview from "components/ImagePreview/ImagePreview";
 import VideoPreview from "components/VideoPreview/VideoPreview";
@@ -226,7 +227,12 @@ const AddTweetForm = ({ isModal, closeModal }: Props): JSX.Element => {
         controlId="exampleForm.ControlTextarea1"
       >
         {/* user avatar - left side */}
-        <img src={currentUser?.picture} className="rounded-pill w-8 h-8" />
+        <Link to={`/${currentUser?.username}`}>
+          <img
+            src={currentUser?.picture}
+            className="rounded-pill w-8 h-8 cursor-pointer"
+          />
+        </Link>
 
         {/* user input - right side */}
         <div className="d-flex flex-column flex-grow-1">
