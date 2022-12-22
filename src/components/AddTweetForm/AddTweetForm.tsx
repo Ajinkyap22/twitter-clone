@@ -223,14 +223,14 @@ const AddTweetForm = ({ isModal, closeModal }: Props): JSX.Element => {
       onSubmit={handleSubmit}
     >
       <Form.Group
-        className="d-flex flex-grow-1"
+        className="d-flex flex-grow-1 "
         controlId="exampleForm.ControlTextarea1"
       >
         {/* user avatar - left side */}
         <Link to={`/${currentUser?.username}`}>
           <img
             src={currentUser?.picture}
-            className="rounded-pill w-8 h-8 cursor-pointer"
+            className="rounded-pill w-13 h-13 cursor-pointer"
           />
         </Link>
 
@@ -243,7 +243,7 @@ const AddTweetForm = ({ isModal, closeModal }: Props): JSX.Element => {
               as="textarea"
               placeholder="What's happening?"
               rows={imageInput || videoInput || !isModal ? 1 : 3}
-              className="border-0 overflow-hidden resize-none tweet-caption"
+              className="border-0 overflow-hidden resize-none tweet-caption py-2_5"
               value={tweetCaption}
               onChange={handleChange}
               ref={captionRef}

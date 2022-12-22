@@ -30,9 +30,11 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
   const [likes, setLikes] = useState<number>(0);
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
+  const [isAuthor, setIsAuthor] = useState<boolean>(false);
 
   const currentUser = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     // fetch author
     const fetchAuthor = async () => {
@@ -80,6 +82,12 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
       } else {
         setIsBookmarked(false);
       }
+
+      if (refEqual(tweet.author, userRef)) {
+        setIsAuthor(true);
+      } else {
+        setIsAuthor(false);
+      }
     }
   }, [tweet]);
 
@@ -112,28 +120,31 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
   const popover = (
     <Popover id="popover-basic">
       <Popover.Body className="p-0 d-flex flex-column">
-        <Button
-          variant="light"
-          className="fw-bold fs-7 p-2 py-2_5  text-break background-transparent w-100 text-start py-2 px-3 bg-white border-0 user-hover"
-          onClick={handleDeleteTweet}
-        >
-          {" "}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-4 h-4 me-2"
+        {currentUser && isAuthor ? (
+          <Button
+            variant="light"
+            className="fw-bold fs-7 p-2 py-2_5  text-break background-transparent w-100 text-start py-2 px-3 bg-white border-0 user-hover"
+            onClick={handleDeleteTweet}
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-            />
-          </svg>
-          Delete Tweet
-        </Button>
+            {" "}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-4 h-4 me-2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+              />
+            </svg>
+            Delete Tweet
+          </Button>
+        ) : null}
+
         <Button
           variant="light"
           className="fw-bold fs-7 p-2 py-2_5  text-break background-transparent w-100 text-start py-2 px-3  bg-white border-0 user-hover"
@@ -161,7 +172,7 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
           onClick={handleTweetBookmark}
         >
           {" "}
-          <svg
+          {/* <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -174,22 +185,63 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
               strokeLinejoin="round"
               d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"
             />
-          </svg>
-          Bookmark Tweet
+          </svg> */}
+          {isBookmarked ? (
+            <>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-4 h-4 me-2"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3 3l1.664 1.664M21 21l-1.5-1.5m-5.485-1.242L12 17.25 4.5 21V8.742m.164-4.078a2.15 2.15 0 011.743-1.342 48.507 48.507 0 0111.186 0c1.1.128 1.907 1.077 1.907 2.185V19.5M4.664 4.664L19.5 19.5"
+                />
+              </svg>
+              Remove Bookmark
+            </>
+          ) : (
+            <>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-4 h-4 me-2"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"
+                />
+              </svg>
+              Add Bookmark
+            </>
+          )}
         </Button>
       </Popover.Body>
     </Popover>
   );
+
   return (
     <div className="d-flex justify-content-between align-items-start border-bottom p-3 pb-0 cursor-pointer tweet">
-      <img src={picture} alt="profile" className="w-7 h-7 rounded-pill me-3" />
+      <img
+        src={picture}
+        alt="profile"
+        className="w-7 h-7 rounded-pill me-3 w-13 h-13"
+      />
 
       <div className="d-flex flex-column flex-grow-1">
         <div>
           <span className="me-2 fw-bold text-underline">{name}</span>
-          <span className="text-muted fs-8">@{username}</span>
+          <span className="text-muted fs-7">@{username}</span>
           <span className="p-1 text-muted">·</span>
-          <span className="text-muted fs-8">
+          <span className="text-muted fs-7">
             {moment(tweet.date.toDate()).fromNow()}
           </span>
         </div>
@@ -202,7 +254,7 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
             <img
               src={tweet.media[0]}
               alt="tweet-image"
-              className="rounded-4 w-100 border border-1"
+              className="rounded-4 w-100 border border-1 "
             />
           ) : (
             <video

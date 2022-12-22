@@ -97,6 +97,30 @@ $theme-colors: (
   width: 35%;
 }
 
+.w-13 {
+  width: 3.25rem;
+}
+
+.h-13 {
+  height: 3.25rem;
+}
+
+.w-14 {
+  width: 3.5rem;
+}
+
+.h-14 {
+  height: 3.5rem;
+}
+
+.w-15 {
+  width: 3.75rem;
+}
+
+.h-15 {
+  height: 3.75rem;
+}
+
 .w-16 {
   width: 4rem;
 }
@@ -133,6 +157,11 @@ $theme-colors: (
 .py-1_5 {
   padding-top: 0.3rem !important;
   padding-bottom: 0.3rem !important;
+}
+
+.py-2_5 {
+  padding-top: 0.7rem !important;
+  padding-bottom: 0.7rem !important;
 }
 
 .pe-6 {
