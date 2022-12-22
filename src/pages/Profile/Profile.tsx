@@ -22,12 +22,14 @@ const Profile = () => {
   const [activeTab, setActiveTab] = useState<string>("tweets");
   const [tweets, setTweets] = useState<TTweet[]>([]);
 
+  // update document title
   useEffect(() => {
     if (!user) return;
 
     document.title = `${user.name} (@${user.username}) / Twitter`;
   }, [user]);
 
+  // fetch user profile based on username
   useEffect(() => {
     const { pathname } = location;
 
@@ -53,8 +55,9 @@ const Profile = () => {
     fetchUserProfile(pathname.slice(1));
   }, [location.pathname]);
 
+  // feetch tweets to display on profile
   useEffect(() => {
-    const fetchTweets = async () => {
+    const fetchTweets = async (replies = false, media = false) => {
       // get user tweets
       const userTweets = user?.tweets;
 
@@ -63,6 +66,36 @@ const Profile = () => {
 
         // get tweet data from tweet reference
         for (const tweetRef of userTweets) {
+          const tweetDOc = await getDoc(tweetRef);
+          const tweet = tweetDOc.data() as TTweet;
+
+          if (!replies && tweet?.isReply) continue;
+
+          if (media && !tweet.media.length) continue;
+
+          tweetsArr.push(tweet);
+        }
+
+        const sortedTweets = tweetsArr.sort(
+          (a, b) => b.date.seconds - a.date.seconds
+        );
+
+        // set tweets
+        setTweets(sortedTweets);
+      } else {
+        setTweets([]);
+      }
+    };
+
+    const fetchLikedTweets = async () => {
+      // get user's liked tweets
+      const likedTweets = user?.likes;
+
+      if (likedTweets && likedTweets.length) {
+        const tweetsArr = [];
+
+        // get tweet data from tweet reference
+        for (const tweetRef of likedTweets) {
           const tweetDOc = await getDoc(tweetRef);
           const tweet = tweetDOc.data() as TTweet;
 
@@ -75,11 +108,19 @@ const Profile = () => {
 
         // set tweets
         setTweets(sortedTweets);
+      } else {
+        setTweets([]);
       }
     };
 
-    fetchTweets();
-  }, [user?.tweets]);
+    if (activeTab === "tweets") fetchTweets();
+
+    if (activeTab === "replies") fetchTweets(true);
+
+    if (activeTab === "media") fetchTweets(false, true);
+
+    if (activeTab === "likes") fetchLikedTweets();
+  }, [user?.tweets, activeTab]);
 
   const handleClick = (tab: string) => {
     setActiveTab(tab);
@@ -97,7 +138,7 @@ const Profile = () => {
 
             <div className="bg-white">
               {/* picture and edit option */}
-              <UserAvatar picture={user.picture} />
+              <UserAvatar picture={user.picture} email={user.email} />
 
               {/* user info */}
               <UserInfo user={user} />

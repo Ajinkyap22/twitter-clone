@@ -16,6 +16,7 @@ const ProfileHeader = ({ name, tweets }: Props) => {
   return (
     <div className="position-sticky top-0 p-2 pb-0 bg-white-transparent d-flex justify-content-between align-items-center z-10">
       <div className="d-flex justify-content-center align-items-center">
+        {/* go back */}
         <button
           onClick={handleBack}
           className="bg-transparent border-0 me-4_5 hover-gray rounded-circle p-1_5"
@@ -28,10 +29,12 @@ const ProfileHeader = ({ name, tweets }: Props) => {
         </button>
 
         <div>
+          {/* name */}
           <h5 className="fw-bold m-0">
             {name.length >= 52 ? name.slice(0, 49) + "..." : name}
           </h5>
 
+          {/* tweet count */}
           <span className="text-muted fs-9">
             {tweets} {tweets === 1 ? "Tweet" : "Tweets"}
           </span>
