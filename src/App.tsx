@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ErrorBoundary } from "react-error-boundary";
+import Bookmarks from "pages/Bookmarks/Bookmarks";
 
 const Home = lazy(() => import("./pages/Home/Home"));
 const Profile = lazy(() => import("./pages/Profile/Profile"));
@@ -30,7 +31,8 @@ function App() {
             <Route path="/" element={<Home />}>
               {/* feed */}
               <Route path="/home" element={<FeedContent />} />
-
+              {/* bookmarks */}
+              <Route path="/bookmarks" element={<Bookmarks />} />
               {/* profile */}
               <Route path="/:username" element={<Profile />} />
             </Route>
