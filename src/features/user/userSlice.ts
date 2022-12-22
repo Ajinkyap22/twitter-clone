@@ -114,9 +114,11 @@ export const userSlice = createSlice({
       if (state.currentUser) {
         if (action.payload.isBookmarked) {
           const user = state.currentUser;
+
           user.bookmarks = user.bookmarks.filter((bookmark) => {
-            bookmark?.id !== action.payload.id;
+            return !refEqual(bookmark, action.payload.tweetRef);
           });
+
           state.currentUser = user;
         } else {
           const user = state.currentUser;
@@ -143,6 +145,14 @@ export const userSlice = createSlice({
 
           state.currentUser = user;
         }
+      }
+    },
+    //clear user's bookmarks array
+    clearBookmarksArray: (state) => {
+      if (state.currentUser) {
+        const user = state.currentUser;
+        user.bookmarks = [];
+        state.currentUser = user;
       }
     },
   },
@@ -215,6 +225,19 @@ export const unbookmarkTweet =
       bookmarks: arrayRemove(tweetRef),
     });
     dispatch(updateUserBookmarks({ tweetRef, isBookmarked: true }));
+  };
+
+//clear bookmarks array
+export const clearBookmarks =
+  (currentUserEmail: string): AppThunk =>
+  async (dispatch) => {
+    const userRef = doc(db, "users", currentUserEmail);
+
+    await updateDoc(userRef, {
+      bookmarks: [],
+    });
+
+    dispatch(clearBookmarksArray());
   };
 // update user's profile details
 // export const updateProfile =
@@ -289,6 +312,7 @@ export const {
   deleteUserTweet,
   updateUserBookmarks,
   updateUserFollowing,
+  clearBookmarksArray,
 } = userSlice.actions;
 
 export default userSlice.reducer;
