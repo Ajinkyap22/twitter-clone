@@ -15,8 +15,12 @@ const SuggestedUser = ({ user }: Props) => {
     <Link to={`/${user.username}`} className="link">
       <div className="d-flex justify-content-between p-3 user-hover cursor-pointer text-decoration-none">
         <div className="d-flex">
-          <img src={user.picture} alt="user" className="w-8 h-8 rounded-pill" />
-          <div className="d-flex flex-column ms-3">
+          <img
+            src={user.picture}
+            alt="user"
+            className="w-8 h-8 rounded-pill w-13 h-13"
+          />
+          <div className="d-flex flex-column ms-3 justify-content-center">
             <div className="d-flex align-items-center">
               <h6 className="mb-0 text-underline">
                 {user.name.length >= 20
