@@ -1,4 +1,11 @@
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "app/hooks";
+import { selectCurrentUser, follow, unfollow } from "features/user/userSlice";
+
+import db from "../../firebase-config/config";
+import { refEqual, doc } from "firebase/firestore";
+
 import Button from "react-bootstrap/Button";
 
 type Props = {
@@ -12,6 +19,53 @@ type Props = {
 };
 
 const SuggestedUser = ({ user }: Props) => {
+  const currentUser = useAppSelector(selectCurrentUser);
+  const [isFollowing, setIsFollowing] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (!currentUser || currentUser.email === user.email) return;
+
+    const profileRef = doc(db, "users", user.email);
+
+    setIsFollowing(
+      currentUser.following.some((ref) => refEqual(ref, profileRef))
+    );
+  }, [currentUser?.email, user.email, currentUser?.following]);
+
+  const handleMouseOver = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const target = e.target as HTMLButtonElement;
+
+    target.textContent = "Unfollow";
+  };
+
+  const handleMouseLeave = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const target = e.target as HTMLButtonElement;
+
+    target.textContent = "Following";
+  };
+
+  const handleFollow = (e: React.MouseEvent<HTMLButtonElement>) => {
+    // stop the page from redirecting to the user's profile
+    e.preventDefault();
+
+    if (!currentUser) return;
+
+    setIsFollowing(true);
+
+    dispatch(follow(user.email, currentUser?.email));
+  };
+
+  const handleUnfollow = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    if (!currentUser) return;
+
+    setIsFollowing(false);
+
+    dispatch(unfollow(user.email, currentUser?.email));
+  };
+
   return (
     <Link to={`/${user.username}`} className="link">
       <div className="d-flex justify-content-between p-3 user-hover cursor-pointer text-decoration-none">
@@ -21,7 +75,7 @@ const SuggestedUser = ({ user }: Props) => {
             alt="user"
             className="w-8 h-8 rounded-pill w-13 h-13"
           />
-          <div className="d-flex flex-column ms-3">
+          <div className="d-flex flex-column ms-3 justify-content-center">
             <div className="d-flex align-items-center">
               {/* name */}
               <h6 className="mb-0 text-underline">
@@ -53,12 +107,25 @@ const SuggestedUser = ({ user }: Props) => {
           </div>
         </div>
 
-        <Button
-          variant="dark"
-          className="bg-dark rounded-pill text-white fw-bold fs-9 cursor-pointer py-1 align-self-center"
-        >
-          Follow
-        </Button>
+        {isFollowing ? (
+          <Button
+            onMouseOver={handleMouseOver}
+            onMouseLeave={handleMouseLeave}
+            onClick={handleUnfollow}
+            variant="light"
+            className="bg-white rounded-pill fw-bold fs-7_5 cursor-pointer py-1 border border align-self-center hover-danger"
+          >
+            Following
+          </Button>
+        ) : (
+          <Button
+            onClick={handleFollow}
+            variant="dark"
+            className="bg-dark rounded-pill text-white fw-bold fs-9 cursor-pointer py-1 align-self-center"
+          >
+            Follow
+          </Button>
+        )}
       </div>
     </Link>
   );

@@ -123,12 +123,11 @@ export const fetchTweets =
 
       if (!userTweets) return;
 
-      userTweets.forEach(async (tweetRef: DocumentReference<DocumentData>) => {
+      for (const tweetRef of userTweets) {
         const tweetDoc = await getDoc(tweetRef);
         const tweet = tweetDoc.data() as TTweet;
-
         tweets = [...tweets, tweet];
-      });
+      }
     }
 
     // sort tweets by date

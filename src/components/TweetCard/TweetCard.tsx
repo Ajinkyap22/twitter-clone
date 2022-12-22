@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "react-bootstrap";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Popover from "react-bootstrap/Popover";
+import { Link } from "react-router-dom";
+
 import moment from "moment";
+
 import {
   likeTweet,
   unlikeTweet,
@@ -16,8 +16,13 @@ import {
   unbookmarkTweet,
 } from "features/user/userSlice";
 import { useAppSelector, useAppDispatch } from "app/hooks";
+
 import { getDoc, doc, DocumentReference, refEqual } from "firebase/firestore";
 import db from "firebase-config/config";
+
+import Button from "react-bootstrap/Button";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Popover from "react-bootstrap/Popover";
 
 type TweetCardProps = {
   tweet: TTweet;
@@ -31,9 +36,22 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
   const [isAuthor, setIsAuthor] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>();
+  const [isFollowing, setIsFollowing] = useState<boolean>(false);
 
   const currentUser = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (!currentUser || currentUser.email === email || !email) return;
+
+    // Get profile ref
+    const profileRef = doc(db, "users", email);
+
+    setIsFollowing(
+      currentUser.following.some((ref) => refEqual(ref, profileRef))
+    );
+  }, [currentUser?.email, email]);
 
   useEffect(() => {
     // fetch author
@@ -47,11 +65,12 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
       //get the author from the authorDoc
       const author = authorDoc.data() as TUser;
 
-      //set the author states
+      // set the author states
       setName(author.name);
       setPicture(author.picture);
       setUsername(author.username);
       setLikes(tweet.likes.length);
+      setEmail(author.email);
     };
 
     fetchAuthor();
@@ -60,8 +79,6 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
     if (currentUser) {
       const userRef: DocumentReference = doc(db, "users", currentUser.email);
       const tweetRef: DocumentReference = doc(db, "tweets", tweet.id);
-
-      console.log(currentUser.likes);
 
       const isUserInLikes = tweet.likes.some((like) => {
         const likeRef: DocumentReference = like;
@@ -122,6 +139,7 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
   const popover = (
     <Popover id="popover-basic">
       <Popover.Body className="p-0 d-flex flex-column">
+        {/* delete */}
         {currentUser && isAuthor ? (
           <Button
             variant="light"
@@ -147,47 +165,37 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
           </Button>
         ) : null}
 
-        <Button
-          variant="light"
-          className="fw-bold fs-7 p-2 py-2_5  text-break background-transparent w-100 text-start py-2 px-3  bg-white border-0 user-hover"
-        >
-          {" "}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-4 h-4 me-2"
+        {/* Follow */}
+        {currentUser?.email === email || !email || isFollowing ? null : (
+          <Button
+            variant="light"
+            className="fw-bold fs-7 p-2 py-2_5  text-break background-transparent w-100 text-start py-2 px-3  bg-white border-0 user-hover"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"
-            />
-          </svg>
-          Follow @{username}
-        </Button>
+            {" "}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-4 h-4 me-2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"
+              />
+            </svg>
+            Follow @{username}
+          </Button>
+        )}
+
+        {/* bookmark */}
         <Button
           variant="light"
-          className="fw-bold fs-7 p-2 py-2_5  text-break background-transparent w-100 text-start py-2 px-3  bg-white border-0 user-hover"
+          className="fw-bold fs-7 p-2 py-2_5 text-break background-transparent w-100 text-start py-2 px-3 bg-white border-0 user-hover"
           onClick={handleTweetBookmark}
         >
-          {" "}
-          {/* <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-4 h-4 me-2"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"
-            />
-          </svg> */}
           {isBookmarked ? (
             <>
               <svg
@@ -232,18 +240,22 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
 
   return (
     <div className="d-flex justify-content-between align-items-start border-bottom p-3 pb-0 cursor-pointer tweet">
-      <img
-        src={picture}
-        alt="profile"
-        className="w-7 h-7 rounded-pill me-3 w-13 h-13"
-      />
+      <Link to={`/${username}`} className="text-dark">
+        <img
+          src={picture}
+          alt="profile"
+          className="w-7 h-7 rounded-pill me-3 w-13 h-13"
+        />
+      </Link>
 
       <div className="d-flex flex-column flex-grow-1">
         <div>
-          <span className="me-2 fw-bold text-underline">{name}</span>
-          <span className="text-muted fs-7">@{username}</span>
+          <Link to={`/${username}`} className="text-dark">
+            <span className="me-2 fw-bold text-underline">{name}</span>
+            <span className="text-muted fs-7">@{username}</span>
+          </Link>
           <span className="p-1 text-muted">·</span>
-          <span className="text-muted fs-7">
+          <span className="text-muted fs-7 text-underline">
             {moment(tweet.date.toDate()).fromNow()}
           </span>
         </div>

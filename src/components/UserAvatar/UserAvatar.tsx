@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-import { useAppSelector } from "app/hooks";
-import { selectCurrentUser } from "features/user/userSlice";
+import { useAppSelector, useAppDispatch } from "app/hooks";
+import { selectCurrentUser, follow, unfollow } from "features/user/userSlice";
 
-import db from "../../firebase-config/config";
+import db from "firebase-config/config";
 import { refEqual, doc } from "firebase/firestore";
 
 import Button from "react-bootstrap/Button";
@@ -16,17 +16,16 @@ type Props = {
 const UserAvatar = ({ picture, email }: Props) => {
   const currentUser = useAppSelector(selectCurrentUser);
   const [isFollowing, setIsFollowing] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!currentUser || currentUser.email === email) return;
 
-    const currentUserRef = doc(db, "users", currentUser.email);
-
     const profileRef = doc(db, "users", email);
 
-    console.log(refEqual(currentUserRef, profileRef));
-
-    setIsFollowing(refEqual(currentUserRef, profileRef));
+    setIsFollowing(
+      currentUser.following.some((ref) => refEqual(ref, profileRef))
+    );
   }, [currentUser?.email, email]);
 
   const handleMouseOver = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -39,6 +38,22 @@ const UserAvatar = ({ picture, email }: Props) => {
     const target = e.target as HTMLButtonElement;
 
     target.textContent = "Following";
+  };
+
+  const handleFollow = () => {
+    if (!currentUser) return;
+
+    setIsFollowing(true);
+
+    dispatch(follow(email, currentUser?.email));
+  };
+
+  const handleUnfollow = () => {
+    if (!currentUser) return;
+
+    setIsFollowing(false);
+
+    dispatch(unfollow(email, currentUser?.email));
   };
 
   return (
@@ -63,6 +78,7 @@ const UserAvatar = ({ picture, email }: Props) => {
       {/* follow button */}
       {email !== currentUser?.email && !isFollowing && (
         <Button
+          onClick={handleFollow}
           variant="dark"
           className="border border bg-dark text-white btn-sm me-3 rounded-pill mt-3 fs-7 fw-bold py-1 px-3"
         >
@@ -75,6 +91,7 @@ const UserAvatar = ({ picture, email }: Props) => {
         <Button
           onMouseOver={handleMouseOver}
           onMouseLeave={handleMouseLeave}
+          onClick={handleUnfollow}
           variant="light"
           className="bg-white border border btn-sm me-3 rounded-pill mt-3 fs-7 fw-bold py-1 px-3 hover-danger"
         >
