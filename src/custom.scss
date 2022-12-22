@@ -227,7 +227,7 @@ $theme-colors: (
   background-color: #e7e7e8 !important;
 }
 
-//hover
+// hover
 .user-hover:hover {
   background-color: #eef1f1 !important;
 }
@@ -252,6 +252,12 @@ $theme-colors: (
 
 .tweet:hover {
   background-color: #f7f7f7;
+}
+
+.hover-danger:hover {
+  color: $danger !important;
+  background-color: #ffeaea !important;
+  border-color: #ffcfcf !important;
 }
 
 // position

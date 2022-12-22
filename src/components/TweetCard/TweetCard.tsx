@@ -34,6 +34,7 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
 
   const currentUser = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     // fetch author
     const fetchAuthor = async () => {
@@ -83,6 +84,7 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
       } else {
         setIsBookmarked(false);
       }
+
       if (refEqual(tweet.author, userRef)) {
         setIsAuthor(true);
       } else {
@@ -191,6 +193,7 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
       </Popover.Body>
     </Popover>
   );
+
   return (
     <div className="d-flex justify-content-between align-items-start border-bottom p-3 pb-0 cursor-pointer tweet">
       <img
