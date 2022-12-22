@@ -12,6 +12,7 @@ import {
   DocumentData,
   where,
   Timestamp,
+  refEqual,
 } from "firebase/firestore";
 import React from "react";
 import { getStorage, ref, uploadString } from "firebase/storage";
@@ -113,15 +114,24 @@ export const userSlice = createSlice({
       if (state.currentUser) {
         if (action.payload.isBookmarked) {
           const user = state.currentUser;
+
           user.bookmarks = user.bookmarks.filter((bookmark) => {
-            bookmark?.id !== action.payload.id;
+            return !refEqual(bookmark, action.payload.tweetRef);
           });
+
           state.currentUser = user;
         } else {
           const user = state.currentUser;
           user.bookmarks = [...user.bookmarks, action.payload.tweetRef];
           state.currentUser = user;
         }
+      }
+    },
+    clearBookmarksArray: (state) => {
+      if (state.currentUser) {
+        const user = state.currentUser;
+        user.bookmarks = [];
+        state.currentUser = user;
       }
     },
   },
@@ -195,6 +205,19 @@ export const unbookmarkTweet =
     });
     dispatch(updateUserBookmarks({ tweetRef, isBookmarked: true }));
   };
+
+//clear bookmarks array
+export const clearBookmarks =
+  (currentUserEmail: string): AppThunk =>
+  async (dispatch) => {
+    const userRef = doc(db, "users", currentUserEmail);
+
+    await updateDoc(userRef, {
+      bookmarks: [],
+    });
+
+    dispatch(clearBookmarksArray());
+  };
 // update user's profile details
 // export const updateProfile =
 //   (user: TUser): AppThunk =>
@@ -237,6 +260,7 @@ export const {
   updateUserLikes,
   deleteUserTweet,
   updateUserBookmarks,
+  clearBookmarksArray,
 } = userSlice.actions;
 
 export default userSlice.reducer;
