@@ -430,5 +430,13 @@ $theme-colors: (
   font-weight: 500 !important;
 }
 
+.link {
+  color: #000;
+}
+
+.link:hover {
+  color: #000;
+}
+
 /* import bootstrap to set changes */
 @import "~bootstrap/scss/bootstrap";
