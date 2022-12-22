@@ -9,7 +9,12 @@ import {
   TTweet,
   deleteTweet,
 } from "features/tweet/tweetSlice";
-import { selectCurrentUser, TUser } from "features/user/userSlice";
+import {
+  selectCurrentUser,
+  TUser,
+  bookmarkTweet,
+  unbookmarkTweet,
+} from "features/user/userSlice";
 import { useAppSelector, useAppDispatch } from "app/hooks";
 import { getDoc, doc, DocumentReference, refEqual } from "firebase/firestore";
 import db from "firebase-config/config";
@@ -24,6 +29,7 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
   const [username, setUsername] = useState<string>();
   const [likes, setLikes] = useState<number>(0);
   const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
 
   const currentUser = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
@@ -51,10 +57,18 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
     // check if the current user liked the tweet
     if (currentUser) {
       const userRef: DocumentReference = doc(db, "users", currentUser.email);
+      const tweetRef: DocumentReference = doc(db, "tweets", tweet.id);
+
+      console.log(currentUser.likes);
 
       const isUserInLikes = tweet.likes.some((like) => {
         const likeRef: DocumentReference = like;
         return refEqual(likeRef, userRef);
+      });
+
+      const isTweetInBookmarks = currentUser.bookmarks.some((bookmark) => {
+        const bookmarkRef: DocumentReference = bookmark;
+        return refEqual(bookmarkRef, tweetRef);
       });
 
       if (isUserInLikes) {
@@ -62,15 +76,21 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
       } else {
         setIsLiked(false);
       }
+
+      if (isTweetInBookmarks) {
+        setIsBookmarked(true);
+      } else {
+        setIsBookmarked(false);
+      }
     }
   }, [tweet]);
 
   const handleTweetLike = () => {
     if (currentUser) {
       if (isLiked) {
-        dispatch(unlikeTweet(tweet.id, currentUser.email, isLiked));
+        dispatch(unlikeTweet(tweet.id, currentUser.email));
       } else {
-        dispatch(likeTweet(tweet.id, currentUser.email, isLiked));
+        dispatch(likeTweet(tweet.id, currentUser.email));
       }
     }
   };
@@ -78,6 +98,16 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
   const handleDeleteTweet = () => {
     if (currentUser) {
       dispatch(deleteTweet(tweet.id, currentUser.email));
+    }
+  };
+
+  const handleTweetBookmark = () => {
+    if (currentUser) {
+      if (isBookmarked) {
+        dispatch(unbookmarkTweet(tweet.id, currentUser.email));
+      } else {
+        dispatch(bookmarkTweet(tweet.id, currentUser.email));
+      }
     }
   };
 
@@ -130,6 +160,7 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
         <Button
           variant="light"
           className="fw-bold fs-7 p-2 py-2_5  text-break background-transparent w-100 text-start py-2 px-3  bg-white border-0 user-hover"
+          onClick={handleTweetBookmark}
         >
           {" "}
           <svg
@@ -158,9 +189,9 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
       <div className="d-flex flex-column flex-grow-1">
         <div>
           <span className="me-2 fw-bold text-underline">{name}</span>
-          <span className="text-muted">@{username}</span>
-          <span className="p-1 text-muted">.</span>
-          <span className="text-muted">
+          <span className="text-muted fs-8">@{username}</span>
+          <span className="p-1 text-muted">·</span>
+          <span className="text-muted fs-8">
             {moment(tweet.date.toDate()).fromNow()}
           </span>
         </div>

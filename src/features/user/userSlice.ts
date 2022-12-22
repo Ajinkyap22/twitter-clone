@@ -15,7 +15,14 @@ import {
 } from "firebase/firestore";
 import React from "react";
 import { getStorage, ref, uploadString } from "firebase/storage";
-import { DocumentReference } from "firebase/firestore";
+import {
+  DocumentReference,
+  arrayUnion,
+  arrayRemove,
+  updateDoc,
+} from "firebase/firestore";
+
+import { TTweet } from "features/tweet/tweetSlice";
 
 export type TUser = {
   // from auth0
@@ -70,14 +77,20 @@ export const userSlice = createSlice({
     updateUserLikes: (state, action) => {
       if (state.currentUser) {
         if (action.payload.isLiked) {
-          state.currentUser.likes = state.currentUser.likes.filter((like) => {
-            return like?.id !== action.payload.id;
+          const user = state.currentUser;
+
+          user.likes = user.likes.filter((like) => {
+            console.log(like?.id, action.payload.tweetId);
+            return like?.id !== action.payload.tweetId;
           });
+
+          state.currentUser = user;
         } else {
-          state.currentUser.likes = [
-            ...state.currentUser.likes,
-            action.payload.userRef,
-          ];
+          const user = state.currentUser;
+
+          user.likes = [...user.likes, action.payload.tweetRef];
+
+          state.currentUser = user;
         }
       }
     },
@@ -92,6 +105,23 @@ export const userSlice = createSlice({
         );
 
         state.currentUser = user;
+      }
+    },
+
+    //update user's bookmarks
+    updateUserBookmarks: (state, action) => {
+      if (state.currentUser) {
+        if (action.payload.isBookmarked) {
+          const user = state.currentUser;
+          user.bookmarks = user.bookmarks.filter((bookmark) => {
+            bookmark?.id !== action.payload.id;
+          });
+          state.currentUser = user;
+        } else {
+          const user = state.currentUser;
+          user.bookmarks = [...user.bookmarks, action.payload.tweetRef];
+          state.currentUser = user;
+        }
       }
     },
   },
@@ -142,6 +172,29 @@ export const updateProfilePicture =
     uploadString(imagesRef, picture.split(",")[1], "base64");
   };
 
+//Store tweet reference in bookmark array
+export const bookmarkTweet =
+  (tweetId: string, currentUserEmail: string): AppThunk =>
+  async (dispatch) => {
+    const tweetRef = doc(db, "tweets", tweetId);
+    const userRef = doc(db, "users", currentUserEmail);
+    await updateDoc(userRef, {
+      bookmarks: arrayUnion(tweetRef),
+    });
+    dispatch(updateUserBookmarks({ tweetRef, isBookmarked: false }));
+  };
+
+//remove reference from bookmark array
+export const unbookmarkTweet =
+  (tweetId: string, currentUserEmail: string): AppThunk =>
+  async (dispatch) => {
+    const tweetRef = doc(db, "tweets", tweetId);
+    const userRef = doc(db, "users", currentUserEmail);
+    await updateDoc(userRef, {
+      bookmarks: arrayRemove(tweetRef),
+    });
+    dispatch(updateUserBookmarks({ tweetRef, isBookmarked: true }));
+  };
 // update user's profile details
 // export const updateProfile =
 //   (user: TUser): AppThunk =>
@@ -183,6 +236,7 @@ export const {
   updateUserTweets,
   updateUserLikes,
   deleteUserTweet,
+  updateUserBookmarks,
 } = userSlice.actions;
 
 export default userSlice.reducer;
