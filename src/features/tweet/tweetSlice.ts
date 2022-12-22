@@ -140,17 +140,18 @@ export const fetchTweets =
 
 //push a reference of the user into the likes array and push tweet references into the likes array of user document
 export const likeTweet =
-  (tweetId: string, userEmail: string, isLiked: boolean): AppThunk =>
+  (tweetId: string, userEmail: string): AppThunk =>
   async (dispatch) => {
     const tweetRef = doc(db, "tweets", tweetId);
     const userRef = doc(db, "users", userEmail);
 
-    dispatch(updateSingleTweet({ tweetId, userRef, isLiked }));
-    dispatch(updateUserLikes({ tweetRef, isLiked }));
+    dispatch(updateSingleTweet({ tweetId, userRef, isLiked: false }));
+    dispatch(updateUserLikes({ tweetRef, isLiked: false }));
 
     await updateDoc(tweetRef, {
       likes: arrayUnion(userRef),
     });
+
     await updateDoc(userRef, {
       likes: arrayUnion(tweetRef),
     });
@@ -158,17 +159,18 @@ export const likeTweet =
 
 //remove a reference of the user from the likes array and remove tweet references from the likes array of user document
 export const unlikeTweet =
-  (tweetId: string, userEmail: string, isLiked: boolean): AppThunk =>
+  (tweetId: string, userEmail: string): AppThunk =>
   async (dispatch) => {
     const tweetRef = doc(db, "tweets", tweetId);
     const userRef = doc(db, "users", userEmail);
 
-    dispatch(updateSingleTweet({ tweetId, userRef, isLiked }));
-    dispatch(updateUserLikes({ tweetRef, isLiked }));
+    dispatch(updateSingleTweet({ tweetId, userRef, isLiked: true }));
+    dispatch(updateUserLikes({ tweetId, tweetRef, isLiked: true }));
 
     await updateDoc(tweetRef, {
       likes: arrayRemove(userRef),
     });
+
     await updateDoc(userRef, {
       likes: arrayRemove(tweetRef),
     });
