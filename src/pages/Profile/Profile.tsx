@@ -138,7 +138,11 @@ const Profile = () => {
 
             <div className="bg-white">
               {/* picture and edit option */}
-              <UserAvatar picture={user.picture} email={user.email} />
+              <UserAvatar
+                picture={user.picture}
+                email={user.email}
+                setUser={setUser}
+              />
 
               {/* user info */}
               <UserInfo user={user} />

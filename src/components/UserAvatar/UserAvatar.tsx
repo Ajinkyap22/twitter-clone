@@ -7,13 +7,15 @@ import db from "firebase-config/config";
 import { refEqual, doc } from "firebase/firestore";
 
 import Button from "react-bootstrap/Button";
+import { TUser } from "features/user/userSlice";
 
 type Props = {
   picture: string;
   email: string;
+  setUser: React.Dispatch<React.SetStateAction<TUser | null>>;
 };
 
-const UserAvatar = ({ picture, email }: Props) => {
+const UserAvatar = ({ picture, email, setUser }: Props) => {
   const currentUser = useAppSelector(selectCurrentUser);
   const [isFollowing, setIsFollowing] = useState<boolean>(false);
   const dispatch = useAppDispatch();
@@ -46,6 +48,18 @@ const UserAvatar = ({ picture, email }: Props) => {
     setIsFollowing(true);
 
     dispatch(follow(email, currentUser?.email));
+
+    // update user followers list
+    setUser((prevUser) => {
+      if (!prevUser) return null;
+
+      const followingRef = doc(db, "users", currentUser.email);
+
+      return {
+        ...prevUser,
+        followers: [...prevUser.followers, followingRef],
+      };
+    });
   };
 
   const handleUnfollow = () => {
@@ -54,6 +68,20 @@ const UserAvatar = ({ picture, email }: Props) => {
     setIsFollowing(false);
 
     dispatch(unfollow(email, currentUser?.email));
+
+    // update user followers list
+    setUser((prevUser) => {
+      if (!prevUser) return null;
+
+      const followingRef = doc(db, "users", currentUser.email);
+
+      return {
+        ...prevUser,
+        followers: prevUser.followers.filter(
+          (ref) => !refEqual(ref, followingRef)
+        ),
+      };
+    });
   };
 
   return (
