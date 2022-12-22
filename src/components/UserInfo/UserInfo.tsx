@@ -83,7 +83,7 @@ const UserInfo = ({ user }: Props) => {
         <p className="ms-3 fs-7_5 text-underline">
           <span className="fw-bold">{user.followers.length}</span>{" "}
           <span className="text-muted">
-            {user.following.length === 1 ? "Follower" : "Followers"}
+            {user.followers.length === 1 ? "Follower" : "Followers"}
           </span>
         </p>
       </div>

@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { TTweet } from "features/tweet/tweetSlice";
+import { selectCurrentUser } from "../../features/user/userSlice";
+import { selectTweets } from "../../features/tweet/tweetSlice";
+
+import { useAppSelector } from "app/hooks";
 
 import LoadingSpinner from "components/LoadingSpinner/LoadingSpinner";
 import ProfileHeader from "components/ProfileHeader/ProfileHeader";
@@ -20,7 +24,9 @@ const Profile = () => {
   const location = useLocation();
   const [user, setUser] = useState<TUser | null>(null);
   const [activeTab, setActiveTab] = useState<string>("tweets");
-  const [tweets, setTweets] = useState<TTweet[]>([]);
+  const [profileTweets, setProfileTweets] = useState<TTweet[]>([]);
+  const tweets = useAppSelector(selectTweets);
+  const currentUser = useAppSelector(selectCurrentUser);
 
   // update document title
   useEffect(() => {
@@ -53,7 +59,7 @@ const Profile = () => {
     };
 
     fetchUserProfile(pathname.slice(1));
-  }, [location.pathname]);
+  }, [location.pathname, currentUser?.followers, currentUser?.following]);
 
   // feetch tweets to display on profile
   useEffect(() => {
@@ -81,9 +87,9 @@ const Profile = () => {
         );
 
         // set tweets
-        setTweets(sortedTweets);
+        setProfileTweets(sortedTweets);
       } else {
-        setTweets([]);
+        setProfileTweets([]);
       }
     };
 
@@ -107,9 +113,9 @@ const Profile = () => {
         );
 
         // set tweets
-        setTweets(sortedTweets);
+        setProfileTweets(sortedTweets);
       } else {
-        setTweets([]);
+        setProfileTweets([]);
       }
     };
 
@@ -120,7 +126,7 @@ const Profile = () => {
     if (activeTab === "media") fetchTweets(false, true);
 
     if (activeTab === "likes") fetchLikedTweets();
-  }, [user?.tweets, activeTab]);
+  }, [user?.tweets, activeTab, tweets]);
 
   const handleClick = (tab: string) => {
     setActiveTab(tab);
@@ -156,7 +162,7 @@ const Profile = () => {
           </div>
 
           {/* tweets */}
-          <Tweets tweets={tweets} />
+          <Tweets tweets={profileTweets} />
         </div>
       )}
     </>
