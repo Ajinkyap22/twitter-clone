@@ -10,6 +10,7 @@ const Tweets = ({ tweets }: Props) => {
   return (
     <div>
       {tweets.map((tweet) => {
+        if (!tweet) return null;
         return <TweetCard key={tweet.id} tweet={tweet} />;
       })}
     </div>
