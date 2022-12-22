@@ -61,8 +61,6 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
       const userRef: DocumentReference = doc(db, "users", currentUser.email);
       const tweetRef: DocumentReference = doc(db, "tweets", tweet.id);
 
-      console.log(currentUser.likes);
-
       const isUserInLikes = tweet.likes.some((like) => {
         const likeRef: DocumentReference = like;
         return refEqual(likeRef, userRef);
