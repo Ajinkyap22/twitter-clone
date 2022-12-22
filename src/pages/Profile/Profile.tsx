@@ -23,6 +23,12 @@ const Profile = () => {
   const [tweets, setTweets] = useState<TTweet[]>([]);
 
   useEffect(() => {
+    if (!user) return;
+
+    document.title = `${user.name} (@${user.username}) / Twitter`;
+  }, [user]);
+
+  useEffect(() => {
     const { pathname } = location;
 
     const fetchUserProfile = async (username: string) => {
@@ -63,8 +69,12 @@ const Profile = () => {
           tweetsArr.push(tweet);
         }
 
+        const sortedTweets = tweetsArr.sort(
+          (a, b) => b.date.seconds - a.date.seconds
+        );
+
         // set tweets
-        setTweets(tweetsArr);
+        setTweets(sortedTweets);
       }
     };
 
