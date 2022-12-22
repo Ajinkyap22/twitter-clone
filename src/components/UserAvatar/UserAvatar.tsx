@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "app/hooks";
 import { selectCurrentUser, follow, unfollow } from "features/user/userSlice";
 
-import db from "../../firebase-config/config";
+import db from "firebase-config/config";
 import { refEqual, doc } from "firebase/firestore";
 
 import Button from "react-bootstrap/Button";
