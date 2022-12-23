@@ -14,7 +14,7 @@ import {
 import { fetchTweets } from "features/tweet/tweetSlice";
 import { fetchSuggestedUsers } from "../../features/user/userSlice";
 
-import Row from "react-bootstrap/row";
+import { Row } from "react-bootstrap";
 import Col from "react-bootstrap/col";
 
 import UserOnboarding from "../../components/UserOnboarding/UserOnboarding";
