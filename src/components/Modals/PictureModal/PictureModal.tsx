@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+import { Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import AvatarEditor from "./AvatarEditor";
 
 type Props = {
@@ -25,7 +25,7 @@ const PictureModal = ({
   const [error, setError] = useState<string>("");
 
   // onclick on div
-  const handleImageUpload = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleImageUpload = () => {
     inputRef.current?.click();
   };
 

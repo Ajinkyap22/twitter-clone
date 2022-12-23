@@ -6,7 +6,7 @@ import moment from "moment";
 
 import { TTweet } from "features/tweet/tweetSlice";
 
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import { OverlayTrigger } from "react-bootstrap";
 import { selectCurrentUser } from "../../features/user/userSlice";
 import { useAppSelector } from "../../app/hooks";
 

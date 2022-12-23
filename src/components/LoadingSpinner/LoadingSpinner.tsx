@@ -1,5 +1,5 @@
-import Spinner from "react-bootstrap/Spinner";
-import Container from "react-bootstrap/Container";
+import { Spinner } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 const LoadingSpinner = () => {
   return (

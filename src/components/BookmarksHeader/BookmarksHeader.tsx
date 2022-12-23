@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Popover from "react-bootstrap/Popover";
+import { OverlayTrigger } from "react-bootstrap";
+import { Popover } from "react-bootstrap";
 import { useAppSelector, useAppDispatch } from "app/hooks";
 import { selectCurrentUser } from "features/user/userSlice";
 import { clearBookmarks } from "features/user/userSlice";

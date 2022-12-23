@@ -1,6 +1,7 @@
 import React from "react";
 
-import ListGroup from "react-bootstrap/ListGroup";
+import { ListGroup } from "react-bootstrap";
+
 import TrendPic from "../../assets/images/trend-pic.jpeg";
 
 const WhatsHappening = () => {

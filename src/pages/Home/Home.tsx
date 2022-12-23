@@ -14,15 +14,15 @@ import {
 import { fetchTweets } from "features/tweet/tweetSlice";
 import { fetchSuggestedUsers } from "../../features/user/userSlice";
 
-import Row from "react-bootstrap/row";
-import Col from "react-bootstrap/col";
+import { Row } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 
 import UserOnboarding from "../../components/UserOnboarding/UserOnboarding";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 
 import { useAuth0 } from "@auth0/auth0-react";
 
-import Container from "react-bootstrap/Container";
+import { Container } from "react-bootstrap";
 
 const Home = (): JSX.Element => {
   const [userOnboarding, setUserOnboarding] = useState<boolean>(true);
