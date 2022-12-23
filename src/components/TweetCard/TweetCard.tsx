@@ -8,6 +8,8 @@ import {
   unlikeTweet,
   TTweet,
   deleteTweet,
+  retweet,
+  unretweet,
 } from "features/tweet/tweetSlice";
 import {
   selectCurrentUser,
@@ -40,6 +42,7 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
   const [isAuthor, setIsAuthor] = useState<boolean>(false);
   const [email, setEmail] = useState<string>();
   const [isFollowing, setIsFollowing] = useState<boolean>(false);
+  const [isRetweeted, setIsRetweeted] = useState<boolean>(false);
 
   const currentUser = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
@@ -92,6 +95,17 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
         return refEqual(bookmarkRef, tweetRef);
       });
 
+      const isTweetInRetweets = currentUser.retweets.some((retweet) => {
+        const retweetRef: DocumentReference = retweet;
+        return refEqual(retweetRef, tweetRef);
+      });
+
+      if (isTweetInRetweets) {
+        setIsRetweeted(true);
+      } else {
+        setIsRetweeted(false);
+      }
+
       if (isUserInLikes) {
         setIsLiked(true);
       } else {
@@ -134,6 +148,15 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
         dispatch(unbookmarkTweet(tweet.id, currentUser.email));
       } else {
         dispatch(bookmarkTweet(tweet.id, currentUser.email));
+      }
+    }
+  };
+  const handleRetweet = () => {
+    if (currentUser) {
+      if (isRetweeted) {
+        dispatch(unretweet(tweet.id, currentUser?.email));
+      } else {
+        dispatch(retweet(tweet.id, currentUser?.email));
       }
     }
   };
@@ -349,23 +372,36 @@ const TweetCard = ({ tweet }: TweetCardProps): JSX.Element => {
           </button>
 
           {/* retweet */}
-          <button className="border-0 bg-transparent retweet p-2 d-flex align-items-center justify-content-center text-muted">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-3 h-3"
+          <div className="d-flex ">
+            <button
+              className="border-0 bg-transparent retweet p-2 d-flex align-items-center justify-content-center text-muted"
+              onClick={handleRetweet}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3"
-              />
-            </svg>
-          </button>
-
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className={`w-3 h-3 ${isRetweeted ? "bg-green" : ""}`}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3"
+                />
+              </svg>
+            </button>
+            {tweet.retweets.length > 0 && (
+              <span
+                className={`ms-1 align-self-center ${
+                  isRetweeted ? "bg-green" : ""
+                }`}
+              >
+                {tweet.retweets.length}
+              </span>
+            )}
+          </div>
           {/* like */}
           <div className="d-flex ">
             <button

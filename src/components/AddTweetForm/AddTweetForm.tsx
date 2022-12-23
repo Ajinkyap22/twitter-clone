@@ -145,7 +145,6 @@ const AddTweetForm = ({ isModal, closeModal }: Props): JSX.Element => {
       retweets: [],
       replies: [],
       isReply: false,
-      isRetweet: false,
     };
 
     // reset input

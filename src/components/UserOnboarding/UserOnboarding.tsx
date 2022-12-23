@@ -114,6 +114,7 @@ const UserOnboarding = ({ setUserOnboarding }: Props): JSX.Element => {
       tweets: [],
       likes: [],
       bookmarks: [],
+      retweets: [],
     };
 
     dispatch(createUser(newUser));
