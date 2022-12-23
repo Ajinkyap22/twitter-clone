@@ -13,11 +13,13 @@ import {
   getDoc,
   Timestamp,
   arrayRemove,
+  refEqual,
 } from "firebase/firestore";
 import {
   updateUserTweets,
   updateUserLikes,
   deleteUserTweet,
+  updateUserAfterRetweet,
 } from "features/user/userSlice";
 
 export type TTweet = {
@@ -27,10 +29,9 @@ export type TTweet = {
   author: DocumentReference<DocumentData>;
   date: Timestamp;
   likes: DocumentReference<DocumentData>[];
-  retweets: TUser[];
+  retweets: DocumentReference<DocumentData>[];
   replies: TTweet[];
   isReply: boolean;
-  isRetweet: boolean;
 };
 
 interface TTweetState {
@@ -53,9 +54,15 @@ export const tweetSlice = createSlice({
     },
     updateSingleTweet(state, action) {
       if (action.payload.isLiked) {
-        state.tweets = state.tweets.filter(
-          (tweet) => tweet.id !== action.payload.id
-        );
+        state.tweets = state.tweets.map((tweet) => {
+          if (tweet.id === action.payload.id) {
+            tweet.likes = tweet.likes.filter(
+              (userRef) => !refEqual(userRef, action.payload.userRef)
+            );
+          }
+
+          return tweet;
+        });
       } else {
         state.tweets = state.tweets.map((tweet) => {
           if (tweet.id === action.payload.id) {
@@ -69,6 +76,26 @@ export const tweetSlice = createSlice({
       state.tweets = state.tweets.filter(
         (tweet) => tweet?.id !== action.payload
       );
+    },
+    updateTweetAfterRetweet(state, action) {
+      if (action.payload.isRetweet) {
+        state.tweets = state.tweets.map((tweet) => {
+          if (tweet.id === action.payload.id) {
+            tweet.retweets = tweet.retweets.filter(
+              (userRef) => !refEqual(userRef, action.payload.userRef)
+            );
+          }
+
+          return tweet;
+        });
+      } else {
+        state.tweets = state.tweets.map((tweet) => {
+          if (tweet.id === action.payload.id) {
+            tweet.retweets = [...tweet.retweets, action.payload.userRef];
+          }
+          return tweet;
+        });
+      }
     },
   },
 });
@@ -121,9 +148,31 @@ export const fetchTweets =
       const user = userDoc.data();
       const userTweets = user?.tweets;
 
-      if (!userTweets) return;
+      if (!userTweets) continue;
 
       for (const tweetRef of userTweets) {
+        const tweetDoc = await getDoc(tweetRef);
+        const tweet = tweetDoc.data() as TTweet;
+        tweets = [...tweets, tweet];
+      }
+    }
+    //fetch all retweets from user's retweets list and user's following list and add to tweets array
+    const userRetweets = user.retweets;
+
+    for (const tweetRef of userRetweets) {
+      const tweetDoc = await getDoc(tweetRef);
+      const tweet = tweetDoc.data() as TTweet;
+      tweets = [...tweets, tweet];
+    }
+
+    for (const userRef of followingList) {
+      const userDoc = await getDoc(userRef);
+      const user = userDoc.data();
+      const userRetweets = user?.retweets;
+
+      if (!userRetweets) continue;
+
+      for (const tweetRef of userRetweets) {
         const tweetDoc = await getDoc(tweetRef);
         const tweet = tweetDoc.data() as TTweet;
         tweets = [...tweets, tweet];
@@ -182,16 +231,53 @@ export const deleteTweet =
     const tweetRef = doc(db, "tweets", tweetId);
     const userRef = doc(db, "users", userEmail);
 
+    dispatch(deleteUserTweet(tweetRef));
+    dispatch(deleteTweets(tweetId));
+
     await deleteDoc(tweetRef);
 
     await updateDoc(userRef, {
       tweets: arrayRemove(tweetRef),
     });
-
-    dispatch(deleteUserTweet(tweetRef));
-    dispatch(deleteTweets(tweetId));
   };
+//make the tweet a retweet
+export const retweet =
+  (tweetId: string, userEmail: string): AppThunk =>
+  async (dispatch) => {
+    const tweetRef = doc(db, "tweets", tweetId);
+    const userRef = doc(db, "users", userEmail);
 
+    dispatch(
+      updateTweetAfterRetweet({ id: tweetId, userRef, isRetweet: false })
+    );
+    dispatch(updateUserAfterRetweet({ tweetRef, isRetweet: false }));
+
+    await updateDoc(tweetRef, {
+      retweets: arrayUnion(userRef),
+    });
+
+    await updateDoc(userRef, {
+      retweets: arrayUnion(tweetRef),
+    });
+  };
+//unretweet a tweet
+export const unretweet =
+  (tweetId: string, userEmail: string): AppThunk =>
+  async (dispatch) => {
+    const tweetRef = doc(db, "tweets", tweetId);
+    const userRef = doc(db, "users", userEmail);
+    dispatch(
+      updateTweetAfterRetweet({ id: tweetId, userRef, isRetweet: true })
+    );
+    dispatch(updateUserAfterRetweet({ tweetRef, isRetweet: true }));
+
+    await updateDoc(tweetRef, {
+      retweets: arrayRemove(userRef),
+    });
+    await updateDoc(userRef, {
+      retweets: arrayRemove(tweetRef),
+    });
+  };
 // export const deleteTweet =
 //   (id: number): AppThunk =>
 //   async (dispatach) => {};
@@ -214,7 +300,12 @@ export const deleteTweet =
 
 export const selectTweets = (state: RootState) => state.tweet.tweets;
 
-export const { addTweet, updateTweets, updateSingleTweet, deleteTweets } =
-  tweetSlice.actions;
+export const {
+  addTweet,
+  updateTweets,
+  updateSingleTweet,
+  deleteTweets,
+  updateTweetAfterRetweet,
+} = tweetSlice.actions;
 
 export default tweetSlice.reducer;

@@ -40,6 +40,7 @@ export type TUser = {
   tweets: DocumentReference<DocumentData>[];
   likes: DocumentReference<DocumentData>[];
   bookmarks: DocumentReference<DocumentData>[];
+  retweets: DocumentReference<DocumentData>[];
 };
 
 interface TUserState {
@@ -153,6 +154,22 @@ export const userSlice = createSlice({
         const user = state.currentUser;
         user.bookmarks = [];
         state.currentUser = user;
+      }
+    },
+
+    //update user after a retweet
+    updateUserAfterRetweet: (state, action) => {
+      if (state.currentUser) {
+        if (action.payload.isRetweet) {
+          const user = state.currentUser;
+          user.retweets = user.retweets.filter((retweet) => {
+            return !refEqual(retweet, action.payload.tweetRef);
+          });
+        } else {
+          const user = state.currentUser;
+          user.retweets = [...user.retweets, action.payload.tweetRef];
+          state.currentUser = user;
+        }
       }
     },
   },
@@ -313,6 +330,7 @@ export const {
   updateUserBookmarks,
   updateUserFollowing,
   clearBookmarksArray,
+  updateUserAfterRetweet,
 } = userSlice.actions;
 
 export default userSlice.reducer;

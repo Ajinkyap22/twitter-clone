@@ -5,6 +5,8 @@ import {
   unlikeTweet,
   TTweet,
   deleteTweet,
+  retweet,
+  unretweet,
 } from "features/tweet/tweetSlice";
 import {
   selectCurrentUser,
@@ -40,6 +42,7 @@ const Tweet = ({ tweet, isCard = true }: TweetProps): JSX.Element => {
   const [isAuthor, setIsAuthor] = useState<boolean>(false);
   const [email, setEmail] = useState<string>();
   const [isFollowing, setIsFollowing] = useState<boolean>(false);
+  const [isRetweeted, setIsRetweeted] = useState<boolean>(false);
 
   const currentUser = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
@@ -92,6 +95,17 @@ const Tweet = ({ tweet, isCard = true }: TweetProps): JSX.Element => {
         return refEqual(bookmarkRef, tweetRef);
       });
 
+      const isTweetInRetweets = currentUser.retweets.some((retweet) => {
+        const retweetRef: DocumentReference = retweet;
+        return refEqual(retweetRef, tweetRef);
+      });
+
+      if (isTweetInRetweets) {
+        setIsRetweeted(true);
+      } else {
+        setIsRetweeted(false);
+      }
+
       if (isUserInLikes) {
         setIsLiked(true);
       } else {
@@ -134,6 +148,16 @@ const Tweet = ({ tweet, isCard = true }: TweetProps): JSX.Element => {
         dispatch(unbookmarkTweet(tweet.id, currentUser.email));
       } else {
         dispatch(bookmarkTweet(tweet.id, currentUser.email));
+      }
+    }
+  };
+
+  const handleRetweet = () => {
+    if (currentUser) {
+      if (isRetweeted) {
+        dispatch(unretweet(tweet.id, currentUser?.email));
+      } else {
+        dispatch(retweet(tweet.id, currentUser?.email));
       }
     }
   };
@@ -298,6 +322,8 @@ const Tweet = ({ tweet, isCard = true }: TweetProps): JSX.Element => {
           likes={likes}
           handleTweetLike={handleTweetLike}
           popover={popover}
+          handleRetweet={handleRetweet}
+          isRetweeted={isRetweeted}
         />
       ) : (
         <TweetMain
