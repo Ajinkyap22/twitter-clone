@@ -32,6 +32,8 @@ export type TTweet = {
   retweets: DocumentReference<DocumentData>[];
   replies: TTweet[];
   isReply: boolean;
+  replyTo?: string;
+  originalTweet?: string;
   isRetweet?: boolean;
   retweetedBy?: string;
   retweetedTimestamp?: Timestamp;
@@ -99,6 +101,14 @@ export const tweetSlice = createSlice({
           return tweet;
         });
       }
+    },
+    updateTweetReplies(state, action) {
+      state.tweets = state.tweets.map((tweet) => {
+        if (tweet.id === action.payload.id) {
+          tweet.replies = [...tweet.replies, action.payload.reply];
+        }
+        return tweet;
+      });
     },
   },
 });
@@ -184,6 +194,9 @@ export const fetchTweets =
       for (const tweetRef of userRetweets) {
         const tweetDoc = await getDoc(tweetRef);
         const tweet = tweetDoc.data() as TTweet;
+
+        if (!tweet) continue;
+
         tweet.isRetweet = true;
         tweet.retweetedBy = user?.username;
         tweet.retweetedTimestamp = Timestamp.now();
@@ -200,13 +213,11 @@ export const fetchTweets =
       return date2.seconds - date1.seconds;
     });
 
-    console.log(tweets);
-
     // dispatch action to add tweets to state
     dispatch(updateTweets(tweets));
   };
 
-//push a reference of the user into the likes array and push tweet references into the likes array of user document
+// push a reference of the user into the likes array and push tweet references into the likes array of user document
 export const likeTweet =
   (tweetId: string, userEmail: string): AppThunk =>
   async (dispatch) => {
@@ -225,7 +236,7 @@ export const likeTweet =
     });
   };
 
-//remove a reference of the user from the likes array and remove tweet references from the likes array of user document
+// remove a reference of the user from the likes array and remove tweet references from the likes array of user document
 export const unlikeTweet =
   (tweetId: string, userEmail: string): AppThunk =>
   async (dispatch) => {
@@ -244,7 +255,7 @@ export const unlikeTweet =
     });
   };
 
-//delete a tweet from the database and remove the tweet reference from the user's tweets array
+// delete a tweet from the database and remove the tweet reference from the user's tweets array
 export const deleteTweet =
   (tweetId: string, userEmail: string): AppThunk =>
   async (dispatch) => {
@@ -280,7 +291,8 @@ export const retweet =
       retweets: arrayUnion(tweetRef),
     });
   };
-//unretweet a tweet
+
+// unretweet a tweet
 export const unretweet =
   (tweetId: string, userEmail: string): AppThunk =>
   async (dispatch) => {
@@ -298,25 +310,33 @@ export const unretweet =
       retweets: arrayRemove(tweetRef),
     });
   };
-// export const deleteTweet =
-//   (id: number): AppThunk =>
-//   async (dispatach) => {};
 
-// export const likeTweet =
-//   (id: number): AppThunk =>
-//   async (dispatach) => {};
+export const reply =
+  (tweet: TTweet, originalTweetId: string, userEmail: string): AppThunk =>
+  async (dispatch) => {
+    const tweetRef = doc(db, "tweets", tweet.id);
 
-// export const retweet =
-//   (id: number): AppThunk =>
-//   async (dispatch) => {};
+    await setDoc(tweetRef, tweet);
 
-// export const reply =
-//   (tweet: TTweet): AppThunk =>
-//   async (dispatch) => {};
+    const originalTweetRef = doc(db, "tweets", originalTweetId);
 
-// export const bookmarkTweet =
-//   (id: number): AppThunk =>
-//   async (dispatch) => {};
+    await updateDoc(originalTweetRef, {
+      replies: arrayUnion(tweetRef),
+    });
+
+    await updateDoc(doc(db, "users", userEmail), {
+      tweets: arrayUnion(tweetRef),
+    });
+
+    // add tweet to state
+    dispatch(addTweet(tweet));
+
+    // add tweet reference to original tweet's replies array
+    dispatch(updateTweetReplies({ reply: tweetRef, id: originalTweetId }));
+
+    // add tweet reference to user's tweets array
+    dispatch(updateUserTweets(tweetRef));
+  };
 
 export const selectTweets = (state: RootState) => state.tweet.tweets;
 
@@ -326,6 +346,7 @@ export const {
   updateSingleTweet,
   deleteTweets,
   updateTweetAfterRetweet,
+  updateTweetReplies,
 } = tweetSlice.actions;
 
 export default tweetSlice.reducer;
