@@ -43,8 +43,6 @@ function App() {
                 element={<TweetPage />}
               />
             </Route>
-            {/* 404 page */}
-            <Route path="/*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </ErrorBoundary>
