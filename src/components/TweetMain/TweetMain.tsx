@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -6,7 +6,7 @@ import moment from "moment";
 
 import { TTweet } from "features/tweet/tweetSlice";
 
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+// import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 
 type Props = {
   tweet: TTweet;
@@ -19,7 +19,7 @@ type Props = {
   popover: JSX.Element;
 };
 
-const TweetCard = ({
+const TweetMain = ({
   name,
   username,
   picture,
@@ -27,62 +27,113 @@ const TweetCard = ({
   isLiked,
   likes,
   handleTweetLike,
-  popover,
-}: Props) => {
+}: // popover,
+Props) => {
   const navigate = useNavigate();
+  const [liked, setLiked] = useState(isLiked);
+  const [likeCount, setLikeCount] = useState(likes);
 
   const handleTweetClick = () => {
     navigate(`../${username}/status/${tweet.id}`);
   };
 
-  return (
-    <div className="d-flex justify-content-between align-items-start border-bottom p-3 pb-0 cursor-pointer tweet">
-      <Link to={`/${username}`} className="text-dark">
-        <img
-          src={picture}
-          alt="profile"
-          className="w-7 h-7 rounded-pill me-3 w-13 h-13"
-        />
-      </Link>
+  const handleLikeClick = () => {
+    handleTweetLike();
+    setLiked(!liked);
+    setLikeCount(liked ? likeCount - 1 : likeCount + 1);
+  };
 
-      <div className="d-flex flex-column flex-grow-1">
-        <div>
+  return (
+    <div className="d-flex flex-column p-3 pb-0">
+      <div className="d-flex align-items-center">
+        <Link to={`/${username}`} className="text-dark">
+          <img
+            src={picture}
+            alt="profile"
+            className="w-7 h-7 rounded-pill me-3 w-13 h-13"
+          />
+        </Link>
+
+        <div className="d-flex flex-column flex-grow-1">
           <Link to={`/${username}`} className="text-dark">
-            <span className="me-2 fw-bold text-underline">{name}</span>
-            <span className="text-muted fs-7">@{username}</span>
+            <div className="d-flex flex-column">
+              <span className="me-2 fw-bold text-underline my-0 line-height-sm">
+                {name}
+              </span>
+              <span className="text-muted fs-7 my-0 line-height-sm">
+                @{username}
+              </span>
+            </div>
           </Link>
-          <span className="p-1 text-muted">·</span>
-          <span className="text-muted fs-7 text-underline">
-            {moment(tweet.date.toDate()).fromNow()}
-          </span>
         </div>
 
-        <p onClick={handleTweetClick} className="mb-2 tweet-text">
+        {/* <OverlayTrigger trigger="click" placement="left" overlay={popover}>
+          <button className="border-0 bg-transparent blue-hover p-2 d-flex align-items-center justify-content-center align-self-start">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-3 h-3"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+              />
+            </svg>
+          </button>
+        </OverlayTrigger> */}
+      </div>
+
+      <div className="pt-3">
+        <p onClick={handleTweetClick} className="mb-2 fs-4_5 line-height-lg">
           {tweet.text}
         </p>
 
         {/* Display images and videos from media array */}
-        <Link to={`/${username}/status/${tweet.id}`}>
-          {tweet.media.length > 0 &&
-            (tweet.media[0].includes("images") ? (
-              <img
-                src={tweet.media[0]}
-                alt="tweet-image"
-                className="rounded-4 w-100 border border-1 "
-              />
-            ) : (
-              <video
-                src={tweet.media[0]}
-                className="w-100 h-100 rounded-3"
-                controls
-                muted
-                loop
-                autoPlay
-              />
-            ))}
-        </Link>
+        {tweet.media.length > 0 &&
+          (tweet.media[0].includes("images") ? (
+            <img
+              src={tweet.media[0]}
+              alt="tweet-image"
+              className="rounded-4 w-100 border border-1 mt-1"
+            />
+          ) : (
+            <video
+              src={tweet.media[0]}
+              className="w-100 h-100 rounded-3"
+              controls
+              muted
+              loop
+              autoPlay
+            />
+          ))}
 
-        <div className="d-flex justify-content-between p-1">
+        {/* time */}
+        <p className="text-muted fs-7 py-3 mb-0 border-bottom">
+          {moment(tweet.date.toDate()).format("h:mm A - MMM D, YYYY")}
+        </p>
+
+        {/* tweet stats */}
+        <div className="d-flex py-3 border-bottom align-items-center">
+          {/* retweets */}
+          <p className="fs-7_5 me-3 my-0">
+            <span className="fw-bold">{tweet.retweets.length}</span>{" "}
+            <span className="text-muted">Retweets</span>
+          </p>
+
+          {/* likes */}
+          <p className="fs-7_5 me-3 my-0">
+            <span className="fw-bold">{likeCount}</span>{" "}
+            <span className="text-muted">
+              {likeCount === 1 ? "Like" : "Likes"}
+            </span>
+          </p>
+        </div>
+
+        <div className="d-flex justify-content-around py-2 border-bottom">
           {/* reply */}
           <button className="border-0 bg-transparent blue-hover p-2 d-flex align-items-center justify-content-center text-muted">
             <svg
@@ -123,16 +174,16 @@ const TweetCard = ({
           <div className="d-flex ">
             <button
               className={`border-0 bg-transparent like p-2 d-flex align-items-center justify-content-center text-muted ${
-                isLiked ? "liked" : ""
+                liked ? "liked" : ""
               }`}
-              onClick={handleTweetLike}
+              onClick={handleLikeClick}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                fill={isLiked ? "red" : "none"}
+                fill={liked ? "red" : "none"}
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
-                stroke={isLiked ? "#f9197f" : "currentColor"}
+                stroke={liked ? "#f9197f" : "currentColor"}
                 className="w-3 h-3"
               >
                 <path
@@ -142,11 +193,11 @@ const TweetCard = ({
                 />
               </svg>
             </button>
-            {tweet.likes.length > 0 && (
+            {likeCount > 0 && (
               <span
-                className={`ms-1 align-self-center ${isLiked ? "bg-red" : ""}`}
+                className={`ms-1 align-self-center ${liked ? "bg-red" : ""}`}
               >
-                {likes}
+                {likeCount}
               </span>
             )}
           </div>
@@ -170,27 +221,8 @@ const TweetCard = ({
           </button>
         </div>
       </div>
-
-      <OverlayTrigger trigger="click" placement="left" overlay={popover}>
-        <button className="border-0 bg-transparent blue-hover p-2 d-flex align-items-center justify-content-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-3 h-3"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-            />
-          </svg>
-        </button>
-      </OverlayTrigger>
     </div>
   );
 };
 
-export default TweetCard;
+export default TweetMain;

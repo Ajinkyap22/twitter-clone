@@ -72,8 +72,8 @@ const Profile = () => {
 
         // get tweet data from tweet reference
         for (const tweetRef of userTweets) {
-          const tweetDOc = await getDoc(tweetRef);
-          const tweet = tweetDOc.data() as TTweet;
+          const tweetDoc = await getDoc(tweetRef);
+          const tweet = tweetDoc.data() as TTweet;
 
           if (!replies && tweet?.isReply) continue;
 

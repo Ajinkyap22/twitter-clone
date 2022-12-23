@@ -1,5 +1,5 @@
 import React from "react";
-import TweetCard from "components/TweetCard/TweetCard";
+import Tweet from "components/Tweet/Tweet";
 import { TTweet } from "features/tweet/tweetSlice";
 
 type Props = {
@@ -11,7 +11,7 @@ const Tweets = ({ tweets }: Props) => {
     <div>
       {tweets.map((tweet) => {
         if (!tweet) return null;
-        return <TweetCard key={tweet.id} tweet={tweet} />;
+        return <Tweet key={tweet.id} tweet={tweet} />;
       })}
     </div>
   );
