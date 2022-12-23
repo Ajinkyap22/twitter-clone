@@ -59,7 +59,12 @@ const Profile = () => {
     };
 
     fetchUserProfile(pathname.slice(1));
-  }, [location.pathname, currentUser?.followers, currentUser?.following]);
+  }, [
+    location.pathname,
+    currentUser?.followers,
+    currentUser?.following,
+    currentUser?.retweets,
+  ]);
 
   // feetch tweets to display on profile
   useEffect(() => {
@@ -67,9 +72,9 @@ const Profile = () => {
       // get user tweets
       const userTweets = user?.tweets;
 
-      if (userTweets && userTweets.length) {
-        const tweetsArr = [];
+      const tweetsArr = [];
 
+      if (userTweets && userTweets.length) {
         // get tweet data from tweet reference
         for (const tweetRef of userTweets) {
           const tweetDoc = await getDoc(tweetRef);
@@ -81,7 +86,25 @@ const Profile = () => {
 
           tweetsArr.push(tweet);
         }
+      }
 
+      const userRetweets = user?.retweets;
+
+      if (userRetweets && userRetweets.length) {
+        // get tweet data from tweet reference
+        for (const tweetRef of userRetweets) {
+          const tweetDoc = await getDoc(tweetRef);
+          const tweet = tweetDoc.data() as TTweet;
+
+          if (!replies && tweet?.isReply) continue;
+
+          if (media && !tweet.media.length) continue;
+
+          tweetsArr.push(tweet);
+        }
+      }
+
+      if (tweetsArr.length) {
         const sortedTweets = tweetsArr.sort(
           (a, b) => b.date.seconds - a.date.seconds
         );
