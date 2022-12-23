@@ -191,7 +191,7 @@ const Profile = () => {
           <Tweets tweets={profileTweets} />
         </div>
       ) : (
-        <div>
+        <div className="d-flex align-items-center justify-content-center pt-7">
           <span>
             Hmm...this page doesn’t exist. Try searching for something else.
           </span>
