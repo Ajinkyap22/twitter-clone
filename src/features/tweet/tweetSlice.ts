@@ -32,6 +32,9 @@ export type TTweet = {
   retweets: DocumentReference<DocumentData>[];
   replies: TTweet[];
   isReply: boolean;
+  isRetweet?: boolean;
+  retweetedBy?: string;
+  retweetedTimestamp?: Timestamp;
 };
 
 interface TTweetState {
@@ -162,6 +165,12 @@ export const fetchTweets =
     for (const tweetRef of userRetweets) {
       const tweetDoc = await getDoc(tweetRef);
       const tweet = tweetDoc.data() as TTweet;
+
+      if (!tweet) continue;
+
+      tweet.isRetweet = true;
+      tweet.retweetedBy = user.username;
+      tweet.retweetedTimestamp = Timestamp.now();
       tweets = [...tweets, tweet];
     }
 
@@ -175,12 +184,23 @@ export const fetchTweets =
       for (const tweetRef of userRetweets) {
         const tweetDoc = await getDoc(tweetRef);
         const tweet = tweetDoc.data() as TTweet;
+        tweet.isRetweet = true;
+        tweet.retweetedBy = user?.username;
+        tweet.retweetedTimestamp = Timestamp.now();
         tweets = [...tweets, tweet];
       }
     }
 
     // sort tweets by date
-    tweets.sort((a, b) => b.date.seconds - a.date.seconds);
+    tweets.sort((a, b) => {
+      const date1 = a.retweetedTimestamp || a.date;
+
+      const date2 = b.retweetedTimestamp || b.date;
+
+      return date2.seconds - date1.seconds;
+    });
+
+    console.log(tweets);
 
     // dispatch action to add tweets to state
     dispatch(updateTweets(tweets));
