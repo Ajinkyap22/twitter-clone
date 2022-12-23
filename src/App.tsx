@@ -8,6 +8,7 @@ const Profile = lazy(() => import("pages/Profile/Profile"));
 const FeedContent = lazy(() => import("pages/FeedContent/FeedContent"));
 const Bookmarks = lazy(() => import("pages/Bookmarks/Bookmarks"));
 const TweetPage = lazy(() => import("pages/TweetPage/TweetPage"));
+const NotFound = lazy(() => import("pages/NotFound/NotFound"));
 const ErrorFalback = lazy(
   () => import("./components/ErrorFallback/ErrorFalback")
 );
@@ -42,6 +43,8 @@ function App() {
                 element={<TweetPage />}
               />
             </Route>
+            {/* 404 page */}
+            <Route path="/*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </ErrorBoundary>
