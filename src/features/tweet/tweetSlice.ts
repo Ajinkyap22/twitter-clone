@@ -36,7 +36,6 @@ export type TTweet = {
   originalTweet?: string;
   isRetweet?: boolean;
   retweetedBy?: string;
-  retweetedTimestamp?: Timestamp;
 };
 
 interface TTweetState {
@@ -152,6 +151,8 @@ export const fetchTweets =
     for (const tweetRef of userTweets) {
       const tweetDoc = await getDoc(tweetRef);
       const tweet = tweetDoc.data() as TTweet;
+      if (!tweet) continue;
+
       tweets = [...tweets, tweet];
     }
 
@@ -180,7 +181,6 @@ export const fetchTweets =
 
       tweet.isRetweet = true;
       tweet.retweetedBy = user.username;
-      tweet.retweetedTimestamp = Timestamp.now();
       tweets = [...tweets, tweet];
     }
 
@@ -199,16 +199,15 @@ export const fetchTweets =
 
         tweet.isRetweet = true;
         tweet.retweetedBy = user?.username;
-        tweet.retweetedTimestamp = Timestamp.now();
         tweets = [...tweets, tweet];
       }
     }
 
     // sort tweets by date
     tweets.sort((a, b) => {
-      const date1 = a.retweetedTimestamp || a.date;
+      const date1 = a.date;
 
-      const date2 = b.retweetedTimestamp || b.date;
+      const date2 = b.date;
 
       return date2.seconds - date1.seconds;
     });

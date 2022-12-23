@@ -7,11 +7,13 @@ type Props = {
 };
 
 const Tweets = ({ tweets }: Props) => {
+  console.log(tweets);
+
   return (
     <div>
-      {tweets.map((tweet) => {
+      {tweets.map((tweet, i) => {
         if (!tweet) return null;
-        return <Tweet key={tweet.id} tweet={tweet} />;
+        return <Tweet key={i} tweet={tweet} />;
       })}
     </div>
   );

@@ -7,6 +7,8 @@ import moment from "moment";
 import { TTweet } from "features/tweet/tweetSlice";
 
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import { selectCurrentUser } from "../../features/user/userSlice";
+import { useAppSelector } from "../../app/hooks";
 
 type Props = {
   tweet: TTweet;
@@ -39,6 +41,8 @@ const TweetCard = ({
     navigate(`../${username}/status/${tweet.id}`);
   };
 
+  const currentUser = useAppSelector(selectCurrentUser);
+
   return (
     <div className="d-flex justify-content-between align-items-start border-bottom p-3 pb-0 cursor-pointer tweet">
       <Link to={`/${username}`} className="text-dark">
@@ -66,7 +70,7 @@ const TweetCard = ({
                 d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3"
               />
             </svg>
-            {tweet.retweetedBy === username ? (
+            {tweet.retweetedBy === currentUser?.username ? (
               <span>You Retweeted</span>
             ) : (
               <span>{tweet.retweetedBy} Retweeted</span>
