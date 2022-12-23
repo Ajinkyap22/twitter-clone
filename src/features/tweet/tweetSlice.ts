@@ -21,7 +21,6 @@ import {
   deleteUserTweet,
   updateUserAfterRetweet,
 } from "features/user/userSlice";
-import Tweets from "components/Tweets/Tweets";
 
 export type TTweet = {
   id: string;
@@ -159,11 +158,13 @@ export const fetchTweets =
     }
     //fetch all retweets from user's retweets list and user's following list and add to tweets array
     const userRetweets = user.retweets;
+
     for (const tweetRef of userRetweets) {
       const tweetDoc = await getDoc(tweetRef);
       const tweet = tweetDoc.data() as TTweet;
       tweets = [...tweets, tweet];
     }
+
     for (const userRef of followingList) {
       const userDoc = await getDoc(userRef);
       const user = userDoc.data();

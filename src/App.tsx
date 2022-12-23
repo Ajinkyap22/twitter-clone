@@ -2,11 +2,12 @@ import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ErrorBoundary } from "react-error-boundary";
-import Bookmarks from "pages/Bookmarks/Bookmarks";
 
-const Home = lazy(() => import("./pages/Home/Home"));
-const Profile = lazy(() => import("./pages/Profile/Profile"));
-const FeedContent = lazy(() => import("./pages/FeedContent/FeedContent"));
+const Home = lazy(() => import("pages/Home/Home"));
+const Profile = lazy(() => import("pages/Profile/Profile"));
+const FeedContent = lazy(() => import("pages/FeedContent/FeedContent"));
+const Bookmarks = lazy(() => import("pages/Bookmarks/Bookmarks"));
+const TweetPage = lazy(() => import("pages/TweetPage/TweetPage"));
 const ErrorFalback = lazy(
   () => import("./components/ErrorFallback/ErrorFalback")
 );
@@ -35,6 +36,11 @@ function App() {
               <Route path="/bookmarks" element={<Bookmarks />} />
               {/* profile */}
               <Route path="/:username" element={<Profile />} />
+              {/* tweet page */}
+              <Route
+                path="/:username/status/:tweetId"
+                element={<TweetPage />}
+              />
             </Route>
           </Routes>
         </Suspense>
