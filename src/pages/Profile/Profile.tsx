@@ -54,8 +54,11 @@ const Profile = () => {
       querySnapshot.forEach((doc) => {
         user = doc.data() as TUser;
       });
-
-      setUser(user);
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
     };
 
     fetchUserProfile(pathname.slice(1));
@@ -157,7 +160,7 @@ const Profile = () => {
 
   return (
     <>
-      {user && (
+      {user ? (
         <div className="pb-5">
           <ProfileHeader name={user.name} tweets={user.tweets.length} />
 
@@ -186,6 +189,12 @@ const Profile = () => {
 
           {/* tweets */}
           <Tweets tweets={profileTweets} />
+        </div>
+      ) : (
+        <div>
+          <span>
+            Hmm...this page doesn’t exist. Try searching for something else.
+          </span>
         </div>
       )}
     </>
