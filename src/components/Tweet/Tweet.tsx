@@ -21,8 +21,8 @@ import { useAppSelector, useAppDispatch } from "app/hooks";
 import { getDoc, doc, DocumentReference, refEqual } from "firebase/firestore";
 import db from "firebase-config/config";
 
-import Button from "react-bootstrap/Button";
-import Popover from "react-bootstrap/Popover";
+import { Button } from "react-bootstrap";
+import { Popover } from "react-bootstrap";
 
 import TweetCard from "components/TweetCard/TweetCard";
 import TweetMain from "components/TweetMain/TweetMain";

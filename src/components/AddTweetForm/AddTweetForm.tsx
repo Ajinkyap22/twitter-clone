@@ -10,8 +10,8 @@ import { useState, useRef } from "react";
 import { useAppSelector, useAppDispatch } from "app/hooks";
 import { selectCurrentUser } from "features/user/userSlice";
 
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import { Form } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 import { TTweet, createTweet } from "features/tweet/tweetSlice";
 

@@ -6,7 +6,7 @@ import { selectCurrentUser, follow, unfollow } from "features/user/userSlice";
 import db from "../../firebase-config/config";
 import { refEqual, doc } from "firebase/firestore";
 
-import Button from "react-bootstrap/Button";
+import { Button } from "react-bootstrap";
 
 type Props = {
   user: {

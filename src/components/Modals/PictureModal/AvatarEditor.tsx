@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import Editor from "react-avatar-editor";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+import { Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 
 type Props = {
   show: boolean;

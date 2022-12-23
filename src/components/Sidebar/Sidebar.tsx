@@ -1,16 +1,16 @@
 import React from "react";
 import { ListGroupItem } from "react-bootstrap";
 import Logo from "../../assets/images/Logo.svg";
-import ListGroup from "react-bootstrap/ListGroup";
-import Button from "react-bootstrap/Button";
-import Popover from "react-bootstrap/Popover";
+import { ListGroup } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import { Popover } from "react-bootstrap";
 import { useAppSelector } from "../../app/hooks";
 import { selectCurrentUser } from "../../features/user/userSlice";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import { OverlayTrigger } from "react-bootstrap";
 
 type props = {
   showTweetFormModal: boolean;

@@ -4,8 +4,8 @@ import { selectCurrentUser } from "features/user/userSlice";
 import { reply, TTweet } from "features/tweet/tweetSlice";
 import { Link } from "react-router-dom";
 
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import { Form } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 import ImagePreview from "components/ImagePreview/ImagePreview";
 import VideoPreview from "components/VideoPreview/VideoPreview";

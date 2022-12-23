@@ -1,6 +1,6 @@
 import React from "react";
 
-import Button from "react-bootstrap/Button";
+import { Button } from "react-bootstrap";
 
 type Props = {
   activeTab: string;
