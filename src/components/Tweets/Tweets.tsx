@@ -7,8 +7,6 @@ type Props = {
 };
 
 const Tweets = ({ tweets }: Props) => {
-  console.log(tweets);
-
   return (
     <div>
       {tweets.map((tweet, i) => {

@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import { useAppSelector } from "app/hooks";
+
 import TweetHeader from "components/TweetHeader/TweetHeader";
 import Tweet from "components/Tweet/Tweet";
 import ReplyForm from "components/ReplyForm/ReplyForm";
+import Replies from "components/Replies/Replies";
 
 import { TTweet } from "features/tweet/tweetSlice";
-import { TUser } from "features/user/userSlice";
+import { TUser, selectCurrentUser } from "features/user/userSlice";
 
 import db from "firebase-config/config";
 
@@ -15,7 +18,15 @@ import { doc, getDoc } from "firebase/firestore";
 const TweetPage = () => {
   const [tweet, setTweet] = useState<TTweet | null>(null);
   const [author, setAuthor] = useState<TUser | null>(null);
+
+  const currentUser = useAppSelector(selectCurrentUser);
   const { tweetId } = useParams();
+
+  useEffect(() => {
+    if (!tweet || !author) return;
+
+    document.title = `${author.name} on Twitter: "${tweet?.text}"`;
+  }, [tweet, author]);
 
   useEffect(() => {
     if (!tweetId) return;
@@ -41,7 +52,7 @@ const TweetPage = () => {
     };
 
     getTweet();
-  }, [tweetId]);
+  }, [tweetId, currentUser]);
 
   return (
     <main className="pb-5">
@@ -55,6 +66,9 @@ const TweetPage = () => {
       {tweet && author && (
         <ReplyForm replyingTo={author?.username} tweetId={tweetId} />
       )}
+
+      {/* replies */}
+      {tweet && <Replies tweetReplies={tweet.replies} />}
     </main>
   );
 };

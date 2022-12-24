@@ -1,6 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import moment from "moment";
 
@@ -21,6 +20,8 @@ type Props = {
   popover: JSX.Element;
   handleRetweet: () => void;
   isRetweeted: boolean;
+  isReply?: boolean;
+  replyingTo?: string;
 };
 
 const TweetCard = ({
@@ -34,6 +35,8 @@ const TweetCard = ({
   handleRetweet,
   popover,
   isRetweeted,
+  isReply = false,
+  replyingTo = "",
 }: Props): JSX.Element => {
   const navigate = useNavigate();
 
@@ -79,18 +82,45 @@ const TweetCard = ({
         )}
 
         <div>
+          {/* name and username */}
           <Link to={`/${username}`} className="text-dark">
             <span className="me-2 fw-bold text-underline">{name}</span>
             <span className="text-muted fs-7">@{username}</span>
           </Link>
+
+          {/* time */}
           <span className="p-1 text-muted">·</span>
           <span className="text-muted fs-7 text-underline">
             {moment(tweet.date.toDate()).fromNow()}
           </span>
         </div>
+
+        {/* replying to */}
+        {isReply && (
+          <p className="m-0">
+            <span className="text-muted fs-7">Replying to</span>
+            <Link
+              to={`/${replyingTo}`}
+              className="link-primary fs-7 text-underline text-decoration-none"
+            >
+              {" "}
+              @{replyingTo}'s
+            </Link>
+            <Link
+              to={`/${replyingTo}/status/${tweet.originalTweet}`}
+              className="link-primary fs-7 text-underline text-decoration-none"
+            >
+              {" "}
+              Tweet
+            </Link>
+          </p>
+        )}
+
+        {/* caption */}
         <p onClick={handleTweetClick} className="mb-2 tweet-text">
           {tweet.text}
         </p>
+
         {/* Display images and videos from media array */}
         <Link to={`/${username}/status/${tweet.id}`}>
           {tweet.media.length > 0 &&
@@ -111,24 +141,27 @@ const TweetCard = ({
               />
             ))}
         </Link>
+
         <div className="d-flex justify-content-between p-1">
           {/* reply */}
-          <button className="border-0 bg-transparent blue-hover p-2 d-flex align-items-center justify-content-center text-muted">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-3 h-3"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"
-              />
-            </svg>
-          </button>
+          <Link to={`/${username}/status/${tweet.id}`}>
+            <button className="border-0 bg-transparent blue-hover p-2 d-flex align-items-center justify-content-center text-muted">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-3 h-3"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"
+                />
+              </svg>
+            </button>
+          </Link>
 
           {/* retweet */}
           <div className="d-flex ">
@@ -161,6 +194,7 @@ const TweetCard = ({
               </span>
             )}
           </div>
+
           {/* like */}
           <div className="d-flex ">
             <button
