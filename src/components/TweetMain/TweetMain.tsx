@@ -146,7 +146,9 @@ Props) => {
           {/* retweets */}
           <p className="fs-7_5 me-3 my-0">
             <span className="fw-bold">{tweet.retweets.length}</span>{" "}
-            <span className="text-muted">Retweets</span>
+            <span className="text-muted">
+              {tweet.retweets.length === 1 ? "Retweet" : "Retweets"}
+            </span>
           </p>
 
           {/* likes */}

@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+
 import { Button } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import { Form } from "react-bootstrap";
+import { Alert } from "react-bootstrap";
+
+import db from "firebase-config/config";
+import { query, where, getDocs, collection } from "firebase/firestore";
 
 type Props = {
   show: boolean;
@@ -18,6 +23,36 @@ const UsernameModal = ({
   setUsername,
   handleBack,
 }: Props) => {
+  const [usernameError, setUsernameError] = useState<string | null>(null);
+
+  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    // check if the username has any spaces
+    if (e.target.value.includes(" ")) {
+      setUsernameError("Username cannot contain spaces.");
+      return;
+    }
+
+    setUsernameError(null);
+
+    setUsername(e.target.value.toLowerCase());
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // check if the username is already taken
+    const q = query(collection(db, "users"), where("username", "==", username));
+
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.size > 0) {
+      setUsernameError("Username is already taken.");
+      return;
+    }
+
+    onHide(e);
+  };
+
   return (
     <Modal
       show={show}
@@ -61,18 +96,24 @@ const UsernameModal = ({
       <Modal.Body className="border-none mt-3 px-5">
         <h2 className="pb-1">Pick your username</h2>
 
-        <Form onSubmit={onHide}>
+        <Form onSubmit={handleSubmit}>
           <Form.Control
             type="text"
             className="form-control p-3 mt-4 mb-2 border-2"
             placeholder="Username"
             value={username}
-            onChange={(e) => setUsername(e.target.value.toLowerCase())}
+            onChange={handleChange}
           />
 
           <Form.Text className="text-muted">
             This will be your unique handle on the site.
           </Form.Text>
+
+          {usernameError && (
+            <Alert variant="danger" className="mt-3 p-2 fs-7_5">
+              {usernameError}
+            </Alert>
+          )}
 
           <Button
             variant={!username ? "secondary" : "primary"}

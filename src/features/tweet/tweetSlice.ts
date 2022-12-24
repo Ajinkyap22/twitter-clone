@@ -17,7 +17,6 @@ import {
   query,
   collection,
   limit,
-  QuerySnapshot,
   getDocs,
 } from "firebase/firestore";
 import {
