@@ -191,8 +191,8 @@ const Profile = () => {
           <Tweets tweets={profileTweets} />
         </div>
       ) : (
-        <div className="d-flex align-items-center justify-content-center pt-7">
-          <span>
+        <div className="d-flex justify-content-center pt-7 h-100vh">
+          <span className="text-search">
             Hmm...this page doesn’t exist. Try searching for something else.
           </span>
         </div>
