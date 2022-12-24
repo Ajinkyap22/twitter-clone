@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 import ImagePreview from "components/ImagePreview/ImagePreview";
@@ -6,7 +6,6 @@ import VideoPreview from "components/VideoPreview/VideoPreview";
 
 import uniquid from "uniqid";
 
-import { useState, useRef } from "react";
 import { useAppSelector, useAppDispatch } from "app/hooks";
 import { selectCurrentUser } from "features/user/userSlice";
 
@@ -29,6 +28,7 @@ const AddTweetForm = ({ isModal, closeModal }: Props): JSX.Element => {
   const [imageInput, setImageInput] = useState<File | null>(null);
   const [videoInput, setVideoInput] = useState<File | null>(null);
   const [uploading, setUploading] = useState<boolean>(false);
+  const [disabled, setDisabled] = useState<boolean>(true);
 
   const imageInputRef = useRef<HTMLInputElement>(null);
   const videoInputRef = useRef<HTMLInputElement>(null);
@@ -36,6 +36,18 @@ const AddTweetForm = ({ isModal, closeModal }: Props): JSX.Element => {
 
   const currentUser = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (
+      (tweetCaption && tweetCaption.length <= 280) ||
+      imageInput ||
+      videoInput
+    ) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [tweetCaption, imageInput, videoInput]);
 
   // on image button click
   const handleImageUpload = () => {
@@ -337,17 +349,20 @@ const AddTweetForm = ({ isModal, closeModal }: Props): JSX.Element => {
                 hidden
               />
             </div>
+
             <div>
+              {/* character count */}
               {tweetCaption.length >= 280 && (
                 <span className="text-danger me-3 border border-danger border-2 rounded-4 p-1_5 fs-8">
                   {280 - tweetCaption.length}
                 </span>
               )}
 
+              {/* submit button */}
               <Button
                 variant="primary"
                 className="rounded-pill py-1_5 px-3"
-                disabled={!tweetCaption.length || tweetCaption.length > 280}
+                disabled={disabled}
                 type="submit"
               >
                 Tweet

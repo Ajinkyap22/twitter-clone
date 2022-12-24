@@ -30,7 +30,7 @@ export type TTweet = {
   date: Timestamp;
   likes: DocumentReference<DocumentData>[];
   retweets: DocumentReference<DocumentData>[];
-  replies: TTweet[];
+  replies: DocumentReference<DocumentData>[];
   isReply: boolean;
   replyTo?: string;
   originalTweet?: string;

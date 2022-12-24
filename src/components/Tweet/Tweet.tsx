@@ -324,6 +324,8 @@ const Tweet = ({ tweet, isCard = true }: TweetProps): JSX.Element => {
           popover={popover}
           handleRetweet={handleRetweet}
           isRetweeted={isRetweeted}
+          isReply={tweet.isReply}
+          replyingTo={tweet.replyTo}
         />
       ) : (
         <TweetMain
@@ -334,7 +336,9 @@ const Tweet = ({ tweet, isCard = true }: TweetProps): JSX.Element => {
           isLiked={isLiked}
           likes={likes}
           handleTweetLike={handleTweetLike}
-          popover={popover}
+          isReply={tweet.isReply}
+          replyingTo={tweet.replyTo}
+          // popover={popover}
         />
       )}
     </>

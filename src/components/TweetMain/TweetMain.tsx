@@ -16,7 +16,9 @@ type Props = {
   likes: number;
   isLiked: boolean;
   handleTweetLike: () => void;
-  popover: JSX.Element;
+  // popover: JSX.Element;
+  isReply?: boolean;
+  replyingTo?: string;
 };
 
 const TweetMain = ({
@@ -27,6 +29,8 @@ const TweetMain = ({
   isLiked,
   likes,
   handleTweetLike,
+  isReply = false,
+  replyingTo = "",
 }: // popover,
 Props) => {
   const navigate = useNavigate();
@@ -87,7 +91,28 @@ Props) => {
         </OverlayTrigger> */}
       </div>
 
-      <div className="pt-3">
+      {/* replying to */}
+      {isReply && (
+        <p className="mb-0 mt-3">
+          <span className="text-muted fs-7">Replying to</span>
+          <Link
+            to={`/${replyingTo}`}
+            className="link-primary fs-7 text-underline text-decoration-none"
+          >
+            {" "}
+            @{replyingTo}'s
+          </Link>
+          <Link
+            to={`/${replyingTo}/status/${tweet.originalTweet}`}
+            className="link-primary fs-7 text-underline text-decoration-none"
+          >
+            {" "}
+            Tweet
+          </Link>
+        </p>
+      )}
+
+      <div className="pt-2">
         <p onClick={handleTweetClick} className="mb-2 fs-4_5 line-height-lg">
           {tweet.text}
         </p>

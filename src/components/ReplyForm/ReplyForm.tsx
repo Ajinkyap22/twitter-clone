@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "app/hooks";
 import { selectCurrentUser } from "features/user/userSlice";
 import { reply, TTweet } from "features/tweet/tweetSlice";
@@ -30,11 +30,25 @@ const ReplyForm = ({ replyingTo, tweetId }: Props) => {
   const [videoInput, setVideoInput] = useState<File | null>(null);
   const [uploading, setUploading] = useState<boolean>(false);
 
+  const [disabled, setDisabled] = useState<boolean>(true);
+
   const imageInputRef = useRef<HTMLInputElement>(null);
   const videoInputRef = useRef<HTMLInputElement>(null);
   const captionRef = useRef<HTMLTextAreaElement>(null);
 
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    captionRef.current && captionRef.current.focus();
+  }, [tweetId]);
+
+  useEffect(() => {
+    if ((caption && caption.length <= 280) || imageInput || videoInput) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [caption, imageInput, videoInput]);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setCaption(e.target.value);
@@ -216,8 +230,8 @@ const ReplyForm = ({ replyingTo, tweetId }: Props) => {
       }`}
     >
       {/* replying to */}
-      <p className="fs-7">
-        <span className="text-search ms-6 mb-1">Replying to</span>
+      <p className="fs-7 mb-2">
+        <span className="text-search ms-6">Replying to</span>
         <Link to={`/profile/${replyingTo}`} className="ms-1 link-primary">
           @{replyingTo}
         </Link>
@@ -238,7 +252,7 @@ const ReplyForm = ({ replyingTo, tweetId }: Props) => {
             as="textarea"
             placeholder="Tweet your reply"
             rows={1}
-            className="border-0 overflow-hidden resize-none tweet-caption py-1 pb-4 px-0"
+            className="border-0 overflow-hidden resize-none tweet-caption py-1 pb-2 px-0"
             value={caption}
             onChange={handleChange}
             ref={captionRef}
@@ -267,7 +281,7 @@ const ReplyForm = ({ replyingTo, tweetId }: Props) => {
               <Button
                 onClick={handleImageUpload}
                 disabled={imageInput || videoInput ? true : false}
-                className="me-1 cursor-pointer logo-hover p-2 px-0 border-0 bg-white"
+                className="me-1 cursor-pointer logo-hover p-2 border-0 bg-white"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -342,7 +356,7 @@ const ReplyForm = ({ replyingTo, tweetId }: Props) => {
               <Button
                 variant="primary"
                 className="rounded-pill py-1_5 px-3"
-                disabled={!caption.length || caption.length > 280}
+                disabled={disabled}
                 type="submit"
                 onClick={handleSubmit}
               >
