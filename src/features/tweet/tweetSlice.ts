@@ -14,6 +14,11 @@ import {
   Timestamp,
   arrayRemove,
   refEqual,
+  query,
+  collection,
+  limit,
+  QuerySnapshot,
+  getDocs,
 } from "firebase/firestore";
 import {
   updateUserTweets,
@@ -142,17 +147,21 @@ export const fetchTweets =
   (user: TUser): AppThunk =>
   async (dispatch) => {
     let tweets: TTweet[] = [];
+
     // get user's following list
     const followingList = user.following;
     // get user's tweets
     const userTweets = user.tweets;
+
+    // object to store tweet ids to avoid duplicates
+    const ids: { [key: string]: boolean } = {};
 
     // fetch all tweets from user's tweets list and add to tweets array
     for (const tweetRef of userTweets) {
       const tweetDoc = await getDoc(tweetRef);
       const tweet = tweetDoc.data() as TTweet;
       if (!tweet) continue;
-
+      ids[tweet.id] = true;
       tweets = [...tweets, tweet];
     }
 
@@ -167,6 +176,7 @@ export const fetchTweets =
       for (const tweetRef of userTweets) {
         const tweetDoc = await getDoc(tweetRef);
         const tweet = tweetDoc.data() as TTweet;
+        ids[tweet.id] = true;
         tweets = [...tweets, tweet];
       }
     }
@@ -202,6 +212,20 @@ export const fetchTweets =
         tweets = [...tweets, tweet];
       }
     }
+
+    // fetch random tweets from firebase
+    const tweetsRef = collection(db, "tweets");
+    const q = query(tweetsRef, limit(5));
+    const querySnapshot = await getDocs(q);
+
+    const randomTweets: TTweet[] = [];
+
+    querySnapshot.forEach((doc) => {
+      const tweet = doc.data() as TTweet;
+      if (!ids[tweet.id]) randomTweets.push(tweet);
+    });
+
+    tweets = [...tweets, ...randomTweets];
 
     // sort tweets by date
     tweets.sort((a, b) => {
