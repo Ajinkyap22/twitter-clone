@@ -1,10 +1,16 @@
 import React, { useEffect } from "react";
+
 import BookmarksHeader from "components/BookmarksHeader/BookmarksHeader";
-import { selectCurrentUser } from "features/user/userSlice";
-import { useAppSelector } from "app/hooks";
 import Tweets from "components/Tweets/Tweets";
-import { getDoc } from "firebase/firestore";
+import LoadingSpinner from "components/LoadingSpinner/LoadingSpinner";
+
+import { useAppSelector } from "app/hooks";
+import { selectCurrentUser } from "features/user/userSlice";
 import { TTweet } from "features/tweet/tweetSlice";
+
+import { getDoc } from "firebase/firestore";
+
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 const Bookmarks = () => {
   const currentUser = useAppSelector(selectCurrentUser);
@@ -50,4 +56,6 @@ const Bookmarks = () => {
   );
 };
 
-export default Bookmarks;
+export default withAuthenticationRequired(Bookmarks, {
+  onRedirecting: () => <LoadingSpinner />,
+});
