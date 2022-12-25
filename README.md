@@ -29,7 +29,7 @@ npm start
 
 ## Live Demo
 
-_To be update soon_
+### [Live Demo](https://react-js-twitter-clone.netlify.app)
 
 ## Technologies
 
