@@ -334,8 +334,10 @@ const Tweet = ({ tweet, isCard = true }: TweetProps): JSX.Element => {
           picture={picture}
           username={username}
           isLiked={isLiked}
+          isRetweeted={isRetweeted}
           likes={likes}
           handleTweetLike={handleTweetLike}
+          handleRetweet={handleRetweet}
           isReply={tweet.isReply}
           replyingTo={tweet.replyTo}
           // popover={popover}
