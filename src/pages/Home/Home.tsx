@@ -71,22 +71,28 @@ const Home = (): JSX.Element => {
         <Auth />
       ) : (
         <>
-          <Container fluid className="bg-white m-0">
+          <Container fluid className="bg-white m-0 ps-md-0 ps-lg-3">
             <Row className="w-100 m-0 align-items-start">
-              <Col md={1} xl={3} className="h-100 sticky-top pe-0">
+              <Col
+                md={2}
+                lg={1}
+                xl={3}
+                className="h-100 sticky-top pe-0 ps-md-0 ps-lg-1"
+              >
                 <Sidebar
                   showTweetFormModal={showTweetFormModal}
                   setShowTweetFormModal={setShowTweetFormModal}
                 />
               </Col>
 
-              <Col md={7} xl={5} className="border-end p-0">
+              <Col md={9} lg={7} xl={5} className="border-end p-0">
                 <Outlet />
               </Col>
 
               <Col
-                md={4}
-                className="pe-sm-0 pe-xl-5 pb-5 position-sticky top-minus-25"
+                md={0}
+                lg={4}
+                className="pe-sm-0 pe-xl-5 pb-5 position-sticky top-minus-25 d-none d-lg-block"
               >
                 <Suggestions />
               </Col>

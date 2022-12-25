@@ -243,7 +243,7 @@ const ReplyForm = ({ replyingTo, tweetId }: Props) => {
         <img
           src={user?.picture}
           alt="profile"
-          className="w-10 h-10 rounded-pill me-3"
+          className="w-13 h-13 rounded-pill me-3"
         />
 
         <div className="flex-grow-1">
