@@ -26,7 +26,7 @@ const BioModal = ({
     <Modal
       show={show}
       aria-labelledby="contained-modal-title-vcenter"
-      contentClassName="p-3"
+      contentClassName="p-3 px-0 px-sm-5 px-lg-2 w-xl-80 mx-auto"
       keyboard={false}
       centered
     >
@@ -62,7 +62,7 @@ const BioModal = ({
         </Modal.Title>
       </Modal.Header>
 
-      <Modal.Body className="border-none mt-3 px-5">
+      <Modal.Body className="border-none mt-3 px-5 px-lg-5 px-md-2">
         <h2 className="pb-1">Tell us about yourself</h2>
 
         <Form onSubmit={onHide}>

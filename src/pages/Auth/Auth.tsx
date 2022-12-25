@@ -35,9 +35,9 @@ const Auth = (): JSX.Element => {
     // container-fluid
     <Container
       fluid
-      className="bg-white d-flex justify-content-center align-items-center h-100"
+      className="bg-white d-flex justify-content-center align-items-center h-100 "
     >
-      <div className="bg-white w-35 shadow d-flex flex-column justify-content-center align-items-center rounded-3 p-4">
+      <div className="bg-white w-35 shadow d-flex flex-column justify-content-center align-items-center rounded-3 p-4 w-md-50 w-sm-70 w-xs-80">
         {/* twitter logo */}
         <img src={Logo} alt="" className="w-2" />
 

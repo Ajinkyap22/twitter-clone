@@ -15,12 +15,12 @@ const NameModal = ({ show, onHide, name, setName }: Props) => {
     <Modal
       show={show}
       aria-labelledby="contained-modal-title-vcenter"
-      contentClassName="p-3 px-5"
+      contentClassName="p-3 px-sm-5 w-xl-80 mx-auto"
       keyboard={false}
       centered
     >
       <Modal.Header>
-        <Modal.Title id="contained-modal-title-vcenter">
+        <Modal.Title id="contained-modal-title-vcenter ">
           Step 1 of 4
         </Modal.Title>
       </Modal.Header>

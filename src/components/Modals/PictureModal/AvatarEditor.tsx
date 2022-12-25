@@ -62,7 +62,7 @@ const AvatarEditor = ({
       show={show}
       aria-labelledby="contained-modal-title-vcenter"
       className="z-max"
-      contentClassName="py-2"
+      contentClassName="py-2 px-0 p-3 px-sm-5 w-xl-80 mx-auto"
       keyboard={false}
       ref={modalRef}
       centered

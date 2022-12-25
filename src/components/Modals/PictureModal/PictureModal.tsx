@@ -74,7 +74,7 @@ const PictureModal = ({
     <Modal
       show={show}
       aria-labelledby="contained-modal-title-vcenter"
-      contentClassName="p-3"
+      contentClassName="p-3 px-sm-5 w-xl-80 mx-auto "
       className="z-high"
       keyboard={false}
       centered
@@ -111,7 +111,7 @@ const PictureModal = ({
         </Modal.Title>
       </Modal.Header>
 
-      <Modal.Body className="border-none mt-3 px-5">
+      <Modal.Body className="border-none mt-3 px-2 px-lg-5 px-md-2">
         <h2 className="pb-1">Pick a picture</h2>
 
         <p className="text-muted">
