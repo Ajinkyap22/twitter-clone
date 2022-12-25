@@ -451,6 +451,10 @@ $theme-colors: (
   line-height: 1.3rem;
 }
 
+.word-break {
+  word-break: break-word !important;
+}
+
 // text area resizing
 .resize-none {
   resize: none;
