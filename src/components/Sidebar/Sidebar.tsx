@@ -13,6 +13,7 @@ import { Popover } from "react-bootstrap";
 import { OverlayTrigger } from "react-bootstrap";
 
 import { useAuth0 } from "@auth0/auth0-react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 type props = {
   showTweetFormModal: boolean;
@@ -52,7 +53,7 @@ const Sidebar = ({
         <Link to="/home">
           <ListGroupItem className="cursor-pointer border-0 d-flex justify-content-start w-100 p-0 bg-white">
             <button className="border-0 cursor-pointer bg-white logo-hover p-3">
-              <img src={Logo} alt="Logo" className="w-6 h-6" />
+              <LazyLoadImage src={Logo} alt="Logo" className="w-6 h-6" />
             </button>
           </ListGroupItem>
         </Link>
@@ -239,7 +240,7 @@ const Sidebar = ({
           <ListGroupItem className="d-flex border-0 align-items-center cursor-pointer link-hover mb-3">
             {/* profile picture */}
             <div>
-              <img
+              <LazyLoadImage
                 src={currentUser?.picture}
                 alt="Logo"
                 className="w-8 h-8 object-center rounded-circle"

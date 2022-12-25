@@ -9,6 +9,8 @@ import { OverlayTrigger } from "react-bootstrap";
 import { selectCurrentUser } from "../../features/user/userSlice";
 import { useAppSelector } from "../../app/hooks";
 
+import { LazyLoadImage } from "react-lazy-load-image-component";
+
 type Props = {
   tweet: TTweet;
   name: string | undefined;
@@ -49,10 +51,11 @@ const TweetCard = ({
   return (
     <div className="d-flex justify-content-between align-items-start border-bottom p-3 pb-0 cursor-pointer tweet">
       <Link to={`/${username}`} className="text-dark">
-        <img
+        <LazyLoadImage
           src={picture}
           alt="profile"
           className="rounded-pill me-3 w-13 h-13"
+          effect="blur"
         />
       </Link>
 
@@ -125,7 +128,7 @@ const TweetCard = ({
         <Link to={`/${username}/status/${tweet.id}`}>
           {tweet.media.length > 0 &&
             (tweet.media[0].includes("images") ? (
-              <img
+              <LazyLoadImage
                 src={tweet.media[0]}
                 alt="tweet-image"
                 className="rounded-4 w-100 border border-1 "

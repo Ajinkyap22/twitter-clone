@@ -6,6 +6,7 @@ import { Container } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 
 import Logo from "assets/images/Logo.svg";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const Auth = (): JSX.Element => {
   const { loginWithRedirect } = useAuth0();
@@ -39,7 +40,7 @@ const Auth = (): JSX.Element => {
     >
       <div className="bg-white w-35 shadow d-flex flex-column justify-content-center align-items-center rounded-3 p-4 w-md-50 w-sm-70 w-xs-80">
         {/* twitter logo */}
-        <img src={Logo} alt="" className="w-2" />
+        <LazyLoadImage src={Logo} alt="" className="w-2" />
 
         {/* welcome */}
         <h2 className="text-center mt-4 fw-bold">Sign in to Twitter</h2>
