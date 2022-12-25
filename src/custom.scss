@@ -32,6 +32,10 @@ $theme-colors: (
 }
 
 // width & height
+.w-fit {
+  width: fit-content !important;
+}
+
 .w-2 {
   width: 2rem;
 }
@@ -313,6 +317,13 @@ $theme-colors: (
 }
 
 // position
+.fixed-bottom-right {
+  position: fixed;
+  bottom: 4rem;
+  right: 1.7rem;
+  z-index: 1030;
+}
+
 .top-2 {
   top: 0.25rem;
 }

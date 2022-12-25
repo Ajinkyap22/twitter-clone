@@ -42,7 +42,7 @@ const Bookmarks = () => {
   }, [currentUser]);
 
   return (
-    <div>
+    <div className="min-vh-100">
       {currentUser ? <BookmarksHeader name={currentUser.name} /> : null}
 
       <Tweets tweets={bookmarks} />

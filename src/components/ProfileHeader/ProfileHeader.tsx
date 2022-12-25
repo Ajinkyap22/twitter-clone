@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 type Props = {
   name: string;
   tweets: number;
+  likes: number;
+  activeTab: string;
 };
 
-const ProfileHeader = ({ name, tweets }: Props) => {
+const ProfileHeader = ({ name, tweets, activeTab, likes }: Props) => {
   const navigate = useNavigate();
 
   const handleBack = () => {
@@ -35,9 +37,15 @@ const ProfileHeader = ({ name, tweets }: Props) => {
           </h5>
 
           {/* tweet count */}
-          <span className="text-muted fs-9">
-            {tweets} {tweets === 1 ? "Tweet" : "Tweets"}
-          </span>
+          {activeTab === "likes" ? (
+            <span className="text-muted fs-9">
+              {likes} {likes === 1 ? "Like" : "Likes"}
+            </span>
+          ) : (
+            <span className="text-muted fs-9">
+              {tweets} {tweets === 1 ? "Tweet" : "Tweets"}
+            </span>
+          )}
         </div>
       </div>
     </div>
