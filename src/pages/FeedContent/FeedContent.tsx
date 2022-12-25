@@ -1,7 +1,12 @@
+import React from "react";
 import { useAppSelector } from "app/hooks";
 import { selectTweets } from "features/tweet/tweetSlice";
+
 import AddTweetForm from "components/AddTweetForm/AddTweetForm";
 import Tweets from "components/Tweets/Tweets";
+import LoadingSpinner from "components/LoadingSpinner/LoadingSpinner";
+
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 const FeedContent = () => {
   const tweets = useAppSelector(selectTweets);
@@ -29,4 +34,6 @@ const FeedContent = () => {
   );
 };
 
-export default FeedContent;
+export default withAuthenticationRequired(FeedContent, {
+  onRedirecting: () => <LoadingSpinner />,
+});

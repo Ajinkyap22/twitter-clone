@@ -98,7 +98,11 @@ const Profile = () => {
         // get tweet data from tweet reference
         for (const tweetRef of userRetweets) {
           const tweetDoc = await getDoc(tweetRef);
+
+          if (!tweetDoc.exists()) continue;
+
           const tweet = tweetDoc.data() as TTweet;
+
           tweet.isRetweet = true;
           tweet.retweetedBy = user.username;
 
