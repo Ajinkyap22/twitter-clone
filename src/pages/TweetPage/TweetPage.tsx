@@ -8,12 +8,14 @@ import Tweet from "components/Tweet/Tweet";
 import ReplyForm from "components/ReplyForm/ReplyForm";
 import Replies from "components/Replies/Replies";
 import PageNotFound from "components/PageNotFound/PageNotFound";
+import LoadingSpinner from "components/LoadingSpinner/LoadingSpinner";
 
 import { TTweet } from "features/tweet/tweetSlice";
 import { TUser, selectCurrentUser } from "features/user/userSlice";
 
-import db from "firebase-config/config";
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 
+import db from "firebase-config/config";
 import { doc, getDoc } from "firebase/firestore";
 
 const TweetPage = () => {
@@ -83,4 +85,6 @@ const TweetPage = () => {
   );
 };
 
-export default TweetPage;
+export default withAuthenticationRequired(TweetPage, {
+  onRedirecting: () => <LoadingSpinner />,
+});
