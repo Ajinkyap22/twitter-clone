@@ -209,7 +209,7 @@ Props) => {
               </svg>
             </button>
 
-            {likeCount > 0 && (
+            {retweetCount > 0 && (
               <span
                 className={`ms-1 align-self-center ${
                   retweeted ? "bg-green" : ""
