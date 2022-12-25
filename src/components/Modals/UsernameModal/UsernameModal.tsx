@@ -57,7 +57,7 @@ const UsernameModal = ({
     <Modal
       show={show}
       aria-labelledby="contained-modal-title-vcenter"
-      contentClassName="p-3"
+      contentClassName="p-3 px-0 px-sm-5 w-xl-80 mx-auto"
       keyboard={false}
       centered
     >

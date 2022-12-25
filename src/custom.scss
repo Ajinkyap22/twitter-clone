@@ -200,6 +200,7 @@ $theme-colors: (
 .pt-7 {
   padding-top: 4.25rem !important;
 }
+
 // responsive xl
 @media (min-width: 1200px) {
   .pe-xl-6 {
@@ -207,6 +208,34 @@ $theme-colors: (
   }
 }
 
+@media (max-width: 991px) {
+  .w-xl-80 {
+    width: 80% !important;
+  }
+}
+// responsive md
+@media (max-width: 852px) {
+  .w-md-50 {
+    width: 50% !important;
+  }
+}
+
+@media (max-width: 454px) {
+}
+
+//responsive sm
+@media (max-width: 531px) {
+  .w-sm-70 {
+    width: 70% !important;
+  }
+}
+
+//responsive xs
+@media (max-width: 366px) {
+  .w-xs-80 {
+    width: 80% !important;
+  }
+}
 // margin
 .mb-0_5 {
   margin-bottom: 0.1rem !important;
