@@ -52,7 +52,7 @@ const TweetCard = ({
         <img
           src={picture}
           alt="profile"
-          className="w-7 h-7 rounded-pill me-3 w-13 h-13"
+          className="rounded-pill me-3 w-13 h-13"
         />
       </Link>
 
