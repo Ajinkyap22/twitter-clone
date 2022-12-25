@@ -78,7 +78,7 @@ const SuggestedUser = ({ user }: Props) => {
           <div className="d-flex flex-column ms-3 justify-content-center">
             <div className="d-flex align-items-center">
               {/* name */}
-              <h6 className="mb-0 text-underline">
+              <h6 className="mb-0 text-underline word-break">
                 {user.name.length >= 20
                   ? user.name.slice(0, 17) + "..."
                   : user.name}
@@ -98,7 +98,7 @@ const SuggestedUser = ({ user }: Props) => {
             </div>
 
             {/* username */}
-            <span className="text-muted">
+            <span className="text-muted word-break">
               @
               {user.username.length >= 18
                 ? user.username.slice(0, 15) + "..."
@@ -113,7 +113,7 @@ const SuggestedUser = ({ user }: Props) => {
             onMouseLeave={handleMouseLeave}
             onClick={handleUnfollow}
             variant="light"
-            className="bg-white rounded-pill fw-bold fs-7_5 cursor-pointer py-1 border border align-self-center hover-danger"
+            className="bg-white rounded-pill fw-bold fs-7_5 cursor-pointer py-1 ms-3 border border align-self-center hover-danger"
           >
             Following
           </Button>
@@ -121,7 +121,7 @@ const SuggestedUser = ({ user }: Props) => {
           <Button
             onClick={handleFollow}
             variant="dark"
-            className="bg-dark rounded-pill text-white fw-bold fs-9 cursor-pointer py-1 align-self-center"
+            className="bg-dark rounded-pill text-white fw-bold fs-9 cursor-pointer py-1 ms-3 align-self-center"
           >
             Follow
           </Button>

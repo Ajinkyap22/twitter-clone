@@ -12,6 +12,7 @@ import UserInfo from "components/UserInfo/UserInfo";
 import UserAvatar from "components/UserAvatar/UserAvatar";
 import ProfileNavigation from "components/ProfileNavigation/ProfileNavigation";
 import Tweets from "components/Tweets/Tweets";
+import PageNotFound from "components/PageNotFound/PageNotFound";
 
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 
@@ -191,11 +192,7 @@ const Profile = () => {
           <Tweets tweets={profileTweets} />
         </div>
       ) : (
-        <div className="d-flex justify-content-center pt-7 h-100vh">
-          <span className="text-search">
-            Hmm...this page doesn’t exist. Try searching for something else.
-          </span>
-        </div>
+        <PageNotFound />
       )}
     </>
   );
