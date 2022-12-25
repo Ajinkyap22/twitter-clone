@@ -1,6 +1,7 @@
 import React from "react";
 
 import { ListGroup } from "react-bootstrap";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import TrendPic from "../../assets/images/trend-pic.jpeg";
 
@@ -25,7 +26,7 @@ const WhatsHappening = () => {
               </div>
 
               {/* trend actions */}
-              <img
+              <LazyLoadImage
                 src={TrendPic}
                 alt="trend pic"
                 className="w-16 h-16 object-cover rounded-3"

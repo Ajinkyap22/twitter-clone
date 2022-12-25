@@ -2,6 +2,8 @@ import React from "react";
 
 import { Button } from "react-bootstrap";
 
+import { LazyLoadImage } from "react-lazy-load-image-component";
+
 type Props = {
   imageInput: string;
   removeImage: () => void;
@@ -10,7 +12,11 @@ type Props = {
 const ImagePreview = ({ imageInput, removeImage }: Props) => {
   return (
     <div className="position-relative py-2 ps-2">
-      <img src={imageInput} className="w-100 h-100 rounded-3" alt="tweet" />
+      <LazyLoadImage
+        src={imageInput}
+        className="w-100 h-100 rounded-3"
+        alt="tweet"
+      />
 
       <Button
         className="position-absolute top-4 start-3 rounded-circle p-1 d-flex align-items-center justify-content-center bg-dark-transparent border-0 blur"

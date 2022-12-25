@@ -18,6 +18,8 @@ import db from "firebase-config/config";
 import { doc, Timestamp } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
+import { LazyLoadImage } from "react-lazy-load-image-component";
+
 type Props = {
   isModal: boolean;
   closeModal?: () => void;
@@ -239,7 +241,7 @@ const AddTweetForm = ({ isModal, closeModal }: Props): JSX.Element => {
       >
         {/* user avatar - left side */}
         <Link to={`/${currentUser?.username}`}>
-          <img
+          <LazyLoadImage
             src={currentUser?.picture}
             className="rounded-pill w-13 h-13 cursor-pointer"
           />
