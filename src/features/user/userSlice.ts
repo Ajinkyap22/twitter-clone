@@ -301,7 +301,7 @@ export const unfollow =
     dispatch(updateUserFollowing({ userRef, isFollowing: true }));
   };
 
-// fetch 3 random users from firebase
+// fetch 3 random users from firebase which are not the current user
 export const fetchSuggestedUsers =
   (email = ""): AppThunk =>
   async (dispatch) => {
