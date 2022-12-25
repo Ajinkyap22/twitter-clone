@@ -99,6 +99,8 @@ const Profile = () => {
         for (const tweetRef of userRetweets) {
           const tweetDoc = await getDoc(tweetRef);
           const tweet = tweetDoc.data() as TTweet;
+          tweet.isRetweet = true;
+          tweet.retweetedBy = user.username;
 
           if (!replies && tweet?.isReply) continue;
 
@@ -163,7 +165,12 @@ const Profile = () => {
     <>
       {user ? (
         <div className="pb-5">
-          <ProfileHeader name={user.name} tweets={user.tweets.length} />
+          <ProfileHeader
+            name={user.name}
+            tweets={user.tweets.length}
+            likes={user.likes.length}
+            activeTab={activeTab}
+          />
 
           <div className="bg-white">
             {/* cover pic placeholder */}
