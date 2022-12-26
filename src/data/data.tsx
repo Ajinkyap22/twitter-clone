@@ -28,3 +28,20 @@ export const dummyReply = {
   isReply: false,
   replyTo: "daminip",
 };
+
+export const dummyUser = {
+  name: "Damini Pandey",
+  email: "daminipandey1310@gmail.com",
+  picture: "https://avatars.githubusercontent.com/u/61384878?v=4",
+  username: "minnieyoyo",
+  location: "Haldwani",
+  bio: "Heya",
+  joinDate: Timestamp.now(),
+  followers: [],
+  following: [],
+  isVerified: true,
+  tweets: [],
+  likes: [],
+  bookmarks: [],
+  retweets: [],
+};
