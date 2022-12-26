@@ -496,6 +496,10 @@ $theme-colors: (
 }
 
 // text area resizing
+.pre-wrap {
+  white-space: pre-wrap;
+}
+
 .resize-none {
   resize: none;
 }
