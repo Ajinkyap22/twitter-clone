@@ -496,6 +496,10 @@ $theme-colors: (
 }
 
 // text area resizing
+.pre-wrap {
+  white-space: pre-wrap;
+}
+
 .resize-none {
   resize: none;
 }
@@ -555,6 +559,15 @@ $theme-colors: (
 
 .link:hover {
   color: #000;
+}
+
+.picture-edit-overlay {
+  backdrop-filter: blur(4px);
+  background-color: rgba(15, 20, 25, 0.75);
+}
+
+.-translate-middle {
+  transform: translate(-50%, -50%);
 }
 
 /* import bootstrap to set changes */

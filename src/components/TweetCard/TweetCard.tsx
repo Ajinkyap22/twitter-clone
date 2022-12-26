@@ -120,7 +120,7 @@ const TweetCard = ({
         )}
 
         {/* caption */}
-        <p onClick={handleTweetClick} className="mb-2 tweet-text">
+        <p onClick={handleTweetClick} className="mb-2 tweet-text pre-wrap">
           {tweet.text}
         </p>
 

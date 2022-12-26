@@ -13,6 +13,7 @@ import UserAvatar from "components/UserAvatar/UserAvatar";
 import ProfileNavigation from "components/ProfileNavigation/ProfileNavigation";
 import Tweets from "components/Tweets/Tweets";
 import PageNotFound from "components/PageNotFound/PageNotFound";
+import EditProfileModal from "components/Modals/EditProfileModal/EditProfileModal";
 
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 
@@ -26,8 +27,19 @@ const Profile = () => {
   const [user, setUser] = useState<TUser | null>(null);
   const [activeTab, setActiveTab] = useState<string>("tweets");
   const [profileTweets, setProfileTweets] = useState<TTweet[]>([]);
+  const [showEditProfileModal, setShowEditProfileModal] =
+    useState<boolean>(false);
+
   const tweets = useAppSelector(selectTweets);
   const currentUser = useAppSelector(selectCurrentUser);
+
+  const hideEditProfileModal = () => {
+    setShowEditProfileModal(false);
+  };
+
+  const displayEditProfileModal = () => {
+    setShowEditProfileModal(true);
+  };
 
   // update document title
   useEffect(() => {
@@ -63,12 +75,7 @@ const Profile = () => {
     };
 
     fetchUserProfile(pathname.slice(1));
-  }, [
-    location.pathname,
-    currentUser?.followers,
-    currentUser?.following,
-    currentUser?.retweets,
-  ]);
+  }, [location.pathname, currentUser]);
 
   // feetch tweets to display on profile
   useEffect(() => {
@@ -186,6 +193,7 @@ const Profile = () => {
                 picture={user.picture}
                 email={user.email}
                 setUser={setUser}
+                displayEditProfileModal={displayEditProfileModal}
               />
 
               {/* user info */}
@@ -201,6 +209,15 @@ const Profile = () => {
 
           {/* tweets */}
           <Tweets tweets={profileTweets} />
+
+          {/* edit profile modal */}
+          {showEditProfileModal && (
+            <EditProfileModal
+              show={showEditProfileModal}
+              onHide={hideEditProfileModal}
+              currentUser={user}
+            />
+          )}
         </div>
       ) : (
         <PageNotFound />
