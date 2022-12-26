@@ -1,8 +1,9 @@
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+// import bootstrap css & js
 import "../src/index.scss";
 import "../src/custom.scss";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 // redux store
 import { Provider } from "react-redux";

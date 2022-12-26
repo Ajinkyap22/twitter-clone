@@ -17,6 +17,8 @@ import { doc, Timestamp } from "firebase/firestore";
 import db from "firebase-config/config";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
+import Logo from "assets/images/trend-pic.jpeg";
+
 type Props = {
   replyingTo: string;
   tweetId: string | undefined;
@@ -242,7 +244,7 @@ const ReplyForm = ({ replyingTo, tweetId }: Props) => {
       <div className="d-flex">
         {/* image */}
         <LazyLoadImage
-          src={user?.picture}
+          src={user?.picture || Logo}
           alt="profile"
           className="w-13 h-13 rounded-pill me-3"
         />

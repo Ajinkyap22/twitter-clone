@@ -122,7 +122,10 @@ Props) => {
       )}
 
       <div className="pt-2">
-        <p onClick={handleTweetClick} className="mb-2 fs-4_5 line-height-lg">
+        <p
+          onClick={handleTweetClick}
+          className="mb-2 fs-4_5 line-height-lg pre-wrap"
+        >
           {tweet.text}
         </p>
 
