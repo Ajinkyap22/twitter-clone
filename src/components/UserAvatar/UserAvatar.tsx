@@ -14,9 +14,15 @@ type Props = {
   picture: string;
   email: string;
   setUser: React.Dispatch<React.SetStateAction<TUser | null>>;
+  displayEditProfileModal: () => void;
 };
 
-const UserAvatar = ({ picture, email, setUser }: Props) => {
+const UserAvatar = ({
+  picture,
+  email,
+  setUser,
+  displayEditProfileModal,
+}: Props) => {
   const currentUser = useAppSelector(selectCurrentUser);
   const [isFollowing, setIsFollowing] = useState<boolean>(false);
   const dispatch = useAppDispatch();
@@ -97,6 +103,7 @@ const UserAvatar = ({ picture, email, setUser }: Props) => {
       {/* edit profile button */}
       {email === currentUser?.email && (
         <Button
+          onClick={displayEditProfileModal}
           variant="light"
           className="bg-white border border btn-sm me-3 rounded-pill mt-3 fs-7 fw-bold py-1 px-3 hover-gray"
         >
