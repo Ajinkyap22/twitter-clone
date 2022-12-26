@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import Logo from "assets/images/Logo.svg";
 
 import ImagePreview from "components/ImagePreview/ImagePreview";
 import VideoPreview from "components/VideoPreview/VideoPreview";
@@ -242,7 +243,7 @@ const AddTweetForm = ({ isModal, closeModal }: Props): JSX.Element => {
         {/* user avatar - left side */}
         <Link to={`/${currentUser?.username}`}>
           <LazyLoadImage
-            src={currentUser?.picture}
+            src={currentUser?.picture || Logo}
             className="rounded-pill w-13 h-13 cursor-pointer"
           />
         </Link>
