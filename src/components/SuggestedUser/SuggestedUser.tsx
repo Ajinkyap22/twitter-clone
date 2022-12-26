@@ -7,6 +7,7 @@ import db from "../../firebase-config/config";
 import { refEqual, doc } from "firebase/firestore";
 
 import { Button } from "react-bootstrap";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 type Props = {
   user: {
@@ -70,7 +71,7 @@ const SuggestedUser = ({ user }: Props) => {
     <Link to={`/${user.username}`} className="link">
       <div className="d-flex justify-content-between p-3 user-hover cursor-pointer text-decoration-none">
         <div className="d-flex">
-          <img
+          <LazyLoadImage
             src={user.picture}
             alt="user"
             className="w-8 h-8 rounded-pill w-13 h-13"

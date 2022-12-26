@@ -8,6 +8,7 @@ import { refEqual, doc } from "firebase/firestore";
 
 import { Button } from "react-bootstrap";
 import { TUser } from "features/user/userSlice";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 type Props = {
   picture: string;
@@ -87,7 +88,7 @@ const UserAvatar = ({ picture, email, setUser }: Props) => {
   return (
     <div className="d-flex justify-content-between align-items-start">
       {/* profile picture */}
-      <img
+      <LazyLoadImage
         className="w-34 h-34 rounded-circle border-avatar object-center -mt-16 ms-3"
         src={picture}
         alt="profile pic"
