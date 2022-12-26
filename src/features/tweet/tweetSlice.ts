@@ -170,16 +170,31 @@ export const fetchTweets =
       const user = userDoc.data();
       const userTweets = user?.tweets;
 
-      if (!userTweets) continue;
-
+      // fetch tweets
       for (const tweetRef of userTweets) {
         const tweetDoc = await getDoc(tweetRef);
         const tweet = tweetDoc.data() as TTweet;
         ids[tweet.id] = true;
         tweets = [...tweets, tweet];
       }
+
+      const userRetweets = user?.retweets;
+
+      if (!userRetweets) continue;
+
+      // fetch retweets
+      for (const tweetRef of userRetweets) {
+        const tweetDoc = await getDoc(tweetRef);
+        const tweet = tweetDoc.data() as TTweet;
+
+        if (!tweet) continue;
+
+        tweet.isRetweet = true;
+        tweet.retweetedBy = user?.username;
+        tweets = [...tweets, tweet];
+      }
     }
-    //fetch all retweets from user's retweets list and user's following list and add to tweets array
+    // fetch all retweets from user's retweets list and user's following list and add to tweets array
     const userRetweets = user.retweets;
 
     for (const tweetRef of userRetweets) {
@@ -191,25 +206,6 @@ export const fetchTweets =
       tweet.isRetweet = true;
       tweet.retweetedBy = user.username;
       tweets = [...tweets, tweet];
-    }
-
-    for (const userRef of followingList) {
-      const userDoc = await getDoc(userRef);
-      const user = userDoc.data();
-      const userRetweets = user?.retweets;
-
-      if (!userRetweets) continue;
-
-      for (const tweetRef of userRetweets) {
-        const tweetDoc = await getDoc(tweetRef);
-        const tweet = tweetDoc.data() as TTweet;
-
-        if (!tweet) continue;
-
-        tweet.isRetweet = true;
-        tweet.retweetedBy = user?.username;
-        tweets = [...tweets, tweet];
-      }
     }
 
     // fetch random tweets from firebase
