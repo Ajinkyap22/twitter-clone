@@ -12,7 +12,7 @@ const ErrorFalback = lazy(
   () => import("./components/ErrorFallback/ErrorFalback")
 );
 
-import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
+import LoadingSpinner from "components/LoadingSpinner/LoadingSpinner";
 
 import "./App.scss";
 
