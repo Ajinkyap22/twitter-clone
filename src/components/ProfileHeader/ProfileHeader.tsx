@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-type Props = {
+export type Props = {
   name: string;
   tweets: number;
   likes: number;
