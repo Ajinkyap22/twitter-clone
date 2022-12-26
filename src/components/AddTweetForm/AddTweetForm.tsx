@@ -151,7 +151,7 @@ const AddTweetForm = ({ isModal, closeModal }: Props): JSX.Element => {
 
     const newTweet: TTweet = {
       id,
-      text: tweetCaption,
+      text: tweetCaption.trim(),
       author: authorRef,
       media,
       date: Timestamp.now(),
