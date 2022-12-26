@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
 import { TTweet } from "features/tweet/tweetSlice";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 // import { OverlayTrigger } from "react-bootstrap";
 
@@ -59,7 +60,7 @@ Props) => {
     <div className="d-flex flex-column p-3 pb-0">
       <div className="d-flex align-items-center">
         <Link to={`/${username}`} className="text-dark">
-          <img
+          <LazyLoadImage
             src={picture}
             alt="profile"
             className="w-7 h-7 rounded-pill me-3 w-13 h-13"
@@ -128,7 +129,7 @@ Props) => {
         {/* Display images and videos from media array */}
         {tweet.media.length > 0 &&
           (tweet.media[0].includes("images") ? (
-            <img
+            <LazyLoadImage
               src={tweet.media[0]}
               alt="tweet-image"
               className="rounded-4 w-100 border border-1 mt-1"

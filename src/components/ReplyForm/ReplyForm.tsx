@@ -15,6 +15,7 @@ import uniqid from "uniqid";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { doc, Timestamp } from "firebase/firestore";
 import db from "firebase-config/config";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 type Props = {
   replyingTo: string;
@@ -240,7 +241,7 @@ const ReplyForm = ({ replyingTo, tweetId }: Props) => {
       {/* right side */}
       <div className="d-flex">
         {/* image */}
-        <img
+        <LazyLoadImage
           src={user?.picture}
           alt="profile"
           className="w-13 h-13 rounded-pill me-3"
