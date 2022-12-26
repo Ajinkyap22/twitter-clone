@@ -5,7 +5,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import NameModal from "components/Modals/NameModal/NameModal";
 
 export default {
-  title: "Modals/NameModal",
+  title: "NameModal",
   component: NameModal,
 } as ComponentMeta<typeof NameModal>;
 
