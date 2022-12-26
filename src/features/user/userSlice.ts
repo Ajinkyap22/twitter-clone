@@ -15,7 +15,7 @@ import {
   refEqual,
 } from "firebase/firestore";
 import React from "react";
-import { getStorage, ref, uploadString } from "firebase/storage";
+import { getStorage, ref, uploadString, uploadBytes } from "firebase/storage";
 import {
   DocumentReference,
   arrayUnion,
@@ -60,6 +60,19 @@ export const userSlice = createSlice({
     // set current logged in user
     setCurrentUser: (state, action: PayloadAction<TUser>) => {
       state.currentUser = action.payload;
+    },
+    // update user's profile
+    updateUserProfile: (state, action) => {
+      if (state.currentUser) {
+        const user = state.currentUser;
+
+        user.name = action.payload.name;
+        user.location = action.payload.location;
+        user.bio = action.payload.bio;
+        user.picture = action.payload.picture;
+
+        state.currentUser = user;
+      }
     },
     // suggest users to follow
     setSuggestedUsers: (state, action: PayloadAction<TUser[]>) => {
@@ -156,7 +169,6 @@ export const userSlice = createSlice({
         state.currentUser = user;
       }
     },
-
     //update user after a retweet
     updateUserAfterRetweet: (state, action) => {
       if (state.currentUser) {
@@ -210,14 +222,20 @@ export const createUser =
 
 // update user profile picture
 export const updateProfilePicture =
-  (picture: string, id: string): AppThunk =>
+  (picture: string | File, id: string): AppThunk =>
   () => {
     const storage = getStorage();
 
     const imagesRef = ref(storage, `images/${id}.png`);
 
-    // upload base64 string to firebase storage
-    uploadString(imagesRef, picture.split(",")[1], "base64");
+    if (
+      typeof picture === "string" &&
+      picture.includes("data:image/png;base64")
+    ) {
+      uploadString(imagesRef, picture.split(",")[1], "base64");
+    } else {
+      uploadBytes(imagesRef, picture as File);
+    }
   };
 
 //Store tweet reference in bookmark array
@@ -256,10 +274,28 @@ export const clearBookmarks =
 
     dispatch(clearBookmarksArray());
   };
+
 // update user's profile details
-// export const updateProfile =
-//   (user: TUser): AppThunk =>
-//   async (dispatch) => {};
+export const updateProfile =
+  (
+    name: string,
+    bio: string,
+    location: string,
+    picture: string,
+    email: string
+  ): AppThunk =>
+  async (dispatch) => {
+    const userRef = doc(db, "users", email);
+
+    await updateDoc(userRef, {
+      name,
+      bio,
+      location,
+      picture,
+    });
+
+    dispatch(updateUserProfile({ name, bio, location, picture }));
+  };
 
 // add a user to the current user's following list
 export const follow =
@@ -331,6 +367,7 @@ export const {
   updateUserFollowing,
   clearBookmarksArray,
   updateUserAfterRetweet,
+  updateUserProfile,
 } = userSlice.actions;
 
 export default userSlice.reducer;
