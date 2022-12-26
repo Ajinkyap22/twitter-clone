@@ -10,7 +10,7 @@ type Props = {
   name: string;
 };
 
-const ProfileHeader = ({ name }: Props) => {
+const BookmarksHeader = ({ name }: Props) => {
   const currentUser = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
 
@@ -69,4 +69,4 @@ const ProfileHeader = ({ name }: Props) => {
   );
 };
 
-export default ProfileHeader;
+export default BookmarksHeader;
