@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppSelector } from "app/hooks";
-import { selectTweets } from "features/tweet/tweetSlice";
+import { selectTweets, selectAllTweets } from "features/tweet/tweetSlice";
 
 import AddTweetForm from "components/AddTweetForm/AddTweetForm";
 import Tweets from "components/Tweets/Tweets";
@@ -10,6 +10,7 @@ import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 const FeedContent = () => {
   const tweets = useAppSelector(selectTweets);
+  const allTweets = useAppSelector(selectAllTweets);
 
   return (
     <>
@@ -29,7 +30,7 @@ const FeedContent = () => {
       <AddTweetForm isModal={false} />
 
       {/* tweets feed */}
-      <Tweets tweets={tweets} />
+      <Tweets tweets={tweets} allTweetsCount={allTweets.length} />
     </>
   );
 };

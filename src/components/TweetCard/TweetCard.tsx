@@ -24,6 +24,7 @@ type Props = {
   isRetweeted: boolean;
   isReply?: boolean;
   replyingTo?: string;
+  likeLoading?: boolean;
 };
 
 const TweetCard = ({
@@ -208,9 +209,8 @@ const TweetCard = ({
           {/* like */}
           <div className="d-flex ">
             <button
-              className={`border-0 bg-transparent like p-2 d-flex align-items-center justify-content-center text-muted ${
-                isLiked ? "liked" : ""
-              }`}
+              className={`border-0 bg-transparent like p-2 d-flex align-items-center justify-content-center text-muted
+               ${isLiked ? "liked" : ""}`}
               onClick={handleTweetLike}
             >
               <svg

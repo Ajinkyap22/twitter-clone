@@ -12,7 +12,7 @@ import {
   fetchCurrentUser,
   selectCurrentUser,
 } from "../../features/user/userSlice";
-import { fetchTweets } from "features/tweet/tweetSlice";
+import { fetchTweets, fetchMoreTweets } from "features/tweet/tweetSlice";
 import { fetchSuggestedUsers } from "../../features/user/userSlice";
 
 import { Row } from "react-bootstrap";
@@ -62,6 +62,7 @@ const Home = (): JSX.Element => {
 
       dispatch(fetchSuggestedUsers(currentUser.email));
       dispatch(fetchTweets(currentUser));
+      dispatch(fetchMoreTweets());
     } else {
       setUserOnboarding(true);
     }

@@ -208,7 +208,7 @@ const Profile = () => {
           </div>
 
           {/* tweets */}
-          <Tweets tweets={profileTweets} />
+          <Tweets tweets={profileTweets} isProfile={true} />
 
           {/* edit profile modal */}
           {showEditProfileModal && (

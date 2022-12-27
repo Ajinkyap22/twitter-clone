@@ -1,18 +1,41 @@
 import React from "react";
+
 import Tweet from "components/Tweet/Tweet";
-import { TTweet } from "features/tweet/tweetSlice";
+import InfiniteScroll from "react-infinite-scroll-component";
+import LoadingSpinner from "components/LoadingSpinner/LoadingSpinner";
+
+import { TTweet, fetchMoreTweets } from "features/tweet/tweetSlice";
+import { useAppDispatch } from "app/hooks";
 
 type Props = {
   tweets: TTweet[];
+  allTweetsCount?: number;
+  isProfile?: boolean;
+  isBookmarks?: boolean;
 };
 
-const Tweets = ({ tweets }: Props) => {
+const Tweets = ({
+  tweets,
+  allTweetsCount,
+  isProfile = false,
+  isBookmarks = false,
+}: Props) => {
+  const dispatch = useAppDispatch();
+
   return (
     <div>
-      {tweets.map((tweet, i) => {
-        if (!tweet) return null;
-        return <Tweet key={i} tweet={tweet} />;
-      })}
+      <InfiniteScroll
+        dataLength={tweets.length}
+        next={() => dispatch(fetchMoreTweets())}
+        hasMore={
+          !isProfile &&
+          !isBookmarks &&
+          tweets.length < (allTweetsCount || Infinity)
+        }
+        loader={<LoadingSpinner />}
+      >
+        {tweets.map((tweet, i) => tweet && <Tweet key={i} tweet={tweet} />)}
+      </InfiniteScroll>
     </div>
   );
 };
