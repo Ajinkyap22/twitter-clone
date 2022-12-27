@@ -183,11 +183,11 @@ const Profile = () => {
             activeTab={activeTab}
           />
 
-          <div className="bg-white">
+          <div className="bg-body-primary">
             {/* cover pic placeholder */}
             <div className="p-10 bg-coverPic"></div>
 
-            <div className="bg-white">
+            <div className="bg-body-primary">
               {/* picture and edit option */}
               <UserAvatar
                 picture={user.picture}

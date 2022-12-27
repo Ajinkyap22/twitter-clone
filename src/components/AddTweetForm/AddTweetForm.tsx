@@ -287,7 +287,7 @@ const AddTweetForm = ({ isModal, closeModal }: Props): JSX.Element => {
               <Button
                 onClick={handleImageUpload}
                 disabled={imageInput || videoInput ? true : false}
-                className="me-1 cursor-pointer logo-hover p-2 border-0 bg-white"
+                className="me-1 cursor-pointer  logo-hover p-2 border-0 bg-body-primary"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -309,7 +309,7 @@ const AddTweetForm = ({ isModal, closeModal }: Props): JSX.Element => {
               <Button
                 onClick={handleVideoUpload}
                 disabled={imageInput || videoInput ? true : false}
-                className="me-2 cursor-pointer logo-hover p-2 border-0 bg-white"
+                className="me-2 cursor-pointer logo-hover p-2 border-0 bg-body-primary"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

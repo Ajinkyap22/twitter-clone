@@ -14,7 +14,7 @@ const FeedContent = () => {
 
   return (
     <>
-      <div className="position-sticky top-0 p-3 py-2 pe-1 bg-white-transparent d-flex justify-content-between align-items-center z-10">
+      <div className="position-sticky top-0 p-3 py-2 pe-1 bg-body-primary-transparent d-flex justify-content-between align-items-center z-10">
         <h5 className="fw-bold m-0">Home</h5>
 
         <button className="bg-transparent border-0 hover-gray rounded-circle p-1_5">

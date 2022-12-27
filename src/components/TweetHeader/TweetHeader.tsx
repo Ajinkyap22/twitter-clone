@@ -8,7 +8,7 @@ const TweetHeader = () => {
   };
 
   return (
-    <div className="position-sticky top-0 p-2 pb-0 bg-white-transparent d-flex justify-content-between align-items-center z-10">
+    <div className="position-sticky top-0 p-2 pb-0 bg-body-primary-transparent d-flex justify-content-between align-items-center z-10">
       <div className="d-flex justify-content-center align-items-center">
         {/* go back */}
         <button

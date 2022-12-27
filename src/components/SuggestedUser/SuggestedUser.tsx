@@ -114,7 +114,7 @@ const SuggestedUser = ({ user }: Props) => {
             onMouseLeave={handleMouseLeave}
             onClick={handleUnfollow}
             variant="light"
-            className="bg-white rounded-pill fw-bold fs-7_5 cursor-pointer py-1 ms-3 border border align-self-center hover-danger"
+            className="bg-body-primary rounded-pill fw-bold fs-7_5 cursor-pointer py-1 ms-3 border border align-self-center hover-danger"
           >
             Following
           </Button>

@@ -190,7 +190,7 @@ const Tweet = ({ tweet, isCard = true }: TweetProps): JSX.Element => {
         {currentUser && isAuthor ? (
           <Button
             variant="light"
-            className="fw-bold fs-7 p-2 py-2_5  text-break background-transparent w-100 text-start py-2 px-3 bg-white border-0 user-hover"
+            className="fw-bold fs-7 p-2 py-2_5  text-break background-transparent w-100 text-start py-2 px-3 bg-body-primary border-0 user-hover"
             onClick={handleDeleteTweet}
           >
             {" "}
@@ -218,7 +218,7 @@ const Tweet = ({ tweet, isCard = true }: TweetProps): JSX.Element => {
             <Button
               variant="light"
               onClick={handleUnfollow}
-              className="fw-bold fs-7 p-2 py-2_5  text-break background-transparent w-100 text-start py-2 px-3  bg-white border-0 user-hover"
+              className="fw-bold fs-7 p-2 py-2_5  text-break background-transparent w-100 text-start py-2 px-3  bg-body-primary border-0 user-hover"
             >
               {" "}
               <svg
@@ -241,7 +241,7 @@ const Tweet = ({ tweet, isCard = true }: TweetProps): JSX.Element => {
             <Button
               variant="light"
               onClick={handleFollow}
-              className="fw-bold fs-7 p-2 py-2_5  text-break background-transparent w-100 text-start py-2 px-3  bg-white border-0 user-hover"
+              className="fw-bold fs-7 p-2 py-2_5  text-break background-transparent w-100 text-start py-2 px-3  bg-body-primary border-0 user-hover"
             >
               {" "}
               <svg
@@ -265,7 +265,7 @@ const Tweet = ({ tweet, isCard = true }: TweetProps): JSX.Element => {
         {/* bookmark */}
         <Button
           variant="light"
-          className="fw-bold fs-7 p-2 py-2_5 text-break background-transparent w-100 text-start py-2 px-3 bg-white border-0 user-hover"
+          className="fw-bold fs-7 p-2 py-2_5 text-break background-transparent w-100 text-start py-2 px-3 bg-body-primary border-0 user-hover"
           onClick={handleTweetBookmark}
         >
           {isBookmarked ? (

@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 
 const SearchBar = () => {
   return (
-    <div className="px-sm-2 px-xl-4 py-1 bg-white position-sticky top-0 z-10">
+    <div className="px-sm-2 px-xl-4 py-1 bg-body-primary position-sticky top-0 z-10">
       <div className="d-flex align-items-center rounded-pill py-1 px-4 bg-search ">
         <svg
           xmlns="http://www.w3.org/2000/svg"

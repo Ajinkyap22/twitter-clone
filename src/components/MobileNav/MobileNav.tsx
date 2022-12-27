@@ -18,7 +18,7 @@ const MobileNav = () => {
   }, [location.pathname, currentUser?.username]);
 
   return (
-    <div className="d-block d-sm-none bg-white p-1_5 sticky-bottom w-full d-flex align-items-center justify-content-around shadow border-top">
+    <div className="d-block d-sm-none bg-body-primary p-1_5 sticky-bottom w-full d-flex align-items-center justify-content-around shadow border-top">
       {/* home */}
       <Link to="/home">
         <div className="cursor-pointer border-0 py-2">
