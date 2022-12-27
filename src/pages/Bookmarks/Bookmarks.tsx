@@ -27,8 +27,11 @@ const Bookmarks = () => {
 
         // get bookmark data from tweet reference
         for (const tweetRef of userBookmarks) {
-          const bookmarkDOc = await getDoc(tweetRef);
-          const bookmark = bookmarkDOc.data() as TTweet;
+          const bookmarkDoc = await getDoc(tweetRef);
+
+          if (!bookmarkDoc.exists()) continue;
+
+          const bookmark = bookmarkDoc.data() as TTweet;
 
           bookmarksArr.push(bookmark);
         }
@@ -51,7 +54,7 @@ const Bookmarks = () => {
     <div className="min-vh-100">
       {currentUser ? <BookmarksHeader name={currentUser.name} /> : null}
 
-      <Tweets tweets={bookmarks} />
+      <Tweets tweets={bookmarks} isBookmarks={true} />
     </div>
   );
 };

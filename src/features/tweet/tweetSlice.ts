@@ -44,10 +44,12 @@ export type TTweet = {
 
 interface TTweetState {
   tweets: TTweet[];
+  allTweets: TTweet[];
 }
 
 const initialState: TTweetState = {
   tweets: [],
+  allTweets: [],
 };
 
 export const tweetSlice = createSlice({
@@ -59,6 +61,9 @@ export const tweetSlice = createSlice({
     },
     updateTweets(state, action: PayloadAction<TTweet[]>) {
       state.tweets = action.payload;
+    },
+    updateAllTweets(state, action: PayloadAction<TTweet[]>) {
+      state.allTweets = action.payload;
     },
     updateSingleTweet(state, action) {
       if (action.payload.isLiked) {
@@ -232,8 +237,23 @@ export const fetchTweets =
     });
 
     // dispatch action to add tweets to state
-    dispatch(updateTweets(tweets));
+    dispatch(updateAllTweets(tweets));
+    dispatch(updateTweets(tweets.slice(0, 10)));
   };
+
+// fetch 10 tweets from allTweets array and add to tweets array
+export const fetchMoreTweets = (): AppThunk => (dispatch, getState) => {
+  const state = getState();
+  const allTweets = state.tweet.allTweets;
+  const tweets = state.tweet.tweets;
+
+  const newTweets = [
+    ...tweets,
+    ...allTweets.slice(tweets.length, tweets.length + 10),
+  ];
+
+  dispatch(updateTweets(newTweets));
+};
 
 // push a reference of the user into the likes array and push tweet references into the likes array of user document
 export const likeTweet =
@@ -357,10 +377,12 @@ export const reply =
   };
 
 export const selectTweets = (state: RootState) => state.tweet.tweets;
+export const selectAllTweets = (state: RootState) => state.tweet.allTweets;
 
 export const {
   addTweet,
   updateTweets,
+  updateAllTweets,
   updateSingleTweet,
   deleteTweets,
   updateTweetAfterRetweet,
