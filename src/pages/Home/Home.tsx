@@ -74,7 +74,7 @@ const Home = (): JSX.Element => {
         <Auth />
       ) : (
         <>
-          <Container fluid className="bg-white m-0 px-0 ps-lg-3">
+          <Container fluid className="bg-body-primary m-0 px-0 ps-lg-3">
             <Row className="w-100 m-0 align-items-start">
               <Col
                 xs={0}
@@ -104,7 +104,7 @@ const Home = (): JSX.Element => {
               <MobileNav />
 
               <Button
-                className="fixed-bottom-right w-fit bg-blue border-0 rounded-circle fw-bold py-3 px-3 cursor-pointe d-inline d-sm-none"
+                className="fixed-bottom-right w-fit bg-primary border-0 rounded-circle fw-bold py-3 px-3 cursor-pointe d-inline d-sm-none"
                 onClick={() => setShowTweetFormModal(true)}
               >
                 <svg

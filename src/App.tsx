@@ -1,7 +1,8 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ErrorBoundary } from "react-error-boundary";
+import { ThemeContext } from "contexts/ThemeContext";
 
 const Home = lazy(() => import("pages/Home/Home"));
 const Profile = lazy(() => import("pages/Profile/Profile"));
@@ -18,13 +19,14 @@ import "./App.scss";
 
 function App() {
   const { isLoading } = useAuth0();
+  const { theme } = useContext(ThemeContext);
 
   if (isLoading) {
     return <LoadingSpinner />;
   }
 
   return (
-    <div className="App">
+    <div className="App" data-bs-theme={theme}>
       <ErrorBoundary FallbackComponent={ErrorFalback}>
         <Suspense fallback={<LoadingSpinner />}>
           <Routes>

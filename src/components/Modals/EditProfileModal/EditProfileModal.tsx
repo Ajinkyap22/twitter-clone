@@ -111,7 +111,7 @@ const EditProfileModal = ({ show, onHide, currentUser }: Props) => {
       keyboard={false}
       centered
     >
-      <Modal.Header className="p-0 bg-white py-3">
+      <Modal.Header className="p-0 bg-body-primary py-3">
         <Modal.Title
           id="contained-modal-title-vcenter"
           className="d-flex align-items-center justify-content-between flex-grow-1"
@@ -119,7 +119,7 @@ const EditProfileModal = ({ show, onHide, currentUser }: Props) => {
           <div className="d-flex align-items-center">
             <Button
               variant="light"
-              className="bg-white border-0 me-3"
+              className="bg-body-primary border-0 me-3"
               onClick={onHide}
             >
               <svg

@@ -25,7 +25,7 @@ const BookmarksHeader = ({ name }: Props) => {
       <Popover.Body className="p-0 d-flex flex-column">
         <Button
           variant="light"
-          className="fw-bold fs-7 p-2 py-2_5 text-break w-100 text-start py-2 px-3 border-0 text-danger bg-white"
+          className="fw-bold fs-7 p-2 py-2_5 text-break w-100 text-start py-2 px-3 border-0 text-danger bg-body-primary"
           onClick={handleClearBookmarks}
         >
           Clear all Bookmarks
@@ -35,7 +35,7 @@ const BookmarksHeader = ({ name }: Props) => {
   );
 
   return (
-    <div className="position-sticky top-0 p-2 pb-0 bg-white-transparent d-flex justify-content-between align-items-center z-10">
+    <div className="position-sticky top-0 p-2 pb-0 bg-body-primary-transparent d-flex justify-content-between align-items-center z-10">
       <div className="d-flex w-100 justify-content-between ps-2 align-items-center">
         <div>
           {/* name */}

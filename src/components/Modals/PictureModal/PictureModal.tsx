@@ -133,7 +133,7 @@ const PictureModal = ({
           />
 
           {/* camera icon */}
-          <div className="position-absolute start-50 bottom-minus-10 bg-white shadow rounded-circle p-2">
+          <div className="position-absolute start-50 bottom-minus-10 bg-body-primary shadow rounded-circle p-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="w-4 h-4"
