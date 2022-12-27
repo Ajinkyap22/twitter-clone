@@ -10,19 +10,23 @@ const WhatsHappening = () => {
     <div className="px-sm-2 px-xl-4 py-2_5 mb-1">
       <div className="d-flex flex-column rounded-4 py-1 bg-gray">
         {/* title */}
-        <h5 className="fw-bolder m-0 py-2 px-3">What's happening</h5>
+        <h5 className="fw-bolder m-0 py-2 px-3 text-default">
+          What's happening
+        </h5>
 
         {/* trends */}
         <ListGroup variant="flush" className="">
           {/* sports trend */}
-          <ListGroup.Item className="bg-transparent border-0 px-3 cursor-pointer trend-hover">
+          <ListGroup.Item className="bg-transparent border-0 px-3 cursor-pointer link-hover">
             <div className="d-flex justify-content-between align-items-start">
               <div className="">
                 {/* muted text */}
-                <span className="text-muted fs-8">Sports · LIVE</span>
+                <span className="text-search fs-8">Sports · LIVE</span>
 
                 {/* trend name */}
-                <p className="fw-bolder m-0 fs-7">2022 FIFA World Cup</p>
+                <p className="fw-bolder m-0 fs-7 text-default">
+                  2022 FIFA World Cup
+                </p>
               </div>
 
               {/* trend actions */}
@@ -35,17 +39,17 @@ const WhatsHappening = () => {
           </ListGroup.Item>
 
           {/* trend 1 */}
-          <ListGroup.Item className="bg-transparent border-0 px-3 cursor-pointer trend-hover">
+          <ListGroup.Item className="bg-transparent border-0 px-3 cursor-pointer link-hover">
             <div className="d-flex justify-content-between align-items-start">
               <div className="">
                 {/* muted text */}
-                <span className="text-muted fs-8">Trending</span>
+                <span className="text-search fs-8">Trending</span>
 
                 {/* trend name */}
-                <p className="fw-bolder m-0 fs-7">Luka Modric</p>
+                <p className="fw-bolder m-0 fs-7 text-default">Luka Modric</p>
 
                 {/* trend count */}
-                <p className="text-muted fs-9 m-0">43K Tweets</p>
+                <p className="text-search fs-9 m-0">43K Tweets</p>
               </div>
 
               {/* trend actions */}
@@ -55,8 +59,7 @@ const WhatsHappening = () => {
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={2}
-                  stroke="#536471"
-                  className="w-3 h-3 stroke-hover"
+                  className="w-3 h-3 stroke-search"
                 >
                   <path
                     strokeLinecap="round"
@@ -69,17 +72,19 @@ const WhatsHappening = () => {
           </ListGroup.Item>
 
           {/* trend 2 */}
-          <ListGroup.Item className="bg-transparent border-0 px-3 cursor-pointer trend-hover">
+          <ListGroup.Item className="bg-transparent border-0 px-3 cursor-pointer link-hover">
             <div className="d-flex justify-content-between align-items-start">
               <div className="">
                 {/* muted text */}
-                <span className="text-muted fs-8">Trending in Events</span>
+                <span className="text-search fs-8">Trending in Events</span>
 
                 {/* trend name */}
-                <p className="fw-bolder m-0 fs-7">#ArgentinaVsFrance</p>
+                <p className="fw-bolder m-0 fs-7 text-default">
+                  #ArgentinaVsFrance
+                </p>
 
                 {/* trend count */}
-                <p className="text-muted fs-9 m-0">6.9K Tweets</p>
+                <p className="text-search fs-9 m-0">6.9K Tweets</p>
               </div>
 
               {/* trend actions */}
@@ -89,8 +94,7 @@ const WhatsHappening = () => {
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={2}
-                  stroke="#536471"
-                  className="w-3 h-3"
+                  className="w-3 h-3 stroke-search"
                 >
                   <path
                     strokeLinecap="round"
@@ -103,17 +107,19 @@ const WhatsHappening = () => {
           </ListGroup.Item>
 
           {/* trend 3 */}
-          <ListGroup.Item className="bg-transparent border-0 px-3 cursor-pointer trend-hover">
+          <ListGroup.Item className="bg-transparent border-0 px-3 cursor-pointer link-hover">
             <div className="d-flex justify-content-between align-items-start">
               <div className="">
                 {/* muted text */}
-                <span className="text-muted fs-8">Trending in India</span>
+                <span className="text-search fs-8">Trending in India</span>
 
                 {/* trend name */}
-                <p className="fw-bolder m-0 fs-7">#BoycottSomething</p>
+                <p className="fw-bolder m-0 fs-7 text-default">
+                  #BoycottSomething
+                </p>
 
                 {/* trend count */}
-                <p className="text-muted fs-9 m-0">1,860 Tweets</p>
+                <p className="text-search fs-9 m-0">1,860 Tweets</p>
               </div>
 
               {/* trend actions */}
@@ -123,8 +129,7 @@ const WhatsHappening = () => {
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={2}
-                  stroke="#536471"
-                  className="w-3 h-3"
+                  className="w-3 h-3 stroke-search"
                 >
                   <path
                     strokeLinecap="round"
@@ -137,17 +142,17 @@ const WhatsHappening = () => {
           </ListGroup.Item>
 
           {/* trend 4 */}
-          <ListGroup.Item className="bg-transparent border-0 px-3 cursor-pointer trend-hover">
+          <ListGroup.Item className="bg-transparent border-0 px-3 cursor-pointer link-hover">
             <div className="d-flex justify-content-between align-items-start">
               <div className="">
                 {/* muted text */}
-                <span className="text-muted fs-8">Trending</span>
+                <span className="text-search fs-8">Trending</span>
 
                 {/* trend name */}
-                <p className="fw-bolder m-0 fs-7">Siuuuu</p>
+                <p className="fw-bolder m-0 fs-7 text-default">Siuuuu</p>
 
                 {/* trend count */}
-                <p className="text-muted fs-9 m-0">222K Tweets</p>
+                <p className="text-search fs-9 m-0">222K Tweets</p>
               </div>
 
               {/* trend actions */}
@@ -157,8 +162,7 @@ const WhatsHappening = () => {
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={2}
-                  stroke="#536471"
-                  className="w-3 h-3"
+                  className="w-3 h-3 stroke-search"
                 >
                   <path
                     strokeLinecap="round"
@@ -171,7 +175,7 @@ const WhatsHappening = () => {
           </ListGroup.Item>
 
           {/* show more */}
-          <ListGroup.Item className="bg-transparent border-0 px-3 cursor-pointer trend-hover rounded-bottom">
+          <ListGroup.Item className="bg-transparent border-0 px-3 cursor-pointer link-hover rounded-bottom">
             <button className="btn text-primary-light fs-7 px-0">
               Show more
             </button>

@@ -50,7 +50,7 @@ const TweetCard = ({
   const currentUser = useAppSelector(selectCurrentUser);
 
   return (
-    <div className="d-flex justify-content-between align-items-start border-bottom p-3 pb-0 cursor-pointer tweet">
+    <div className="d-flex justify-content-between align-items-start border-bottom border-col p-3 pb-0 cursor-pointer tweet-hover link-hover">
       <Link to={`/${username}`} className="text-dark">
         <LazyLoadImage
           src={picture}
@@ -62,7 +62,7 @@ const TweetCard = ({
 
       <div className="d-flex flex-column flex-grow-1">
         {tweet.isRetweet && (
-          <div className="d-flex text-muted fw-bold fs-8 align-items-center">
+          <div className="d-flex text-search fw-bold fs-8 align-items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -88,13 +88,15 @@ const TweetCard = ({
         <div>
           {/* name and username */}
           <Link to={`/${username}`} className="text-dark">
-            <span className="me-2 fw-bold text-underline">{name}</span>
-            <span className="text-muted fs-7">@{username}</span>
+            <span className="me-2 fw-bold text-underline text-default">
+              {name}
+            </span>
+            <span className="fs-7 text-search">@{username}</span>
           </Link>
 
           {/* time */}
-          <span className="p-1 text-muted">·</span>
-          <span className="text-muted fs-7 text-underline">
+          <span className="p-1 text-search text-search">·</span>
+          <span className="text-search fs-7 text-underline text-search">
             {moment(tweet.date.toDate()).fromNow()}
           </span>
         </div>
@@ -102,7 +104,7 @@ const TweetCard = ({
         {/* replying to */}
         {isReply && (
           <p className="m-0">
-            <span className="text-muted fs-7">Replying to</span>
+            <span className="text-search fs-7">Replying to</span>
             <Link
               to={`/${replyingTo}`}
               className="link-primary fs-7 text-underline text-decoration-none"
@@ -150,7 +152,7 @@ const TweetCard = ({
           {/* reply */}
           <Link to={`/${username}/status/${tweet.id}`} className="text-dark">
             <div className="d-flex">
-              <button className="border-0 bg-transparent blue-hover p-2 d-flex align-items-center justify-content-center text-muted">
+              <button className="border-0 bg-transparent blue-hover p-2 d-flex align-items-center justify-content-center text-search">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -167,7 +169,7 @@ const TweetCard = ({
                 </svg>
               </button>
               {tweet.replies.length > 0 && (
-                <span className="align-self-center fs-7 text-muted">
+                <span className="align-self-center fs-7 text-search">
                   {tweet.replies.length}
                 </span>
               )}
@@ -177,7 +179,7 @@ const TweetCard = ({
           {/* retweet */}
           <div className="d-flex ">
             <button
-              className="border-0 bg-transparent retweet p-2 d-flex align-items-center justify-content-center text-muted"
+              className="border-0 bg-transparent retweet p-2 d-flex align-items-center justify-content-center text-search"
               onClick={handleRetweet}
             >
               <svg
@@ -197,7 +199,7 @@ const TweetCard = ({
             </button>
             {tweet.retweets.length > 0 && (
               <span
-                className={`ms-1 align-self-center fs-7 text-muted ${
+                className={`ms-1 align-self-center fs-7 text-search ${
                   isRetweeted ? "bg-green" : ""
                 }`}
               >
@@ -209,7 +211,7 @@ const TweetCard = ({
           {/* like */}
           <div className="d-flex ">
             <button
-              className={`border-0 bg-transparent like p-2 d-flex align-items-center justify-content-center text-muted
+              className={`border-0 bg-transparent like p-2 d-flex align-items-center justify-content-center text-search
                ${isLiked ? "liked" : ""}`}
               onClick={handleTweetLike}
             >
@@ -230,7 +232,7 @@ const TweetCard = ({
             </button>
             {tweet.likes.length > 0 && (
               <span
-                className={`ms-1 align-self-center fs-7 text-muted ${
+                className={`ms-1 align-self-center fs-7 text-search ${
                   isLiked ? "bg-red" : ""
                 }`}
               >
@@ -240,7 +242,7 @@ const TweetCard = ({
           </div>
 
           {/* share */}
-          <button className="border-0 bg-transparent blue-hover p-2 d-flex align-items-center justify-content-center text-muted">
+          <button className="border-0 bg-transparent blue-hover p-2 d-flex align-items-center justify-content-center text-search">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -260,7 +262,7 @@ const TweetCard = ({
       </div>
 
       <OverlayTrigger trigger="click" placement="left" overlay={popover}>
-        <button className="border-0 bg-transparent blue-hover p-2 d-flex align-items-center justify-content-center">
+        <button className="border-0 bg-transparent blue-hover p-2 d-flex align-items-center justify-content-center text-search">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

@@ -17,9 +17,13 @@ const TweetFormModal = ({
   const handleClose = () => setShowTweetFormModal(false);
 
   return (
-    <Modal show={show} onHide={handleClose} contentClassName="border-radius-5">
+    <Modal
+      show={show}
+      onHide={handleClose}
+      contentClassName="border-radius-5 bg-body-primary"
+    >
       <Button
-        className="rounded-pill p-1 w-10 align-self-start m-2 mb-0 bg-body-primary border-0 text-black close-hover"
+        className="rounded-pill p-1 w-10 align-self-start m-2 mb-0 bg-transparent border-0 text-black close-hover"
         onClick={handleClose}
       >
         <svg
@@ -38,7 +42,7 @@ const TweetFormModal = ({
         </svg>
       </Button>
 
-      <Modal.Body className="border-0">
+      <Modal.Body className="border-0 bg-body-primary">
         <AddTweetForm isModal={true} closeModal={handleClose} />
       </Modal.Body>
     </Modal>

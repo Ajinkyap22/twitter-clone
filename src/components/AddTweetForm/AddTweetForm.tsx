@@ -231,9 +231,9 @@ const AddTweetForm = ({ isModal, closeModal }: Props): JSX.Element => {
 
   return (
     <Form
-      className={`d-flex ${isModal ? "p-0" : "border-bottom p p-3"}  ${
-        uploading ? "opacity-50" : ""
-      }`}
+      className={`d-flex ${
+        isModal ? "p-0" : "border-bottom border-col p p-3"
+      }  ${uploading ? "opacity-50" : ""}`}
       onSubmit={handleSubmit}
     >
       <Form.Group
@@ -257,7 +257,7 @@ const AddTweetForm = ({ isModal, closeModal }: Props): JSX.Element => {
               as="textarea"
               placeholder="What's happening?"
               rows={imageInput || videoInput || !isModal ? 1 : 3}
-              className="border-0 overflow-hidden resize-none tweet-caption py-2_5"
+              className="border-0 overflow-hidden resize-none tweet-caption py-2_5 bg-transparent text-default"
               value={tweetCaption}
               onChange={handleChange}
               ref={captionRef}

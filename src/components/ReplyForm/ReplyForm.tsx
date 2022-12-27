@@ -228,7 +228,7 @@ const ReplyForm = ({ replyingTo, tweetId }: Props) => {
 
   return (
     <div
-      className={`border-bottom d-flex flex-column p-2 px-3 ${
+      className={`border-bottom border-col d-flex flex-column p-2 px-3 ${
         uploading ? "opacity-50" : ""
       }`}
     >
@@ -255,7 +255,7 @@ const ReplyForm = ({ replyingTo, tweetId }: Props) => {
             as="textarea"
             placeholder="Tweet your reply"
             rows={1}
-            className="border-0 overflow-hidden resize-none tweet-caption py-1 pb-2 px-0"
+            className="border-0 overflow-hidden resize-none tweet-caption py-1 pb-2 px-0 bg-transparent text-default"
             value={caption}
             onChange={handleChange}
             ref={captionRef}

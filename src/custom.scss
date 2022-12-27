@@ -3,13 +3,9 @@
 
 $primary: #00acee;
 $primary-light: #1c9bef;
-$primary-search: #536371;
 $bg-body-primary: #fff;
 
-$bg-search: #eff3f4;
-$bg-gray: #f6f9f9;
 $bg-dark-transparent: #0f1419bf;
-$bg-coverPic: #cfd9dd;
 
 $light: #eff3f4;
 $danger: #dc2626;
@@ -29,19 +25,207 @@ $theme-colors: (
 
 [data-bs-theme="light-theme"] {
   $bg-body-primary: #fff;
+  $bg-body-primary-transparent: #ffffffd9;
+  $bg-search: #eff3f4;
+  $bg-gray: #f6f9f9;
+  $bg-following: #f6f9f9;
+  $bg-follow: #272c30;
+  $bg-coverPic: #cfd9dd;
+
+  $text-default: #000;
+  $text-follow: #fff;
+  $text-following: #000;
+  $border-col: #dee2e6;
+  $primary-search: #536371;
+  $fill: #000;
+  $gray: #e7e7e8;
+
+  $link-hover: #eef1f1;
+  $tweet-hover: #f7f7f7;
 
   // background
   .bg-body-primary {
     background-color: $bg-body-primary;
   }
+
+  .bg-body-primary-transparent {
+    background-color: $bg-body-primary-transparent;
+    backdrop-filter: blur(12px);
+  }
+
+  .bg-search {
+    background-color: $bg-search !important;
+  }
+
+  .bg-gray {
+    background-color: $bg-gray !important;
+  }
+
+  .bg-following {
+    background-color: $bg-following !important;
+  }
+
+  .bg-follow {
+    background-color: $bg-follow !important;
+  }
+
+  .bg-coverPic {
+    background-color: $bg-coverPic !important;
+  }
+
+  // text
+  .text-default {
+    color: $text-default !important;
+  }
+
+  .text-search {
+    color: $primary-search !important;
+  }
+
+  .text-follow {
+    color: $text-follow !important;
+  }
+
+  .text-following {
+    color: $text-following !important;
+  }
+
+  // border
+  .border-col {
+    border-color: $border-col !important;
+  }
+
+  .border-avatar {
+    border: 4px solid $bg-body-primary !important;
+  }
+
+  .fill {
+    fill: $fill !important;
+  }
+
+  .form-control:focus::-webkit-input-placeholder {
+    color: $primary !important;
+    font-weight: 100;
+  }
+
+  .stroke-search {
+    stroke: $primary-search !important;
+  }
+
+  // hover
+  .link-hover:hover {
+    background-color: $link-hover !important;
+  }
+
+  .hover-square:hover {
+    background-color: #e7e7e8 !important;
+  }
+
+  .tweet-hover:hover {
+    background-color: $tweet-hover !important;
+  }
 }
 
 [data-bs-theme="dark-theme"] {
-  $bg-body-primary: #1c2732;
+  $bg-body-primary: #15202b;
+  $bg-body-primary-transparent: #15202bbf;
+  $bg-search: #263340;
+  $bg-gray: #252e38;
+  $bg-following: #1e2732;
+  $bg-follow: #d7dbdc;
+  $bg-coverPic: #415363;
+
+  $text-default: #fff;
+  $text-follow: #000;
+  $text-following: #fff;
+  $border-col: #36434c;
+  $primary-search: #8a98a5;
+  $fill: #fff;
+  $gray: #2c3640;
+
+  $link-hover: #2c3640;
+  $tweet-hover: #1c2732;
 
   // background
   .bg-body-primary {
-    background-color: $bg-body-primary;
+    background-color: $bg-body-primary !important;
+  }
+
+  .bg-body-primary-transparent {
+    background-color: $bg-body-primary-transparent !important;
+    backdrop-filter: blur(12px) !important;
+  }
+
+  .bg-search {
+    background-color: $bg-search !important;
+  }
+
+  .bg-gray {
+    background-color: $bg-gray !important;
+  }
+
+  .bg-following {
+    background-color: $bg-following !important;
+  }
+
+  .bg-follow {
+    background-color: $bg-follow !important;
+  }
+
+  .bg-coverPic {
+    background-color: $bg-coverPic !important;
+  }
+
+  // text
+  .text-default {
+    color: $text-default !important;
+  }
+
+  .text-search {
+    color: $primary-search !important;
+  }
+
+  .text-follow {
+    color: $text-follow !important;
+  }
+
+  .text-following {
+    color: $text-following !important;
+  }
+
+  // border
+  .border-col {
+    border-color: $border-col !important;
+  }
+
+  .border-avatar {
+    border: 4px solid $bg-body-primary !important;
+  }
+
+  .fill {
+    fill: $fill !important;
+  }
+
+  .form-control::-webkit-input-placeholder {
+    color: $primary-search !important;
+    font-weight: 100;
+  }
+
+  .stroke-search {
+    stroke: $primary-search !important;
+  }
+
+  // hover
+  .link-hover:hover {
+    background-color: $link-hover !important;
+  }
+
+  .hover-square:hover {
+    background-color: $gray !important;
+  }
+
+  .tweet-hover:hover {
+    background-color: $tweet-hover !important;
   }
 }
 
@@ -67,20 +251,8 @@ $theme-colors: (
   backdrop-filter: blur(12px);
 }
 
-.bg-search {
-  background-color: $bg-search !important;
-}
-
-.bg-gray {
-  background-color: $bg-gray !important;
-}
-
 .bg-dark-transparent {
   background-color: $bg-dark-transparent !important;
-}
-
-.bg-coverPic {
-  background-color: $bg-coverPic !important;
 }
 
 // text
@@ -90,10 +262,6 @@ $theme-colors: (
 
 .text-primary-light {
   color: $primary-light !important;
-}
-
-.text-search {
-  color: $primary-search !important;
 }
 
 .text-underline:hover {
@@ -359,13 +527,13 @@ $theme-colors: (
 }
 
 .retweet:hover {
-  background-color: #e3f1ea !important;
+  background-color: #1df0701a !important;
   border-radius: 40px !important;
   color: #00ba7c !important;
 }
 
 .like:hover {
-  background-color: #f8e3eb !important;
+  background-color: #f01d391a !important;
   border-radius: 40px !important;
   color: #f9197f !important;
 }
@@ -399,13 +567,7 @@ $theme-colors: (
   border-radius: 40px !important;
 }
 
-.hover-gray-square:hover {
-  background-color: #e7e7e8 !important;
-}
-
-.link-hover:hover {
-  // background-color: #ebeaea;
-  background-color: #eef1f1 !important;
+.link-border {
   border-radius: 40px !important;
 }
 
@@ -421,10 +583,6 @@ $theme-colors: (
 
 .logout:hover {
   background: #f6f9f9 !important;
-}
-
-.trend-hover:hover {
-  background-color: #eef1f1 !important;
 }
 
 // position
@@ -474,11 +632,6 @@ $theme-colors: (
 
 .form-control:focus {
   border-width: 2px !important;
-}
-
-.form-control:focus::-webkit-input-placeholder {
-  color: $primary !important;
-  font-weight: 100;
 }
 
 .form-control-light:focus::-webkit-input-placeholder {
@@ -544,10 +697,6 @@ $theme-colors: (
 
 .tweet-caption {
   font-size: 1.25rem !important;
-}
-
-.border-avatar {
-  border: 4px solid white !important;
 }
 
 .border-active {
