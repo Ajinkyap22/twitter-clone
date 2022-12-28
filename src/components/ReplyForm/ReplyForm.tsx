@@ -284,7 +284,7 @@ const ReplyForm = ({ replyingTo, tweetId }: Props) => {
               <Button
                 onClick={handleImageUpload}
                 disabled={imageInput || videoInput ? true : false}
-                className="me-1 cursor-pointer logo-hover p-2 border-0 bg-body-primary"
+                className="me-1 cursor-pointer logo-hover p-2 border-0 bg-transparent"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -306,7 +306,7 @@ const ReplyForm = ({ replyingTo, tweetId }: Props) => {
               <Button
                 onClick={handleVideoUpload}
                 disabled={imageInput || videoInput ? true : false}
-                className="me-2 cursor-pointer logo-hover p-2 border-0 bg-body-primary"
+                className="me-2 cursor-pointer logo-hover p-2 border-0 bg-transparent"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

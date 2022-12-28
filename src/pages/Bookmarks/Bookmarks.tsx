@@ -16,6 +16,10 @@ const Bookmarks = () => {
   const currentUser = useAppSelector(selectCurrentUser);
   const [bookmarks, setBookmarks] = React.useState<TTweet[]>([]);
 
+  useEffect(() => {
+    document.title = "Bookmarks / Twitter";
+  }, []);
+
   // feetch bookmarks to display on bookmarks page
   useEffect(() => {
     const fetchBookmarks = async () => {
