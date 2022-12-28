@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useAppSelector } from "app/hooks";
 import { selectTweets, selectAllTweets } from "features/tweet/tweetSlice";
+import { ThemeContext } from "contexts/ThemeContext";
 
 import AddTweetForm from "components/AddTweetForm/AddTweetForm";
 import Tweets from "components/Tweets/Tweets";
@@ -11,18 +12,57 @@ import { withAuthenticationRequired } from "@auth0/auth0-react";
 const FeedContent = () => {
   const tweets = useAppSelector(selectTweets);
   const allTweets = useAppSelector(selectAllTweets);
+  const { theme, setTheme } = useContext(ThemeContext);
+  const toggleTheme = () => {
+    if (theme === "light-theme") {
+      setTheme("dark-theme");
+    } else {
+      setTheme("light-theme");
+    }
+  };
 
   return (
     <>
       <div className="position-sticky top-0 p-3 py-2 pe-1 bg-body-primary-transparent d-flex justify-content-between align-items-center z-10">
         <h5 className="fw-bold m-0">Home</h5>
 
-        <button className="bg-transparent border-0 hover-gray rounded-circle p-1_5">
-          <svg viewBox="0 0 24 24" className="w-3 h-3 fill" aria-hidden="true">
-            <g>
-              <path d="M2 4c1.66 0 3-1.34 3-3h1c0 1.66 1.34 3 3 3v1C7.34 5 6 6.34 6 8H5c0-1.66-1.34-3-3-3V4zm7.89 4.9C11.26 7.53 12 5.35 12 2h2c0 3.35.74 5.53 2.1 6.9 1.36 1.36 3.55 2.1 6.9 2.1v2c-3.35 0-5.54.74-6.9 2.1-1.36 1.37-2.1 3.55-2.1 6.9h-2c0-3.35-.74-5.53-2.11-6.9C8.53 13.74 6.35 13 3 13v-2c3.35 0 5.53-.74 6.89-2.1zm7.32 3.1c-.97-.42-1.81-.97-2.53-1.69-.71-.71-1.27-1.56-1.68-2.52-.42.96-.98 1.81-1.69 2.52-.72.72-1.56 1.27-2.53 1.69.97.42 1.81.97 2.53 1.69.71.71 1.27 1.56 1.69 2.52.41-.96.97-1.81 1.68-2.52.72-.72 1.56-1.27 2.53-1.69z"></path>
-            </g>
-          </svg>
+        <button
+          className={`bg-transparent border-0 rounded-circle p-1_5 ${
+            theme === "light-theme" ? "hover-gray" : "link-hover"
+          }`}
+          onClick={toggleTheme}
+        >
+          {theme === "light-theme" ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="#89C4E1"
+              className="w-3 h-3"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
+              />
+            </svg>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="white"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="white"
+              className="w-3 h-3 fill"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+              />
+            </svg>
+          )}
         </button>
       </div>
 
