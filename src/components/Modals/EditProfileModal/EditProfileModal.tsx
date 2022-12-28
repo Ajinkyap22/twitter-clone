@@ -1,4 +1,5 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
+import { ThemeContext } from "contexts/ThemeContext";
 
 import { useAppDispatch } from "app/hooks";
 import { updateProfilePicture, updateProfile } from "features/user/userSlice";
@@ -11,6 +12,8 @@ import { TUser } from "features/user/userSlice";
 
 import { Modal, Form, Button } from "react-bootstrap";
 
+import "components/Modals/EditProfileModal/EditProfileModal.scss";
+
 type Props = {
   show: boolean;
   onHide: () => void;
@@ -22,8 +25,9 @@ const EditProfileModal = ({ show, onHide, currentUser }: Props) => {
   const [bio, setBio] = useState<string>(currentUser?.bio);
   const [location, setLocation] = useState<string>(currentUser?.location);
   const [picture, setPicture] = useState<string | File>(currentUser?.picture);
-  const pictureInputRef = useRef<HTMLInputElement>(null);
 
+  const pictureInputRef = useRef<HTMLInputElement>(null);
+  const { theme } = useContext(ThemeContext);
   const { user } = useAuth0();
 
   const dispatch = useAppDispatch();
@@ -107,7 +111,11 @@ const EditProfileModal = ({ show, onHide, currentUser }: Props) => {
     <Modal
       show={show}
       aria-labelledby="contained-modal-title-vcenter"
-      contentClassName="p-3 px-0 mx-auto pt-0 w-xl-80"
+      contentClassName={`p-3 px-0 px-sm-3 w-xl-80 mx-auto ${
+        theme === "dark-theme"
+          ? "bg-body-primary-dark text-default-dark"
+          : "bg-body-primary-light text-default"
+      }`}
       keyboard={false}
       centered
     >
@@ -144,7 +152,11 @@ const EditProfileModal = ({ show, onHide, currentUser }: Props) => {
           <Button
             onClick={handelSubmit}
             variant="dark"
-            className="border border bg-dark text-white btn-sm me-2 rounded-pill fs-7 fw-bold py-1 px-3"
+            className={`border btn-sm me-2 rounded-pill fs-7 fw-bold py-1 px-3 ${
+              theme === "dark-theme"
+                ? "bg-save-dark text-save-dark"
+                : "bg-save text-save"
+            }`}
           >
             Save
           </Button>
@@ -197,7 +209,11 @@ const EditProfileModal = ({ show, onHide, currentUser }: Props) => {
           {/* name */}
           <Form.Control
             type="text"
-            className="form-control p-3 mt-4 mb-2 border-2"
+            className={`form-control p-3 mt-4 mb-2 border-2 bg-transparent  ${
+              theme === "dark-theme"
+                ? "text-default-dark form-control-dark border-secondary"
+                : "text-default"
+            }`}
             placeholder="Name"
             value={name}
             onChange={handleNameChange}
@@ -211,7 +227,11 @@ const EditProfileModal = ({ show, onHide, currentUser }: Props) => {
           {/* bio */}
           <Form.Control
             type="text"
-            className="form-control p-3 mt-4 mb-2 border-2"
+            className={`form-control p-3 mt-4 mb-2 border-2 bg-transparent  ${
+              theme === "dark-theme"
+                ? "text-default-dark form-control-dark border-secondary"
+                : "text-default"
+            }`}
             placeholder="Bio"
             value={bio}
             onChange={handleBioChange}
@@ -224,7 +244,11 @@ const EditProfileModal = ({ show, onHide, currentUser }: Props) => {
           {/* location */}
           <Form.Control
             type="text"
-            className="form-control p-3 mt-4 mb-2 border-2"
+            className={`form-control p-3 mt-4 mb-2 border-2 bg-transparent  ${
+              theme === "dark-theme"
+                ? "text-default-dark form-control-dark border-secondary"
+                : "text-default"
+            }`}
             placeholder="Location"
             value={location}
             onChange={handleLocationChange}

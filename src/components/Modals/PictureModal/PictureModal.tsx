@@ -1,6 +1,8 @@
-import React, { useState, useRef } from "react";
-import { Button } from "react-bootstrap";
-import { Modal } from "react-bootstrap";
+import React, { useState, useRef, useContext } from "react";
+
+import { Button, Modal } from "react-bootstrap";
+import { ThemeContext } from "contexts/ThemeContext";
+
 import AvatarEditor from "./AvatarEditor";
 
 type Props = {
@@ -23,6 +25,8 @@ const PictureModal = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
   const [error, setError] = useState<string>("");
+
+  const { theme } = useContext(ThemeContext);
 
   // onclick on div
   const handleImageUpload = () => {
@@ -74,7 +78,11 @@ const PictureModal = ({
     <Modal
       show={show}
       aria-labelledby="contained-modal-title-vcenter"
-      contentClassName="p-3 px-sm-5 w-xl-80 mx-auto "
+      contentClassName={`p-3 px-sm-5 w-xl-80 mx-auto ${
+        theme === "dark-theme"
+          ? "bg-body-primary-dark text-default-dark"
+          : "bg-body-primary-light text-default"
+      }`}
       className="z-high"
       keyboard={false}
       centered
@@ -87,7 +95,9 @@ const PictureModal = ({
           {/* Back button */}
           <Button
             variant="link"
-            className="text-decoration-none text-dark p-0"
+            className={`text-decoration-none text-dark p-0 ${
+              theme === "dark-theme" ? "text-default-dark" : "text-default"
+            }`}
             onClick={handleBack}
           >
             <svg
@@ -139,7 +149,7 @@ const PictureModal = ({
               className="w-4 h-4"
               fill="none"
               viewBox="0 0 24 24"
-              stroke="gray"
+              stroke={theme === "dark-theme" ? "white" : "gray"}
             >
               <path
                 strokeLinecap="round"

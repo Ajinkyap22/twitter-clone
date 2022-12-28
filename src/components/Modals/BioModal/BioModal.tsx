@@ -1,7 +1,10 @@
-import React from "react";
-import { Button } from "react-bootstrap";
-import { Modal } from "react-bootstrap";
-import { Form } from "react-bootstrap";
+import React, { useContext } from "react";
+
+import { Button, Modal, Form } from "react-bootstrap";
+
+import { ThemeContext } from "contexts/ThemeContext";
+
+import "components/Modals/BioModal/BioModal.scss";
 
 type Props = {
   show: boolean;
@@ -22,11 +25,18 @@ const BioModal = ({
   setLocation,
   handleBack,
 }: Props) => {
+  const { theme } = useContext(ThemeContext);
+
   return (
     <Modal
       show={show}
       aria-labelledby="contained-modal-title-vcenter"
-      contentClassName="p-3 px-0 px-sm-5 px-lg-2 w-xl-80 mx-auto"
+      contentClassName={`p-3 px-0 px-sm-5 px-lg-2 w-xl-80 mx-auto ${
+        theme === "dark-theme"
+          ? "bg-body-primary-dark text-default-dark"
+          : "bg-body-primary-light text-default"
+      }
+      `}
       keyboard={false}
       centered
     >
@@ -38,7 +48,9 @@ const BioModal = ({
           {/* Back button */}
           <Button
             variant="link"
-            className="text-decoration-none text-dark p-0"
+            className={`text-decoration-none text-dark p-0 ${
+              theme === "dark-theme" ? "text-default-dark" : "text-default"
+            }`}
             onClick={handleBack}
           >
             <svg
@@ -69,7 +81,11 @@ const BioModal = ({
           {/* bio */}
           <Form.Control
             type="text"
-            className="form-control p-3 mt-4 mb-2 border-2"
+            className={`form-control p-3 mt-4 mb-2 border-2 bg-transparent ${
+              theme === "dark-theme"
+                ? "text-default-dark form-control-dark border-secondary"
+                : "text-default"
+            }`}
             placeholder="Your Twitter Bio"
             value={bio}
             onChange={(e) => setBio(e.target.value)}
@@ -82,7 +98,11 @@ const BioModal = ({
           {/* location */}
           <Form.Control
             type="text"
-            className="form-control p-3 mt-4 mb-2 border-2"
+            className={`form-control p-3 mt-4 mb-2 border-2 bg-transparent ${
+              theme === "dark-theme"
+                ? "text-default-dark form-control-dark border-secondary"
+                : "text-default"
+            }`}
             placeholder="Where are you from?"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
@@ -95,7 +115,7 @@ const BioModal = ({
           <Button
             variant={"primary"}
             type="submit"
-            className="rounded-pill w-100 py-2 fw-bold mt-5"
+            className="rounded-pill w-100 py-2 fw-bold mt-4"
           >
             Next
           </Button>

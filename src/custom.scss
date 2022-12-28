@@ -3,7 +3,6 @@
 
 $primary: #00acee;
 $primary-light: #1c9bef;
-$bg-body-primary: #fff;
 
 $bg-dark-transparent: #0f1419bf;
 
@@ -73,6 +72,10 @@ $theme-colors: (
     background-color: $bg-coverPic !important;
   }
 
+  .bg-auth {
+    background-color: $bg-body-primary !important;
+  }
+
   // text
   .text-default {
     color: $text-default !important;
@@ -134,6 +137,7 @@ $theme-colors: (
   $bg-following: #1e2732;
   $bg-follow: #d7dbdc;
   $bg-coverPic: #415363;
+  $bg-auth: #1b2937;
 
   $text-default: #fff;
   $text-follow: #000;
@@ -174,6 +178,10 @@ $theme-colors: (
 
   .bg-coverPic {
     background-color: $bg-coverPic !important;
+  }
+
+  .bg-auth {
+    background-color: $bg-auth !important;
   }
 
   // text

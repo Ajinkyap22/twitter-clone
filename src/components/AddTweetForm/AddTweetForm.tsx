@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { Link } from "react-router-dom";
 import Logo from "assets/images/Logo.svg";
+import { ThemeContext } from "contexts/ThemeContext";
 
 import ImagePreview from "components/ImagePreview/ImagePreview";
 import VideoPreview from "components/VideoPreview/VideoPreview";
@@ -21,6 +22,8 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
+import "components/AddTweetForm/AddTweetForm.scss";
+
 type Props = {
   isModal: boolean;
   closeModal?: () => void;
@@ -32,6 +35,8 @@ const AddTweetForm = ({ isModal, closeModal }: Props): JSX.Element => {
   const [videoInput, setVideoInput] = useState<File | null>(null);
   const [uploading, setUploading] = useState<boolean>(false);
   const [disabled, setDisabled] = useState<boolean>(true);
+
+  const { theme } = useContext(ThemeContext);
 
   const imageInputRef = useRef<HTMLInputElement>(null);
   const videoInputRef = useRef<HTMLInputElement>(null);
@@ -257,7 +262,11 @@ const AddTweetForm = ({ isModal, closeModal }: Props): JSX.Element => {
               as="textarea"
               placeholder="What's happening?"
               rows={imageInput || videoInput || !isModal ? 1 : 3}
-              className="border-0 overflow-hidden resize-none tweet-caption py-2_5 bg-transparent text-default"
+              className={`border-0 overflow-hidden resize-none tweet-caption py-2_5 bg-transparent ${
+                theme === "dark-theme"
+                  ? "text-white form-control-dark"
+                  : "text-black"
+              }`}
               value={tweetCaption}
               onChange={handleChange}
               ref={captionRef}
@@ -287,7 +296,7 @@ const AddTweetForm = ({ isModal, closeModal }: Props): JSX.Element => {
               <Button
                 onClick={handleImageUpload}
                 disabled={imageInput || videoInput ? true : false}
-                className="me-1 cursor-pointer  logo-hover p-2 border-0 bg-body-primary"
+                className="me-1 cursor-pointer logo-hover p-2 border-0 bg-transparent"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -309,7 +318,7 @@ const AddTweetForm = ({ isModal, closeModal }: Props): JSX.Element => {
               <Button
                 onClick={handleVideoUpload}
                 disabled={imageInput || videoInput ? true : false}
-                className="me-2 cursor-pointer logo-hover p-2 border-0 bg-body-primary"
+                className="me-2 cursor-pointer logo-hover p-2 border-0 bg-transparent"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
