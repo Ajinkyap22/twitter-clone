@@ -21,7 +21,7 @@ const ProfileHeader = ({ name, tweets, activeTab, likes }: Props) => {
         {/* go back */}
         <button
           onClick={handleBack}
-          className="bg-transparent border-0 me-4_5 hover-gray rounded-circle p-1_5"
+          className="bg-transparent border-0 me-4_5 link-hover rounded-circle p-1_5"
         >
           <svg viewBox="0 0 24 24" className="w-3 h-3 fill" aria-hidden="true">
             <g>

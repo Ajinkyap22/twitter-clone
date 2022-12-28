@@ -12,12 +12,16 @@ import { withAuthenticationRequired } from "@auth0/auth0-react";
 const FeedContent = () => {
   const tweets = useAppSelector(selectTweets);
   const allTweets = useAppSelector(selectAllTweets);
+
   const { theme, setTheme } = useContext(ThemeContext);
+
   const toggleTheme = () => {
     if (theme === "light-theme") {
       setTheme("dark-theme");
+      localStorage.setItem("theme", "dark-theme");
     } else {
       setTheme("light-theme");
+      localStorage.setItem("theme", "light-theme");
     }
   };
 

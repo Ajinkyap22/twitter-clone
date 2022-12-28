@@ -135,7 +135,7 @@ Props) => {
             <LazyLoadImage
               src={tweet.media[0]}
               alt="tweet-image"
-              className="rounded-4 w-100 border border-1 mt-1"
+              className="rounded-4 w-100 border border-1 border-col mt-1"
             />
           ) : (
             <video
@@ -215,7 +215,7 @@ Props) => {
 
             {retweetCount > 0 && (
               <span
-                className={`ms-1 align-self-center ${
+                className={`ms-1 align-self-center text-search ${
                   retweeted ? "bg-green" : ""
                 }`}
               >
@@ -249,7 +249,9 @@ Props) => {
             </button>
             {likeCount > 0 && (
               <span
-                className={`ms-1 align-self-center ${liked ? "bg-red" : ""}`}
+                className={`ms-1 align-self-center text-search ${
+                  liked ? "bg-red" : ""
+                }`}
               >
                 {likeCount}
               </span>
