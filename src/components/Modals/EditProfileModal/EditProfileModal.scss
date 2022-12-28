@@ -1,0 +1,47 @@
+$bg-save: #272c30;
+$text-save: #fff;
+
+$bg-save-dark: #d7dbdc;
+$text-save-dark: #000;
+
+.bd-body-primary {
+  background-color: #fff !important;
+}
+
+.bg-body-primary-dark {
+  background-color: #15202b !important;
+}
+
+.text-default {
+  color: #000 !important;
+}
+
+.text-default-dark {
+  color: #fff !important;
+}
+
+.form-control::-webkit-input-placeholder {
+  color: #536371 !important;
+  font-weight: 100;
+}
+
+.form-control-dark::-webkit-input-placeholder {
+  color: #8a98a5 !important;
+  font-weight: 100;
+}
+
+.text-save {
+  color: $text-save !important;
+}
+
+.text-save-dark {
+  color: $text-save-dark !important;
+}
+
+.bg-save {
+  background-color: $bg-save !important;
+}
+
+.bg-save-dark {
+  background-color: $bg-save-dark !important;
+}

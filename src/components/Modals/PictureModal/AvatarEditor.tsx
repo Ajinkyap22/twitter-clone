@@ -1,7 +1,10 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
+
+import { ThemeContext } from "contexts/ThemeContext";
+
 import Editor from "react-avatar-editor";
-import { Button } from "react-bootstrap";
-import { Modal } from "react-bootstrap";
+
+import { Button, Modal } from "react-bootstrap";
 
 type Props = {
   show: boolean;
@@ -19,6 +22,7 @@ const AvatarEditor = ({
   setPicture,
 }: Props) => {
   const cropRef = useRef<Editor>(null);
+  const { theme } = useContext(ThemeContext);
 
   const cropImage = () => {
     if (!cropRef.current) return;
@@ -62,7 +66,11 @@ const AvatarEditor = ({
       show={show}
       aria-labelledby="contained-modal-title-vcenter"
       className="z-max"
-      contentClassName="py-2 px-0 p-3 px-sm-5 w-xl-80 mx-auto"
+      contentClassName={`py-2 px-0 p-3 px-sm-5 w-xl-80 mx-auto ${
+        theme === "dark-theme"
+          ? "bg-body-primary-dark text-default-dark"
+          : "bg-body-primary-light text-default"
+      }`}
       keyboard={false}
       ref={modalRef}
       centered
@@ -75,7 +83,7 @@ const AvatarEditor = ({
         <Button
           variant="light"
           onClick={onHide}
-          className="position-absolute top-2 end-2"
+          className="position-absolute top-2 end-2 bg-transparent border-0"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
+
 import { Button } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import { Form } from "react-bootstrap";
+
+import { ThemeContext } from "contexts/ThemeContext";
+
+import "components/Modals/NameModal/NameModal.scss";
 
 type Props = {
   show: boolean;
@@ -11,11 +16,17 @@ type Props = {
 };
 
 const NameModal = ({ show, onHide, name, setName }: Props) => {
+  const { theme } = useContext(ThemeContext);
+
   return (
     <Modal
       show={show}
       aria-labelledby="contained-modal-title-vcenter"
-      contentClassName="p-3 px-sm-5 w-xl-80 mx-auto"
+      contentClassName={`p-3 px-sm-5 w-xl-80 mx-auto ${
+        theme === "dark-theme"
+          ? "bg-body-primary-dark text-default-dark"
+          : "bg-body-primary-light text-default"
+      }`}
       keyboard={false}
       centered
     >
@@ -31,7 +42,11 @@ const NameModal = ({ show, onHide, name, setName }: Props) => {
         <Form onSubmit={onHide}>
           <Form.Control
             type="text"
-            className="form-control p-3 mt-4"
+            className={`form-control p-3 mt-4 bg-transparent ${
+              theme === "dark-theme"
+                ? "text-default-dark form-control-dark border-secondary"
+                : "text-default"
+            }`}
             placeholder="Name"
             value={name}
             onChange={(e) => setName(e.target.value)}

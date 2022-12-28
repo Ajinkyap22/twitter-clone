@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 import { Button } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { Alert } from "react-bootstrap";
 
+import { ThemeContext } from "contexts/ThemeContext";
+
 import db from "firebase-config/config";
 import { query, where, getDocs, collection } from "firebase/firestore";
+
+import "components/Modals/UsernameModal/UsernameModal.scss";
 
 type Props = {
   show: boolean;
@@ -24,6 +28,7 @@ const UsernameModal = ({
   handleBack,
 }: Props) => {
   const [usernameError, setUsernameError] = useState<string | null>(null);
+  const { theme } = useContext(ThemeContext);
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     // check if the username has any spaces
@@ -57,7 +62,11 @@ const UsernameModal = ({
     <Modal
       show={show}
       aria-labelledby="contained-modal-title-vcenter"
-      contentClassName="p-3 px-0 px-sm-5 w-xl-80 mx-auto"
+      contentClassName={`p-3 px-0 px-sm-5 w-xl-80 mx-auto ${
+        theme === "dark-theme"
+          ? "bg-body-primary-dark text-default-dark"
+          : "bg-body-primary-light text-default"
+      }`}
       keyboard={false}
       centered
     >
@@ -69,7 +78,9 @@ const UsernameModal = ({
           {/* Back button */}
           <Button
             variant="link"
-            className="text-decoration-none text-dark p-0"
+            className={`text-decoration-none p-0 ${
+              theme === "dark-theme" ? "text-default-dark" : "text-default"
+            }`}
             onClick={handleBack}
           >
             <svg
@@ -99,7 +110,11 @@ const UsernameModal = ({
         <Form onSubmit={handleSubmit}>
           <Form.Control
             type="text"
-            className="form-control p-3 mt-4 mb-2 border-2"
+            className={`form-control p-3 mt-4 mb-2 border-2 bg-transparent ${
+              theme === "dark-theme"
+                ? "text-default-dark form-control-dark border-secondary"
+                : "text-default"
+            }`}
             placeholder="Username"
             value={username}
             onChange={handleChange}
