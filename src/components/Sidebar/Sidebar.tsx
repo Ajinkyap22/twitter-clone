@@ -51,8 +51,8 @@ const Sidebar = ({
       <ListGroup className="d-flex align-items-start pe-sm-1 pe-xl-5">
         {/* twitter logo */}
         <Link to="/home">
-          <ListGroupItem className="cursor-pointer bg-transparent border-0 d-flex justify-content-start w-100 p-0 bg-body-primary">
-            <button className="border-0 cursor-pointer bg-body-primary logo-hover p-3">
+          <ListGroupItem className="cursor-pointer bg-transparent border-0 d-flex justify-content-start w-100 p-0">
+            <button className="border-0 cursor-pointer bg-transparent logo-hover p-3">
               <LazyLoadImage src={Logo} alt="Logo" className="w-6 h-6" />
             </button>
           </ListGroupItem>
