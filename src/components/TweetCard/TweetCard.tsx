@@ -134,7 +134,7 @@ const TweetCard = ({
               <LazyLoadImage
                 src={tweet.media[0]}
                 alt="tweet-image"
-                className="rounded-4 w-100 border border-1 "
+                className="rounded-4 w-100 border border-1 border-col"
               />
             ) : (
               <video

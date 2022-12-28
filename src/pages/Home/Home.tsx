@@ -43,7 +43,10 @@ const Home = (): JSX.Element => {
 
   // fetch current user
   useEffect(() => {
-    if (!user?.email) return;
+    if (!user?.email) {
+      setLoading(false);
+      return;
+    }
 
     dispatch(fetchCurrentUser(user.email, setLoading));
   }, [user]);
