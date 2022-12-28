@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { Container } from "react-bootstrap";
-import { Button } from "react-bootstrap";
+import { Container, Button } from "react-bootstrap";
 
 import Logo from "assets/images/Logo.svg";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const Auth = (): JSX.Element => {
-  const { loginWithRedirect } = useAuth0();
+  const { user, loginWithRedirect } = useAuth0();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/home");
+    }
+  }, [user]);
 
   const handleLogin = async () => {
     try {
@@ -40,14 +47,14 @@ const Auth = (): JSX.Element => {
     >
       <div className="bg-auth w-35 shadow d-flex flex-column justify-content-center align-items-center rounded-3 p-4 w-md-50 w-sm-70 w-xs-80">
         {/* twitter logo */}
-        <LazyLoadImage src={Logo} alt="" className="w-2" />
+        <LazyLoadImage src={Logo} alt="" className="w-8" />
 
         {/* welcome */}
-        <h2 className="text-center mt-4 fw-bold">Sign in to Twitter</h2>
+        <h2 className="text-center mt-4 fw-bold">Welcome to Twitter</h2>
 
         {/* login */}
         <Button
-          variant="primary my-3 mt-4 w-75 rounded-pill"
+          variant="primary my-3 mt-4 w-75 fs- rounded-pill"
           className="text-white"
           onClick={handleLogin}
         >
@@ -56,7 +63,7 @@ const Auth = (): JSX.Element => {
 
         {/* signup */}
         <Button
-          variant="outline-primary my-2 w-75 rounded-pill"
+          variant="outline-primary my-2 mt-3 w-75 fs- rounded-pill"
           onClick={handleSignup}
         >
           Sign up
