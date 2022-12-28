@@ -27,13 +27,13 @@ $theme-colors: (
   $bg-body-primary-transparent: #ffffffd9;
   $bg-search: #eff3f4;
   $bg-gray: #f6f9f9;
-  $bg-following: #f6f9f9;
-  $bg-follow: #272c30;
+  $bg-following: #f6f9f9 !important;
+  $bg-follow: #272c30 !important;
   $bg-coverPic: #cfd9dd;
 
   $text-default: #000;
-  $text-follow: #fff;
-  $text-following: #000;
+  $text-follow: #fff !important;
+  $text-following: #000 !important;
   $border-col: #dee2e6;
   $primary-search: #536371;
   $fill: #000;
@@ -150,6 +150,8 @@ $theme-colors: (
   $link-hover: #2c3640;
   $tweet-hover: #1c2732;
 
+  $popover-shadow: rgba(200, 148, 148, 0.493) 0px 2px 8px 0px;
+
   // background
   .bg-body-primary {
     background-color: $bg-body-primary !important;
@@ -234,6 +236,10 @@ $theme-colors: (
 
   .tweet-hover:hover {
     background-color: $tweet-hover !important;
+  }
+
+  .popover-shadow {
+    box-shadow: $popover-shadow !important;
   }
 }
 
