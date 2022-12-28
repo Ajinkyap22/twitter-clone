@@ -12,7 +12,7 @@ type Props = {
 };
 
 export const ThemeProvider = ({ children }: Props): JSX.Element => {
-  const [theme, setTheme] = useState("dark-theme");
+  const [theme, setTheme] = useState("light-theme");
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
