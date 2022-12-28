@@ -74,14 +74,17 @@ const Home = (): JSX.Element => {
         <Auth />
       ) : (
         <>
-          <Container fluid className="bg-body-primary m-0 px-0 ps-lg-3">
+          <Container
+            fluid
+            className="bg-body-primary text-default m-0 px-0 ps-lg-3"
+          >
             <Row className="w-100 m-0 align-items-start">
               <Col
                 xs={0}
                 sm={2}
                 lg={1}
                 xl={3}
-                className="h-100 sticky-top pe-0 ps-md-0 ps-lg-1 d-none d-sm-block"
+                className="h-100 sticky-top pe-0 ps-md-0 ps-lg-1 d-none d-sm-block border-end border-col"
               >
                 <Sidebar
                   showTweetFormModal={showTweetFormModal}
@@ -96,7 +99,7 @@ const Home = (): JSX.Element => {
               <Col
                 sm={0}
                 lg={4}
-                className="border-start pe-sm-0 pe-xl-5 pb-5 position-sticky top-minus-25 d-none d-lg-block"
+                className="border-start border-col pe-sm-0 pe-xl-5 pb-5 position-sticky top-minus-25 d-none d-lg-block"
               >
                 <Suggestions />
               </Col>

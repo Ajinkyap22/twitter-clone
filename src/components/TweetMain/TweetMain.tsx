@@ -68,12 +68,12 @@ Props) => {
         </Link>
 
         <div className="d-flex flex-column flex-grow-1">
-          <Link to={`/${username}`} className="text-dark">
+          <Link to={`/${username}`} className="text-default">
             <div className="d-flex flex-column">
               <span className="me-2 fw-bold text-underline my-0 line-height-sm">
                 {name}
               </span>
-              <span className="text-muted fs-7 my-0 line-height-sm">
+              <span className="text-search fs-7 my-0 line-height-sm">
                 @{username}
               </span>
             </div>
@@ -103,7 +103,7 @@ Props) => {
       {/* replying to */}
       {isReply && (
         <p className="mb-0 mt-3">
-          <span className="text-muted fs-7">Replying to</span>
+          <span className="text-search fs-7">Replying to</span>
           <Link
             to={`/${replyingTo}`}
             className="link-primary fs-7 text-underline text-decoration-none"
@@ -149,16 +149,16 @@ Props) => {
           ))}
 
         {/* time */}
-        <p className="text-muted fs-7 py-3 mb-0 border-bottom">
+        <p className="text-search fs-7 py-3 mb-0 border-bottom border-col">
           {moment(tweet.date.toDate()).format("h:mm A - MMM D, YYYY")}
         </p>
 
         {/* tweet stats */}
-        <div className="d-flex py-3 border-bottom align-items-center">
+        <div className="d-flex py-3 border-bottom border-col align-items-center">
           {/* retweets */}
           <p className="fs-7_5 me-3 my-0">
             <span className="fw-bold">{tweet.retweets.length}</span>{" "}
-            <span className="text-muted">
+            <span className="text-search">
               {tweet.retweets.length === 1 ? "Retweet" : "Retweets"}
             </span>
           </p>
@@ -166,15 +166,15 @@ Props) => {
           {/* likes */}
           <p className="fs-7_5 me-3 my-0">
             <span className="fw-bold">{likeCount}</span>{" "}
-            <span className="text-muted">
+            <span className="text-search">
               {likeCount === 1 ? "Like" : "Likes"}
             </span>
           </p>
         </div>
 
-        <div className="d-flex justify-content-around py-2 border-bottom">
+        <div className="d-flex justify-content-around py-2 border-bottom border-col">
           {/* reply */}
-          <button className="border-0 bg-transparent blue-hover p-2 d-flex align-items-center justify-content-center text-muted">
+          <button className="border-0 bg-transparent blue-hover p-2 d-flex align-items-center justify-content-center text-search">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -195,7 +195,7 @@ Props) => {
           <div className="d-flex">
             <button
               onClick={handleRetweet}
-              className="border-0 bg-transparent retweet p-2 d-flex align-items-center justify-content-center text-muted"
+              className="border-0 bg-transparent retweet p-2 d-flex align-items-center justify-content-center text-search"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -227,7 +227,7 @@ Props) => {
           {/* like */}
           <div className="d-flex">
             <button
-              className={`border-0 bg-transparent like p-2 d-flex align-items-center justify-content-center text-muted ${
+              className={`border-0 bg-transparent like p-2 d-flex align-items-center justify-content-center text-search ${
                 liked ? "liked" : ""
               }`}
               onClick={handleTweetLike}
@@ -257,7 +257,7 @@ Props) => {
           </div>
 
           {/* share */}
-          <button className="border-0 bg-transparent blue-hover p-2 d-flex align-items-center justify-content-center text-muted">
+          <button className="border-0 bg-transparent blue-hover p-2 d-flex align-items-center justify-content-center text-search">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

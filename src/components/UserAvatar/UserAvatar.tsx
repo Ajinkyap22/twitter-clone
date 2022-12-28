@@ -105,7 +105,7 @@ const UserAvatar = ({
         <Button
           onClick={displayEditProfileModal}
           variant="light"
-          className="bg-body-primary border border btn-sm me-3 rounded-pill mt-3 fs-7 fw-bold py-1 px-3 hover-gray"
+          className="bg-body-primary border border btn-sm me-3 rounded-pill mt-3 fs-7 fw-bold py-1 px-3 hover-gray bg-following text-following link-hover"
         >
           Edit Profile
         </Button>
@@ -116,7 +116,7 @@ const UserAvatar = ({
         <Button
           onClick={handleFollow}
           variant="dark"
-          className="border border bg-dark text-white btn-sm me-3 rounded-pill mt-3 fs-7 fw-bold py-1 px-3"
+          className="border border bg-dark text-white btn-sm me-3 rounded-pill mt-3 fs-7 fw-bold py-1 px-3 bg-follow text-follow"
         >
           Follow
         </Button>
@@ -129,7 +129,7 @@ const UserAvatar = ({
           onMouseLeave={handleMouseLeave}
           onClick={handleUnfollow}
           variant="light"
-          className="bg-body-primary border border btn-sm me-3 rounded-pill mt-3 fs-7 fw-bold py-1 px-3 hover-danger"
+          className="bg-body-primary border border btn-sm me-3 rounded-pill mt-3 fs-7 fw-bold py-1 px-3 hover-danger bg-following text-following"
         >
           Following
         </Button>

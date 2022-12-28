@@ -23,7 +23,7 @@ const ProfileHeader = ({ name, tweets, activeTab, likes }: Props) => {
           onClick={handleBack}
           className="bg-transparent border-0 me-4_5 hover-gray rounded-circle p-1_5"
         >
-          <svg viewBox="0 0 24 24" className="w-3 h-3" aria-hidden="true">
+          <svg viewBox="0 0 24 24" className="w-3 h-3 fill" aria-hidden="true">
             <g>
               <path d="M7.414 13l5.043 5.04-1.414 1.42L3.586 12l7.457-7.46 1.414 1.42L7.414 11H21v2H7.414z"></path>
             </g>
@@ -38,11 +38,11 @@ const ProfileHeader = ({ name, tweets, activeTab, likes }: Props) => {
 
           {/* tweet count */}
           {activeTab === "likes" ? (
-            <span className="text-muted fs-9">
+            <span className="text-search fs-9">
               {likes} {likes === 1 ? "Like" : "Likes"}
             </span>
           ) : (
-            <span className="text-muted fs-9">
+            <span className="text-search fs-9">
               {tweets} {tweets === 1 ? "Tweet" : "Tweets"}
             </span>
           )}

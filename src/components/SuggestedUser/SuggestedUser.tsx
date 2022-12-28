@@ -69,7 +69,7 @@ const SuggestedUser = ({ user }: Props) => {
 
   return (
     <Link to={`/${user.username}`} className="link">
-      <div className="d-flex justify-content-between p-3 user-hover cursor-pointer text-decoration-none">
+      <div className="d-flex justify-content-between p-3 user-hover cursor-pointer text-decoration-none link-hover">
         <div className="d-flex">
           <LazyLoadImage
             src={user.picture}
@@ -79,7 +79,7 @@ const SuggestedUser = ({ user }: Props) => {
           <div className="d-flex flex-column ms-3 justify-content-center">
             <div className="d-flex align-items-center">
               {/* name */}
-              <h6 className="mb-0 text-underline word-break">
+              <h6 className="mb-0 text-underline word-break text-default">
                 {user.name.length >= 20
                   ? user.name.slice(0, 17) + "..."
                   : user.name}
@@ -99,7 +99,7 @@ const SuggestedUser = ({ user }: Props) => {
             </div>
 
             {/* username */}
-            <span className="text-muted word-break">
+            <span className="text-search word-break text-search">
               @
               {user.username.length >= 18
                 ? user.username.slice(0, 15) + "..."
@@ -114,7 +114,7 @@ const SuggestedUser = ({ user }: Props) => {
             onMouseLeave={handleMouseLeave}
             onClick={handleUnfollow}
             variant="light"
-            className="bg-body-primary rounded-pill fw-bold fs-7_5 cursor-pointer py-1 ms-3 border border align-self-center hover-danger"
+            className="bg-following rounded-pill fw-bold fs-7_5 cursor-pointer py-1 ms-3 border align-self-center hover-danger text-following"
           >
             Following
           </Button>
@@ -122,7 +122,7 @@ const SuggestedUser = ({ user }: Props) => {
           <Button
             onClick={handleFollow}
             variant="dark"
-            className="bg-dark rounded-pill text-white fw-bold fs-9 cursor-pointer py-1 ms-3 align-self-center"
+            className="bg-follow rounded-pill fw-bold fs-9 cursor-pointer py-1 ms-3 align-self-center text-follow"
           >
             Follow
           </Button>

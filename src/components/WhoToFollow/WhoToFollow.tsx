@@ -15,7 +15,7 @@ const WhoToFollow = () => {
           return <SuggestedUser key={user.email} user={user} />;
         })}
 
-        <div className="p-2 user-hover rounded-bottom cursor-pointer">
+        <div className="p-2 user-hover rounded-bottom cursor-pointer link-hover">
           <button className="btn text-primary-light fs-7 px-0">
             Show more
           </button>

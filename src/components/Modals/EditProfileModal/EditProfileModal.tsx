@@ -119,7 +119,7 @@ const EditProfileModal = ({ show, onHide, currentUser }: Props) => {
           <div className="d-flex align-items-center">
             <Button
               variant="light"
-              className="bg-body-primary border-0 me-3"
+              className="bg-transparent border-0 me-3"
               onClick={onHide}
             >
               <svg
@@ -204,7 +204,7 @@ const EditProfileModal = ({ show, onHide, currentUser }: Props) => {
             required
           />
 
-          <Form.Text className="text-muted">
+          <Form.Text className="text-search">
             This is the name that will be visible to others.
           </Form.Text>
 
@@ -217,7 +217,7 @@ const EditProfileModal = ({ show, onHide, currentUser }: Props) => {
             onChange={handleBioChange}
           />
 
-          <Form.Text className="text-muted">
+          <Form.Text className="text-search">
             This will be displayed on your profile.
           </Form.Text>
 
@@ -230,7 +230,7 @@ const EditProfileModal = ({ show, onHide, currentUser }: Props) => {
             onChange={handleLocationChange}
           />
 
-          <Form.Text className="text-muted">
+          <Form.Text className="text-search">
             Enter your city or country.
           </Form.Text>
         </Form>
