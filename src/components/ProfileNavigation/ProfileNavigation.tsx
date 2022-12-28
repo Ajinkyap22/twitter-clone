@@ -14,7 +14,7 @@ const ProfileNavigation = ({ activeTab, handleClick }: Props) => {
       <Button
         onClick={() => handleClick("tweets")}
         variant="light"
-        className="bg-body-primary border-0 btn-sm fs-7 p-3 hover-square rounded-0 flex-grow-1"
+        className="bg-transparent border-0 btn-sm fs-7 p-3 hover-square rounded-0 flex-grow-1"
       >
         <span
           className={`py-3 ${
@@ -31,7 +31,7 @@ const ProfileNavigation = ({ activeTab, handleClick }: Props) => {
       <Button
         onClick={() => handleClick("replies")}
         variant="light"
-        className="bg-body-primary border-0 btn-sm fs-7 p-3 hover-square rounded-0 flex-grow-1"
+        className="bg-transparent border-0 btn-sm fs-7 p-3 hover-square rounded-0 flex-grow-1"
       >
         <span
           className={`py-3 ${
@@ -48,7 +48,7 @@ const ProfileNavigation = ({ activeTab, handleClick }: Props) => {
       <Button
         onClick={() => handleClick("media")}
         variant="light"
-        className="bg-body-primary border-0 btn-sm fs-7 p-3 hover-square rounded-0 flex-grow-1"
+        className="bg-transparent border-0 btn-sm fs-7 p-3 hover-square rounded-0 flex-grow-1"
       >
         <span
           className={`py-3 ${
@@ -65,7 +65,7 @@ const ProfileNavigation = ({ activeTab, handleClick }: Props) => {
       <Button
         onClick={() => handleClick("likes")}
         variant="light"
-        className="bg-body-primary border-0 btn-sm fs-7 p-3 hover-square rounded-0 flex-grow-1"
+        className="bg-transparent border-0 btn-sm fs-7 p-3 hover-square rounded-0 flex-grow-1"
       >
         <span
           className={`py-3 ${
