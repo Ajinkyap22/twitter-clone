@@ -233,6 +233,12 @@ export const fetchTweets =
 
       const date2 = b.date;
 
+      // if date is same then retweeted tweets should be on top
+      if (date1.seconds === date2.seconds) {
+        if (a.isRetweet && !b.isRetweet) return -1;
+        if (!a.isRetweet && b.isRetweet) return 1;
+      }
+
       return date2.seconds - date1.seconds;
     });
 

@@ -122,9 +122,19 @@ const Profile = () => {
       }
 
       if (tweetsArr.length) {
-        const sortedTweets = tweetsArr.sort(
-          (a, b) => b.date.seconds - a.date.seconds
-        );
+        const sortedTweets = tweetsArr.sort((a, b) => {
+          const date1 = a.date;
+
+          const date2 = b.date;
+
+          // if date is same then retweeted tweets should be on top
+          if (date1.seconds === date2.seconds) {
+            if (a.isRetweet && !b.isRetweet) return -1;
+            if (!a.isRetweet && b.isRetweet) return 1;
+          }
+
+          return date2.seconds - date1.seconds;
+        });
 
         // set tweets
         setProfileTweets(sortedTweets);
