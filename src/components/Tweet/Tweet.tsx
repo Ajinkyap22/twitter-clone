@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useContext } from "react";
 
 import {
   likeTweet,
@@ -27,6 +28,10 @@ import { Popover } from "react-bootstrap";
 import TweetCard from "components/TweetCard/TweetCard";
 import TweetMain from "components/TweetMain/TweetMain";
 
+import { ThemeContext } from "contexts/ThemeContext";
+
+import "components/Tweet/Tweet.scss";
+
 type TweetProps = {
   tweet: TTweet;
   isCard?: boolean;
@@ -46,6 +51,7 @@ const Tweet = ({ tweet, isCard = true }: TweetProps): JSX.Element => {
 
   const currentUser = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
+  const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
     if (!currentUser || currentUser.email === email || !email) return;
@@ -184,13 +190,22 @@ const Tweet = ({ tweet, isCard = true }: TweetProps): JSX.Element => {
   };
 
   const popover = (
-    <Popover id="popover-basic">
+    <Popover
+      id="popover-basic"
+      className={`${
+        theme === "light-theme"
+          ? "bg-body-primary-light"
+          : "bg-body-primary-dark popover-shadow"
+      }`}
+    >
       <Popover.Body className="p-0 d-flex flex-column">
         {/* delete */}
         {currentUser && isAuthor ? (
           <Button
-            variant="light"
-            className="fw-bold fs-7 p-2 py-2_5  text-break background-transparent w-100 text-start py-2 px-3 bg-body-primary border-0 user-hover"
+            variant={`{theme === "light-theme" ? "light" : "dark"}`}
+            className={`fw-bold fs-7 p-2 py-2_5 text-break bg-transparent w-100 text-start py-2 px-3  border-0 ${
+              theme === "light-theme" ? "user-hover" : "link-hover text-white"
+            }`}
             onClick={handleDeleteTweet}
           >
             {" "}
@@ -216,9 +231,11 @@ const Tweet = ({ tweet, isCard = true }: TweetProps): JSX.Element => {
         {(currentUser?.email !== email || !email) &&
           (isFollowing ? (
             <Button
-              variant="light"
+              variant={`{theme === "light-theme" ? "light" : "dark"}`}
               onClick={handleUnfollow}
-              className="fw-bold fs-7 p-2 py-2_5  text-break background-transparent w-100 text-start py-2 px-3  bg-body-primary border-0 user-hover"
+              className={`fw-bold fs-7 p-2 py-2_5 text-break bg-transparent w-100 text-start py-2 px-3  border-0 ${
+                theme === "light-theme" ? "user-hover" : "link-hover text-white"
+              }`}
             >
               {" "}
               <svg
@@ -239,9 +256,11 @@ const Tweet = ({ tweet, isCard = true }: TweetProps): JSX.Element => {
             </Button>
           ) : (
             <Button
-              variant="light"
+              variant={`{theme === "light-theme" ? "light" : "dark"}`}
               onClick={handleFollow}
-              className="fw-bold fs-7 p-2 py-2_5  text-break background-transparent w-100 text-start py-2 px-3  bg-body-primary border-0 user-hover"
+              className={`fw-bold fs-7 p-2 py-2_5 text-break bg-transparent w-100 text-start py-2 px-3  border-0 ${
+                theme === "light-theme" ? "user-hover" : "link-hover text-white"
+              }`}
             >
               {" "}
               <svg
@@ -264,8 +283,10 @@ const Tweet = ({ tweet, isCard = true }: TweetProps): JSX.Element => {
 
         {/* bookmark */}
         <Button
-          variant="light"
-          className="fw-bold fs-7 p-2 py-2_5 text-break background-transparent w-100 text-start py-2 px-3 bg-body-primary border-0 user-hover"
+          variant={`{theme === "light-theme" ? "light" : "dark"}`}
+          className={`fw-bold fs-7 p-2 py-2_5 text-break bg-transparent w-100 text-start py-2 px-3  border-0 ${
+            theme === "light-theme" ? "user-hover" : "link-hover text-white"
+          }`}
           onClick={handleTweetBookmark}
         >
           {isBookmarked ? (
