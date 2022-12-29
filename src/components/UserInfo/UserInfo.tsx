@@ -25,7 +25,7 @@ const UserInfo = ({ user }: Props) => {
       </h4>
 
       {/* username */}
-      <p className="text-search fs-7 mt-0 ms-3 mb-2">@{user.username}</p>
+      <p className="text-muted fs-7 mt-0 ms-3 mb-2">@{user.username}</p>
 
       {/* bio */}
       {user.bio && <p className="fs-7 mt-0 ms-3 mb-2 me-2">{user.bio}</p>}
@@ -34,7 +34,7 @@ const UserInfo = ({ user }: Props) => {
       <div className="d-flex">
         {/* location */}
         {user.location && (
-          <p className="text-search d-flex align-items-center fs-7 mt-0 ms-3 mb-2">
+          <p className="text-muted d-flex align-items-center fs-7 mt-0 ms-3 mb-2">
             <svg
               viewBox="0 0 24 24"
               aria-hidden="true"
@@ -51,7 +51,7 @@ const UserInfo = ({ user }: Props) => {
 
         {/* join date */}
         {user.joinDate && (
-          <p className="text-search d-flex align-items-center fs-7 mt-0 mb-2 ms-3">
+          <p className="text-muted d-flex align-items-center fs-7 mt-0 mb-2 ms-3">
             <svg
               viewBox="0 0 24 24"
               aria-hidden="true"
@@ -76,13 +76,13 @@ const UserInfo = ({ user }: Props) => {
         {/* following */}
         <p className="ms-3 fs-7_5 text-underline">
           <span className="fw-bold">{user.following.length}</span>{" "}
-          <span className="text-search">Following</span>
+          <span className="text-muted">Following</span>
         </p>
 
         {/* followers */}
         <p className="ms-3 fs-7_5 text-underline">
           <span className="fw-bold">{user.followers.length}</span>{" "}
-          <span className="text-search">
+          <span className="text-muted">
             {user.followers.length === 1 ? "Follower" : "Followers"}
           </span>
         </p>

@@ -38,11 +38,11 @@ const ProfileHeader = ({ name, tweets, activeTab, likes }: Props) => {
 
           {/* tweet count */}
           {activeTab === "likes" ? (
-            <span className="text-search fs-9">
+            <span className="text-muted fs-9">
               {likes} {likes === 1 ? "Like" : "Likes"}
             </span>
           ) : (
-            <span className="text-search fs-9">
+            <span className="text-muted fs-9">
               {tweets} {tweets === 1 ? "Tweet" : "Tweets"}
             </span>
           )}

@@ -124,7 +124,7 @@ const PictureModal = ({
       <Modal.Body className="border-none mt-3 px-2 px-lg-5 px-md-2">
         <h2 className="pb-1">Pick a picture</h2>
 
-        <p className="text-search">
+        <p className="text-muted">
           This will be your profile picture. You can always change it later.
         </p>
 

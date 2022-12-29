@@ -99,7 +99,7 @@ const SuggestedUser = ({ user }: Props) => {
             </div>
 
             {/* username */}
-            <span className="text-search word-break text-search">
+            <span className="text-muted word-break text-muted">
               @
               {user.username.length >= 18
                 ? user.username.slice(0, 15) + "..."

@@ -42,7 +42,7 @@ const BookmarksHeader = ({ name }: Props) => {
           <h5 className="fw-bold m-0">Bookmarks</h5>
 
           {/* tweet count */}
-          <span className="text-search fs-9">
+          <span className="text-muted fs-9">
             @{name.length >= 52 ? name.slice(0, 49) + "..." : name}
           </span>
         </div>

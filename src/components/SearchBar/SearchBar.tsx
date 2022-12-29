@@ -10,7 +10,7 @@ const SearchBar = () => {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-3 h-3 text-search"
+          className="w-3 h-3 text-muted"
         >
           <path
             strokeLinecap="round"
@@ -22,7 +22,7 @@ const SearchBar = () => {
         <Form.Control
           type="text"
           placeholder="Search Twitter"
-          className="bg-transparent border-0 px-3 form-control-light h7 text-search"
+          className="bg-transparent border-0 px-3 form-control-light h7 text-muted"
         />
       </div>
     </div>

@@ -21,7 +21,7 @@ const WhatsHappening = () => {
             <div className="d-flex justify-content-between align-items-start">
               <div className="">
                 {/* muted text */}
-                <span className="text-search fs-8">Sports · LIVE</span>
+                <span className="text-muted fs-8">Sports · LIVE</span>
 
                 {/* trend name */}
                 <p className="fw-bolder m-0 fs-7 text-default">
@@ -43,13 +43,13 @@ const WhatsHappening = () => {
             <div className="d-flex justify-content-between align-items-start">
               <div className="">
                 {/* muted text */}
-                <span className="text-search fs-8">Trending</span>
+                <span className="text-muted fs-8">Trending</span>
 
                 {/* trend name */}
                 <p className="fw-bolder m-0 fs-7 text-default">Luka Modric</p>
 
                 {/* trend count */}
-                <p className="text-search fs-9 m-0">43K Tweets</p>
+                <p className="text-muted fs-9 m-0">43K Tweets</p>
               </div>
 
               {/* trend actions */}
@@ -76,7 +76,7 @@ const WhatsHappening = () => {
             <div className="d-flex justify-content-between align-items-start">
               <div className="">
                 {/* muted text */}
-                <span className="text-search fs-8">Trending in Events</span>
+                <span className="text-muted fs-8">Trending in Events</span>
 
                 {/* trend name */}
                 <p className="fw-bolder m-0 fs-7 text-default">
@@ -84,7 +84,7 @@ const WhatsHappening = () => {
                 </p>
 
                 {/* trend count */}
-                <p className="text-search fs-9 m-0">6.9K Tweets</p>
+                <p className="text-muted fs-9 m-0">6.9K Tweets</p>
               </div>
 
               {/* trend actions */}
@@ -111,7 +111,7 @@ const WhatsHappening = () => {
             <div className="d-flex justify-content-between align-items-start">
               <div className="">
                 {/* muted text */}
-                <span className="text-search fs-8">Trending in India</span>
+                <span className="text-muted fs-8">Trending in India</span>
 
                 {/* trend name */}
                 <p className="fw-bolder m-0 fs-7 text-default">
@@ -119,7 +119,7 @@ const WhatsHappening = () => {
                 </p>
 
                 {/* trend count */}
-                <p className="text-search fs-9 m-0">1,860 Tweets</p>
+                <p className="text-muted fs-9 m-0">1,860 Tweets</p>
               </div>
 
               {/* trend actions */}
@@ -146,13 +146,13 @@ const WhatsHappening = () => {
             <div className="d-flex justify-content-between align-items-start">
               <div className="">
                 {/* muted text */}
-                <span className="text-search fs-8">Trending</span>
+                <span className="text-muted fs-8">Trending</span>
 
                 {/* trend name */}
                 <p className="fw-bolder m-0 fs-7 text-default">Siuuuu</p>
 
                 {/* trend count */}
-                <p className="text-search fs-9 m-0">222K Tweets</p>
+                <p className="text-muted fs-9 m-0">222K Tweets</p>
               </div>
 
               {/* trend actions */}
