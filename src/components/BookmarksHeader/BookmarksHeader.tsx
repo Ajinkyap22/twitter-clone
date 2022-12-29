@@ -1,10 +1,13 @@
-import React from "react";
-import { Button } from "react-bootstrap";
-import { OverlayTrigger } from "react-bootstrap";
-import { Popover } from "react-bootstrap";
+import React, { useContext } from "react";
+
+import { Button, OverlayTrigger, Popover } from "react-bootstrap";
+
 import { useAppSelector, useAppDispatch } from "app/hooks";
 import { selectCurrentUser } from "features/user/userSlice";
 import { clearBookmarks } from "features/user/userSlice";
+
+import { ThemeContext } from "contexts/ThemeContext";
+import "components/BookmarksHeader/BookmarksHeader.scss";
 
 type Props = {
   name: string;
@@ -12,6 +15,7 @@ type Props = {
 
 const BookmarksHeader = ({ name }: Props) => {
   const currentUser = useAppSelector(selectCurrentUser);
+  const { theme } = useContext(ThemeContext);
   const dispatch = useAppDispatch();
 
   const handleClearBookmarks = () => {
@@ -21,11 +25,17 @@ const BookmarksHeader = ({ name }: Props) => {
   };
 
   const popover = (
-    <Popover id="popover-basic">
+    <Popover
+      id="popover-basic"
+      className={`${
+        theme === "light-theme"
+          ? "bg-body-primary-light"
+          : "bg-body-primary-dark popover-shadow"
+      }`}
+    >
       <Popover.Body className="p-0 d-flex flex-column">
         <Button
-          variant="light"
-          className="fw-bold fs-7 p-2 py-2_5 text-break w-100 text-start py-2 px-3 border-0 text-danger bg-body-primary"
+          className="fw-bold fs-7 p-2 py-2_5 text-break w-100 text-start py-2 px-3 border-0 text-danger bg-transparent"
           onClick={handleClearBookmarks}
         >
           Clear all Bookmarks
@@ -46,15 +56,20 @@ const BookmarksHeader = ({ name }: Props) => {
             @{name.length >= 52 ? name.slice(0, 49) + "..." : name}
           </span>
         </div>
-        <OverlayTrigger trigger="click" placement="left" overlay={popover}>
+
+        <OverlayTrigger
+          trigger="click"
+          placement="left"
+          overlay={popover}
+          rootClose
+        >
           <button className="border-0 bg-transparent blue-hover p-2 d-flex align-items-center justify-content-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-4 h-4"
+              className="w-4 h-4 stroke-search"
             >
               <path
                 strokeLinecap="round"

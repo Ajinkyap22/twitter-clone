@@ -247,8 +247,9 @@ const Sidebar = ({
         <OverlayTrigger
           trigger="click"
           placement="top"
+          rootClose
           overlay={
-            <Popover id="popover-basic">
+            <Popover id="popover-basic" data-trigger="focus">
               <Popover.Body className="p-0">
                 <Button
                   onClick={handleLogout}

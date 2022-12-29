@@ -269,7 +269,12 @@ const TweetCard = ({
         </div>
       </div>
 
-      <OverlayTrigger trigger="click" placement="left" overlay={popover}>
+      <OverlayTrigger
+        trigger="click"
+        placement="left"
+        overlay={popover}
+        rootClose
+      >
         <button className="border-0 bg-transparent blue-hover p-2 d-flex align-items-center justify-content-center text-muted">
           <svg
             xmlns="http://www.w3.org/2000/svg"
