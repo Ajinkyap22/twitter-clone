@@ -35,9 +35,11 @@ npm start
 
 - React.js
 - TypeScript
+- Redux
 - Firebase
 - SASS
 - React Bootstrap
+- auth0
 
 ## Features
 
