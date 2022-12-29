@@ -73,7 +73,7 @@ Props) => {
               <span className="me-2 fw-bold text-underline my-0 line-height-sm">
                 {name}
               </span>
-              <span className="text-search fs-7 my-0 line-height-sm">
+              <span className="text-muted fs-7 my-0 line-height-sm">
                 @{username}
               </span>
             </div>
@@ -103,7 +103,7 @@ Props) => {
       {/* replying to */}
       {isReply && (
         <p className="mb-0 mt-3">
-          <span className="text-search fs-7">Replying to</span>
+          <span className="text-muted fs-7">Replying to</span>
           <Link
             to={`/${replyingTo}`}
             className="link-primary fs-7 text-underline text-decoration-none"
@@ -149,7 +149,7 @@ Props) => {
           ))}
 
         {/* time */}
-        <p className="text-search fs-7 py-3 mb-0 border-bottom border-col">
+        <p className="text-muted fs-7 py-3 mb-0 border-bottom border-col">
           {moment(tweet.date.toDate()).format("h:mm A - MMM D, YYYY")}
         </p>
 
@@ -158,7 +158,7 @@ Props) => {
           {/* retweets */}
           <p className="fs-7_5 me-3 my-0">
             <span className="fw-bold">{tweet.retweets.length}</span>{" "}
-            <span className="text-search">
+            <span className="text-muted">
               {tweet.retweets.length === 1 ? "Retweet" : "Retweets"}
             </span>
           </p>
@@ -166,7 +166,7 @@ Props) => {
           {/* likes */}
           <p className="fs-7_5 me-3 my-0">
             <span className="fw-bold">{likeCount}</span>{" "}
-            <span className="text-search">
+            <span className="text-muted">
               {likeCount === 1 ? "Like" : "Likes"}
             </span>
           </p>
@@ -174,7 +174,10 @@ Props) => {
 
         <div className="d-flex justify-content-around py-2 border-bottom border-col">
           {/* reply */}
-          <button className="border-0 bg-transparent blue-hover p-2 d-flex align-items-center justify-content-center text-search">
+          <button
+            title="Reply"
+            className="border-0 bg-transparent blue-hover p-2 d-flex align-items-center justify-content-center text-muted"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -194,8 +197,9 @@ Props) => {
           {/* retweet */}
           <div className="d-flex">
             <button
+              title="Retweet"
               onClick={handleRetweet}
-              className="border-0 bg-transparent retweet p-2 d-flex align-items-center justify-content-center text-search"
+              className="border-0 bg-transparent retweet p-2 d-flex align-items-center justify-content-center text-muted"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -215,7 +219,7 @@ Props) => {
 
             {retweetCount > 0 && (
               <span
-                className={`ms-1 align-self-center text-search ${
+                className={`ms-1 align-self-center text-muted ${
                   retweeted ? "bg-green" : ""
                 }`}
               >
@@ -227,7 +231,8 @@ Props) => {
           {/* like */}
           <div className="d-flex">
             <button
-              className={`border-0 bg-transparent like p-2 d-flex align-items-center justify-content-center text-search ${
+              title="Like"
+              className={`border-0 bg-transparent like p-2 d-flex align-items-center justify-content-center text-muted ${
                 liked ? "liked" : ""
               }`}
               onClick={handleTweetLike}
@@ -249,7 +254,7 @@ Props) => {
             </button>
             {likeCount > 0 && (
               <span
-                className={`ms-1 align-self-center text-search ${
+                className={`ms-1 align-self-center text-muted ${
                   liked ? "bg-red" : ""
                 }`}
               >
@@ -259,7 +264,7 @@ Props) => {
           </div>
 
           {/* share */}
-          <button className="border-0 bg-transparent blue-hover p-2 d-flex align-items-center justify-content-center text-search">
+          <button className="border-0 bg-transparent blue-hover p-2 d-flex align-items-center justify-content-center text-muted">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

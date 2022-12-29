@@ -91,7 +91,7 @@ const BioModal = ({
             onChange={(e) => setBio(e.target.value)}
           />
 
-          <Form.Text className="text-search">
+          <Form.Text className="text-muted">
             This will be shown on your profile.
           </Form.Text>
 
@@ -108,7 +108,7 @@ const BioModal = ({
             onChange={(e) => setLocation(e.target.value)}
           />
 
-          <Form.Text className="text-search">
+          <Form.Text className="text-muted">
             Enter your city or country.
           </Form.Text>
 

@@ -281,7 +281,7 @@ const Sidebar = ({
                     : currentUser?.name
                 }
               </h6>
-              <span className="text-search">
+              <span className="text-muted">
                 @
                 {
                   // if username's length is greater than or equal to 18 then show only 20 characters and add ...

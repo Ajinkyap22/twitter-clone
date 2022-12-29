@@ -207,6 +207,7 @@ const EditProfileModal = ({ show, onHide, currentUser }: Props) => {
 
         <Form className="px-4">
           {/* name */}
+
           <Form.Control
             type="text"
             className={`form-control p-3 mt-4 mb-2 border-2 bg-transparent  ${
@@ -220,7 +221,11 @@ const EditProfileModal = ({ show, onHide, currentUser }: Props) => {
             required
           />
 
-          <Form.Text className="text-search">
+          <Form.Text
+            className={
+              theme === "dark-theme" ? "text-muted-dark" : "text-muted"
+            }
+          >
             This is the name that will be visible to others.
           </Form.Text>
 
@@ -237,14 +242,18 @@ const EditProfileModal = ({ show, onHide, currentUser }: Props) => {
             onChange={handleBioChange}
           />
 
-          <Form.Text className="text-search">
+          <Form.Text
+            className={
+              theme === "dark-theme" ? "text-muted-dark" : "text-muted"
+            }
+          >
             This will be displayed on your profile.
           </Form.Text>
 
           {/* location */}
           <Form.Control
             type="text"
-            className={`form-control p-3 mt-4 mb-2 border-2 bg-transparent  ${
+            className={`form-control p-3 mt-4 mb-2 border-2 bg-transparent ${
               theme === "dark-theme"
                 ? "text-default-dark form-control-dark border-secondary"
                 : "text-default"
@@ -254,7 +263,11 @@ const EditProfileModal = ({ show, onHide, currentUser }: Props) => {
             onChange={handleLocationChange}
           />
 
-          <Form.Text className="text-search">
+          <Form.Text
+            className={
+              theme === "dark-theme" ? "text-muted-dark" : "text-muted"
+            }
+          >
             Enter your city or country.
           </Form.Text>
         </Form>

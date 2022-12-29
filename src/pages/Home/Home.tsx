@@ -110,7 +110,8 @@ const Home = (): JSX.Element => {
               <MobileNav />
 
               <Button
-                className="fixed-bottom-right w-fit bg-primary border-0 rounded-circle fw-bold py-3 px-3 cursor-pointe d-inline d-sm-none"
+                variant="primary"
+                className="fixed-bottom-right w-fit border-0 rounded-circle fw-bold py-3 px-3 cursor-pointe d-inline d-sm-none"
                 onClick={() => setShowTweetFormModal(true)}
               >
                 <svg

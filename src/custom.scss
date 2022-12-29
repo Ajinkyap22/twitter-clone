@@ -27,13 +27,13 @@ $theme-colors: (
   $bg-body-primary-transparent: #ffffffd9;
   $bg-search: #eff3f4;
   $bg-gray: #f6f9f9;
-  $bg-following: #f6f9f9 !important;
-  $bg-follow: #272c30 !important;
+  $bg-following: #f6f9f9;
+  $bg-follow: #272c30;
   $bg-coverPic: #cfd9dd;
 
   $text-default: #000;
-  $text-follow: #fff !important;
-  $text-following: #000 !important;
+  $text-follow: #fff;
+  $text-following: #000;
   $border-col: #dee2e6;
   $primary-search: #536371;
   $fill: #000;
@@ -44,12 +44,12 @@ $theme-colors: (
 
   // background
   .bg-body-primary {
-    background-color: $bg-body-primary;
+    background-color: $bg-body-primary !important;
   }
 
   .bg-body-primary-transparent {
-    background-color: $bg-body-primary-transparent;
-    backdrop-filter: blur(12px);
+    background-color: $bg-body-primary-transparent !important;
+    backdrop-filter: blur(12px) !important;
   }
 
   .bg-search {
@@ -81,7 +81,7 @@ $theme-colors: (
     color: $text-default !important;
   }
 
-  .text-search {
+  .text-muted {
     color: $primary-search !important;
   }
 
@@ -191,7 +191,7 @@ $theme-colors: (
     color: $text-default !important;
   }
 
-  .text-search {
+  .text-muted {
     color: $primary-search !important;
   }
 

@@ -234,7 +234,7 @@ const ReplyForm = ({ replyingTo, tweetId }: Props) => {
     >
       {/* replying to */}
       <p className="fs-7 mb-2">
-        <span className="text-search ms-6">Replying to</span>
+        <span className="text-muted ms-6">Replying to</span>
         <Link to={`/profile/${replyingTo}`} className="ms-1 link-primary">
           @{replyingTo}
         </Link>

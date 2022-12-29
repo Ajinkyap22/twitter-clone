@@ -185,7 +185,7 @@ const Profile = () => {
   return (
     <>
       {user ? (
-        <div className="pb-5">
+        <div className="pb-5 min-vh-100">
           <ProfileHeader
             name={user.name}
             tweets={user.tweets.length}

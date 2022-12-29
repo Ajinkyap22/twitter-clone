@@ -34,6 +34,7 @@ const FeedContent = () => {
           className={`bg-transparent border-0 rounded-circle p-1_5 ${
             theme === "light-theme" ? "hover-gray" : "link-hover"
           }`}
+          title="Toggle theme"
           onClick={toggleTheme}
         >
           {theme === "light-theme" ? (

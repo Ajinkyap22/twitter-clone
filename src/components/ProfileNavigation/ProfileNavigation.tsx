@@ -20,7 +20,7 @@ const ProfileNavigation = ({ activeTab, handleClick }: Props) => {
           className={`py-3 ${
             activeTab === "tweets"
               ? "fw-bold text-default border-active"
-              : "text-search fw-medium border-0"
+              : "text-muted fw-medium border-0"
           }`}
         >
           Tweets
@@ -37,7 +37,7 @@ const ProfileNavigation = ({ activeTab, handleClick }: Props) => {
           className={`py-3 ${
             activeTab === "replies"
               ? "fw-bold text-default border-active"
-              : "text-search fw-medium border-0"
+              : "text-muted fw-medium border-0"
           }`}
         >
           Tweets and Replies
@@ -54,7 +54,7 @@ const ProfileNavigation = ({ activeTab, handleClick }: Props) => {
           className={`py-3 ${
             activeTab === "media"
               ? "fw-bold text-default border-active"
-              : "text-search fw-medium border-0"
+              : "text-muted fw-medium border-0"
           }`}
         >
           Media
@@ -71,7 +71,7 @@ const ProfileNavigation = ({ activeTab, handleClick }: Props) => {
           className={`py-3 ${
             activeTab === "likes"
               ? "fw-bold text-default border-active"
-              : "text-search fw-medium border-0"
+              : "text-muted fw-medium border-0"
           }`}
         >
           Likes

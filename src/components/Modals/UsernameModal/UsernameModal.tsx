@@ -120,7 +120,7 @@ const UsernameModal = ({
             onChange={handleChange}
           />
 
-          <Form.Text className="text-search">
+          <Form.Text className="text-muted">
             This will be your unique handle on the site.
           </Form.Text>
 
