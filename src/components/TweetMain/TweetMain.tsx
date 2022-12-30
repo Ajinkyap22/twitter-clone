@@ -176,7 +176,7 @@ Props) => {
           {/* reply */}
           <button
             title="Reply"
-            className="border-0 bg-transparent blue-hover p-2 d-flex align-items-center justify-content-center text-muted"
+            className="border-0 bg-transparent blue-hover p-2 d-flex align-items-center justify-content-center text-muted curosr-pointer"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -199,7 +199,7 @@ Props) => {
             <button
               title="Retweet"
               onClick={handleRetweet}
-              className="border-0 bg-transparent retweet p-2 d-flex align-items-center justify-content-center text-muted"
+              className="border-0 bg-transparent retweet p-2 d-flex align-items-center justify-content-center text-muted curosr-pointer"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -232,7 +232,7 @@ Props) => {
           <div className="d-flex">
             <button
               title="Like"
-              className={`border-0 bg-transparent like p-2 d-flex align-items-center justify-content-center text-muted ${
+              className={`border-0 bg-transparent like p-2 d-flex align-items-center justify-content-center text-muted curosr-pointer ${
                 liked ? "liked" : ""
               }`}
               onClick={handleTweetLike}
