@@ -50,9 +50,9 @@ const TweetCard = ({
   const currentUser = useAppSelector(selectCurrentUser);
 
   return (
-    <div>
+    <div className="cursor-pointer tweet-hover link-hover pt-1">
       {tweet.isRetweet && (
-        <div className="d-flex text-muted fw-bold fs-8 align-items-center">
+        <div className="d-flex text-muted fw-bold fs-8 align-items-center ms-6 mb-0">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -74,7 +74,7 @@ const TweetCard = ({
           )}
         </div>
       )}
-      <div className="d-flex justify-content-between align-items-start border-bottom border-col p-3 pb-0 cursor-pointer tweet-hover link-hover">
+      <div className="d-flex justify-content-between align-items-start border-bottom border-col p-3 pt-1 pb-0">
         <Link to={`/${username}`} className="text-dark">
           <LazyLoadImage
             src={picture}
