@@ -1,0 +1,8 @@
+$link-hover: #2c3640;
+$popover-shadow: rgba(160, 204, 230, 0.493) 0px 2px 8px 0px;
+.link-hover:hover {
+  background-color: $link-hover !important;
+}
+.popover-shadow {
+  box-shadow: $popover-shadow !important;
+}
