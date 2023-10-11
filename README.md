@@ -1,7 +1,5 @@
 # Twitter Clone
 
-> A web-application that provides a platform for colleges to host Asynchronous Online Discussion Forums for their students.
-
 ## Table of contents
 
 - [Get Started](#get-started)
