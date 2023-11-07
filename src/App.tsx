@@ -1,56 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React, { lazy, Suspense, useContext } from "react";
+import { Routes, Route } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
+import { ErrorBoundary } from "react-error-boundary";
+import { ThemeContext } from "contexts/ThemeContext";
+
+const Home = lazy(() => import("pages/Home/Home"));
+const Profile = lazy(() => import("pages/Profile/Profile"));
+const FeedContent = lazy(() => import("pages/FeedContent/FeedContent"));
+const Bookmarks = lazy(() => import("pages/Bookmarks/Bookmarks"));
+const TweetPage = lazy(() => import("pages/TweetPage/TweetPage"));
+const ErrorFalback = lazy(
+  () => import("./components/ErrorFallback/ErrorFalback")
+);
+
+import LoadingSpinner from "components/LoadingSpinner/LoadingSpinner";
+
+import "./App.scss";
 
 function App() {
+  const { isLoading } = useAuth0();
+  const { theme } = useContext(ThemeContext);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+    <div className="App" data-bs-theme={theme}>
+      <ErrorBoundary FallbackComponent={ErrorFalback}>
+        <Suspense fallback={<LoadingSpinner />}>
+          <Routes>
+            {/* index */}
+            <Route path="/" element={<Home />}>
+              {/* feed */}
+              <Route path="/home" element={<FeedContent />} />
+              {/* bookmarks */}
+              <Route path="/bookmarks" element={<Bookmarks />} />
+              {/* profile */}
+              <Route path="/:username" element={<Profile />} />
+              {/* tweet page */}
+              <Route
+                path="/:username/status/:tweetId"
+                element={<TweetPage />}
+              />
+            </Route>
+          </Routes>
+        </Suspense>
+      </ErrorBoundary>
     </div>
   );
 }
